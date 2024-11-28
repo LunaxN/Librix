@@ -44,8 +44,18 @@
             rb_admin = new RadioButton();
             t_signup = new TabPage();
             errorProvider1 = new ErrorProvider(components);
+            l_name = new Label();
+            l_lastname = new Label();
+            l_username2 = new Label();
+            l_password2 = new Label();
+            tb_name = new TextBox();
+            tb_lastname = new TextBox();
+            tb_username2 = new TextBox();
+            tb_password2 = new TextBox();
+            b_signup2 = new Button();
             tabcontrol.SuspendLayout();
             t_login.SuspendLayout();
+            t_signup.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)errorProvider1).BeginInit();
             SuspendLayout();
             // 
@@ -53,7 +63,7 @@
             // 
             tabcontrol.Controls.Add(t_login);
             tabcontrol.Controls.Add(t_signup);
-            tabcontrol.Location = new Point(2, -22);
+            tabcontrol.Location = new Point(2, -21);
             tabcontrol.Name = "tabcontrol";
             tabcontrol.SelectedIndex = 0;
             tabcontrol.Size = new Size(400, 491);
@@ -201,6 +211,15 @@
             // 
             // t_signup
             // 
+            t_signup.Controls.Add(b_signup2);
+            t_signup.Controls.Add(tb_password2);
+            t_signup.Controls.Add(tb_username2);
+            t_signup.Controls.Add(tb_lastname);
+            t_signup.Controls.Add(tb_name);
+            t_signup.Controls.Add(l_password2);
+            t_signup.Controls.Add(l_username2);
+            t_signup.Controls.Add(l_lastname);
+            t_signup.Controls.Add(l_name);
             t_signup.Location = new Point(4, 24);
             t_signup.Name = "t_signup";
             t_signup.Padding = new Padding(3);
@@ -213,6 +232,76 @@
             // 
             errorProvider1.ContainerControl = this;
             // 
+            // l_name
+            // 
+            l_name.Location = new Point(17, 79);
+            l_name.Name = "l_name";
+            l_name.Size = new Size(100, 23);
+            l_name.TabIndex = 0;
+            l_name.Text = "Name:";
+            // 
+            // l_lastname
+            // 
+            l_lastname.Location = new Point(17, 108);
+            l_lastname.Name = "l_lastname";
+            l_lastname.Size = new Size(100, 23);
+            l_lastname.TabIndex = 1;
+            l_lastname.Text = "Last Name:";
+            // 
+            // l_username2
+            // 
+            l_username2.Location = new Point(17, 137);
+            l_username2.Name = "l_username2";
+            l_username2.Size = new Size(100, 23);
+            l_username2.TabIndex = 2;
+            l_username2.Text = "Username:";
+            // 
+            // l_password2
+            // 
+            l_password2.Location = new Point(17, 166);
+            l_password2.Name = "l_password2";
+            l_password2.Size = new Size(100, 23);
+            l_password2.TabIndex = 3;
+            l_password2.Text = "Password:";
+            // 
+            // tb_name
+            // 
+            tb_name.Location = new Point(112, 79);
+            tb_name.Name = "tb_name";
+            tb_name.Size = new Size(100, 23);
+            tb_name.TabIndex = 4;
+            // 
+            // tb_lastname
+            // 
+            tb_lastname.Location = new Point(112, 108);
+            tb_lastname.Name = "tb_lastname";
+            tb_lastname.Size = new Size(100, 23);
+            tb_lastname.TabIndex = 5;
+            // 
+            // tb_username2
+            // 
+            tb_username2.Location = new Point(112, 137);
+            tb_username2.Name = "tb_username2";
+            tb_username2.Size = new Size(100, 23);
+            tb_username2.TabIndex = 6;
+            // 
+            // tb_password2
+            // 
+            tb_password2.Location = new Point(112, 166);
+            tb_password2.Name = "tb_password2";
+            tb_password2.Size = new Size(100, 23);
+            tb_password2.TabIndex = 7;
+            // 
+            // b_signup2
+            // 
+            b_signup2.Location = new Point(161, 345);
+            b_signup2.Name = "b_signup2";
+            b_signup2.Size = new Size(75, 23);
+            b_signup2.TabIndex = 8;
+            b_signup2.Text = "Signup";
+            b_signup2.UseVisualStyleBackColor = true;
+            b_signup2.Click += b_signup2_Click;
+            // 
             // Login
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -224,6 +313,8 @@
             tabcontrol.ResumeLayout(false);
             t_login.ResumeLayout(false);
             t_login.PerformLayout();
+            t_signup.ResumeLayout(false);
+            t_signup.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)errorProvider1).EndInit();
             ResumeLayout(false);
         }
@@ -245,5 +336,14 @@
         private RadioButton rb_admin;
         private ErrorProvider errorProvider1;
         private Button b_show_password;
+        private Label l_username2;
+        private Label l_lastname;
+        private Label l_name;
+        private TextBox tb_password2;
+        private TextBox tb_username2;
+        private TextBox tb_lastname;
+        private TextBox tb_name;
+        private Label l_password2;
+        private Button b_signup2;
     }
 }

@@ -1,3 +1,5 @@
+﻿using System.Data.SqlClient;
+
 namespace Librix
 {
     public partial class Login : Form
@@ -6,7 +8,7 @@ namespace Librix
 
         public Login()
         {
-        InitializeComponent();
+            InitializeComponent();
         }
         private void b_show_password_Click(object sender, EventArgs e)
         {
@@ -45,12 +47,86 @@ namespace Librix
 
         private void b_login_Click(object sender, EventArgs e)
         {
-            tabcontrol.SelectedIndex = 0;
+            DatabaseManager dbManager = new DatabaseManager();
+
+            using (SqlConnection connection = new SqlConnection(dbManager.GetAdminDbConnectionString()))
+            {
+                SqlCommand command = new SqlCommand(rb_admin.Checked ?
+                                                      "SELECT * FROM Admins WHERE Username = @username AND Password = @password"
+                                                    : "SELECT * FROM Members WHERE Username = @username AND Password = @password"
+                                                    , connection);
+                command.Parameters.AddWithValue("@username", tb_username.Text);
+                command.Parameters.AddWithValue("@password", tb_password.Text);
+
+                try
+                {
+                    connection.Open();
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        if (reader.Read()) 
+                        {
+                            if (rb_admin.Checked)
+                            {
+                                AdminDashboard dashboard = new AdminDashboard();
+                                dashboard.Show();
+                                this.Hide();
+                            }
+                            else if (rb_member.Checked)
+                            {
+                                MembersDashboard dashboard = new MembersDashboard();
+                                dashboard.Show();
+                                this.Hide();
+                            }
+
+                            MessageBox.Show("Login successful!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+                        else
+                        {
+                            MessageBox.Show("Invalid username or password.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
         }
 
         private void b_signup_Click(object sender, EventArgs e)
         {
             tabcontrol.SelectedIndex = 1;
+        }
+
+        private void b_signup2_Click(object sender, EventArgs e)
+        {
+            DatabaseManager dbManager = new DatabaseManager();
+            using (SqlConnection connection = new SqlConnection(dbManager.GetAdminDbConnectionString()))
+            {
+                SqlCommand command = new SqlCommand("INSERT INTO Members (FirstName, LastName, AccountBalance, CreatedAt, Username, Password) VALUES (@firstName, @lastName, @accountBalance, GETDATE(), @username, @password)", connection);
+                command.Parameters.AddWithValue("@firstName", tb_name.Text);
+                command.Parameters.AddWithValue("@lastName", tb_lastname.Text);
+                command.Parameters.AddWithValue("@accountBalance", 0.00);
+                command.Parameters.AddWithValue("@username", tb_username2.Text);
+                command.Parameters.AddWithValue("@password", tb_password2.Text);
+                try
+                {
+                    connection.Open();
+                    int rowsAffected = command.ExecuteNonQuery(); // Use ExecuteNonQuery for INSERT
+                    if (rowsAffected == 1)
+                    {
+                        MessageBox.Show("Member added successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Failed to add member.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
         }
 
     }
