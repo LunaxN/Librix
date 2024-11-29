@@ -63,7 +63,7 @@ namespace Librix
                     connection.Open();
                     using (SqlDataReader reader = command.ExecuteReader())
                     {
-                        if (reader.Read()) 
+                        if (reader.Read())
                         {
                             if (rb_admin.Checked)
                             {
@@ -129,5 +129,57 @@ namespace Librix
             }
         }
 
+        private void b_lognin2_Click(object sender, EventArgs e)
+        {
+            tabcontrol.SelectedIndex = 0;
+        }
+
+        private void tb_name_Validating(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            if (tb_name.Text == string.Empty)
+            {
+                errorProvider1.SetError(tb_name, "Please Enter Name");
+            }
+        }
+
+        private void tb_lastname_Validating(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            if (tb_lastname.Text == string.Empty)
+            {
+                errorProvider1.SetError(tb_lastname, "Please Enter Last Name");
+            }
+        }
+
+        private void tb_username2_Validating(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            if (tb_username2.Text == string.Empty)
+            {
+                errorProvider1.SetError(tb_username2, "Please Enter Username");
+            }
+        }
+
+        private void tb_password2_Validating(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            if (tb_password2.Text == string.Empty)
+            {
+                errorProvider1.SetError(tb_password2, "Please Enter Password");
+            }
+        }
+
+        private void tb_username_Validating(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            if (tb_username.Text == string.Empty)
+            {
+                errorProvider1.SetError(tb_username, "Please Enter Username");
+            }
+        }
+
+        private void tb_password_Validating(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            if (tb_password.Text == string.Empty)
+            {
+                errorProvider1.SetError(tb_password, "Please Enter Password");
+            }
+        }
     }
 }

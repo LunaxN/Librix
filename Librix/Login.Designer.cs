@@ -29,7 +29,20 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            tabcontrol = new TabControl();
+            errorProvider1 = new ErrorProvider(components);
+            t_signup = new TabPage();
+            l_or2 = new Label();
+            l_getstarted = new Label();
+            b_lognin2 = new Button();
+            b_signup2 = new Button();
+            tb_password2 = new TextBox();
+            tb_username2 = new TextBox();
+            tb_lastname = new TextBox();
+            tb_name = new TextBox();
+            l_password2 = new Label();
+            l_username2 = new Label();
+            l_lastname = new Label();
+            l_name = new Label();
             t_login = new TabPage();
             b_show_password = new Button();
             tb_username = new TextBox();
@@ -38,36 +51,161 @@
             b_login = new Button();
             l_or = new Label();
             l_password = new Label();
-            WelcomeBackLabel = new Label();
+            l_welcomeback = new Label();
             l_username = new Label();
             rb_member = new RadioButton();
             rb_admin = new RadioButton();
-            t_signup = new TabPage();
-            errorProvider1 = new ErrorProvider(components);
-            l_name = new Label();
-            l_lastname = new Label();
-            l_username2 = new Label();
-            l_password2 = new Label();
-            tb_name = new TextBox();
-            tb_lastname = new TextBox();
-            tb_username2 = new TextBox();
-            tb_password2 = new TextBox();
-            b_signup2 = new Button();
-            tabcontrol.SuspendLayout();
-            t_login.SuspendLayout();
-            t_signup.SuspendLayout();
+            tabcontrol = new TabControl();
             ((System.ComponentModel.ISupportInitialize)errorProvider1).BeginInit();
+            t_signup.SuspendLayout();
+            t_login.SuspendLayout();
+            tabcontrol.SuspendLayout();
             SuspendLayout();
             // 
-            // tabcontrol
+            // errorProvider1
             // 
-            tabcontrol.Controls.Add(t_login);
-            tabcontrol.Controls.Add(t_signup);
-            tabcontrol.Location = new Point(2, -21);
-            tabcontrol.Name = "tabcontrol";
-            tabcontrol.SelectedIndex = 0;
-            tabcontrol.Size = new Size(400, 491);
-            tabcontrol.TabIndex = 0;
+            errorProvider1.ContainerControl = this;
+            // 
+            // t_signup
+            // 
+            t_signup.Controls.Add(l_or2);
+            t_signup.Controls.Add(l_getstarted);
+            t_signup.Controls.Add(b_lognin2);
+            t_signup.Controls.Add(b_signup2);
+            t_signup.Controls.Add(tb_password2);
+            t_signup.Controls.Add(tb_username2);
+            t_signup.Controls.Add(tb_lastname);
+            t_signup.Controls.Add(tb_name);
+            t_signup.Controls.Add(l_password2);
+            t_signup.Controls.Add(l_username2);
+            t_signup.Controls.Add(l_lastname);
+            t_signup.Controls.Add(l_name);
+            t_signup.Location = new Point(4, 24);
+            t_signup.Name = "t_signup";
+            t_signup.Padding = new Padding(3);
+            t_signup.Size = new Size(392, 463);
+            t_signup.TabIndex = 1;
+            t_signup.Text = "Signup";
+            t_signup.UseVisualStyleBackColor = true;
+            // 
+            // l_or2
+            // 
+            l_or2.AutoSize = true;
+            l_or2.Font = new Font("Sitka Subheading", 10F);
+            l_or2.Location = new Point(180, 351);
+            l_or2.Name = "l_or2";
+            l_or2.Size = new Size(25, 20);
+            l_or2.TabIndex = 11;
+            l_or2.Text = "Or";
+            // 
+            // l_getstarted
+            // 
+            l_getstarted.AutoSize = true;
+            l_getstarted.Font = new Font("Aldhabi", 36F, FontStyle.Italic);
+            l_getstarted.Location = new Point(107, 18);
+            l_getstarted.Name = "l_getstarted";
+            l_getstarted.Size = new Size(175, 75);
+            l_getstarted.TabIndex = 10;
+            l_getstarted.Text = "Get Started";
+            // 
+            // b_lognin2
+            // 
+            b_lognin2.BackColor = Color.Black;
+            b_lognin2.FlatStyle = FlatStyle.Flat;
+            b_lognin2.Font = new Font("Sitka Subheading", 10F);
+            b_lognin2.ForeColor = Color.White;
+            b_lognin2.Location = new Point(15, 387);
+            b_lognin2.Name = "b_lognin2";
+            b_lognin2.Size = new Size(360, 52);
+            b_lognin2.TabIndex = 9;
+            b_lognin2.Text = "Login";
+            b_lognin2.UseVisualStyleBackColor = false;
+            b_lognin2.Click += b_lognin2_Click;
+            // 
+            // b_signup2
+            // 
+            b_signup2.BackColor = Color.FromArgb(255, 192, 192);
+            b_signup2.FlatStyle = FlatStyle.Flat;
+            b_signup2.Font = new Font("Sitka Subheading", 10F);
+            b_signup2.Location = new Point(16, 284);
+            b_signup2.Name = "b_signup2";
+            b_signup2.Size = new Size(360, 52);
+            b_signup2.TabIndex = 8;
+            b_signup2.Text = "Signup";
+            b_signup2.UseVisualStyleBackColor = false;
+            b_signup2.Click += b_signup2_Click;
+            // 
+            // tb_password2
+            // 
+            tb_password2.Font = new Font("Segoe UI", 11F);
+            tb_password2.Location = new Point(168, 226);
+            tb_password2.Name = "tb_password2";
+            tb_password2.Size = new Size(142, 27);
+            tb_password2.TabIndex = 7;
+            tb_password2.Validating += tb_password2_Validating;
+            // 
+            // tb_username2
+            // 
+            tb_username2.Font = new Font("Segoe UI", 11F);
+            tb_username2.Location = new Point(168, 186);
+            tb_username2.Name = "tb_username2";
+            tb_username2.Size = new Size(142, 27);
+            tb_username2.TabIndex = 6;
+            tb_username2.Validating += tb_username2_Validating;
+            // 
+            // tb_lastname
+            // 
+            tb_lastname.Font = new Font("Segoe UI", 11F);
+            tb_lastname.Location = new Point(168, 146);
+            tb_lastname.Name = "tb_lastname";
+            tb_lastname.Size = new Size(142, 27);
+            tb_lastname.TabIndex = 5;
+            tb_lastname.Validating += tb_lastname_Validating;
+            // 
+            // tb_name
+            // 
+            tb_name.Font = new Font("Segoe UI", 11F);
+            tb_name.Location = new Point(168, 106);
+            tb_name.Name = "tb_name";
+            tb_name.Size = new Size(142, 27);
+            tb_name.TabIndex = 4;
+            tb_name.Validating += tb_name_Validating;
+            // 
+            // l_password2
+            // 
+            l_password2.Font = new Font("Sitka Subheading", 10F);
+            l_password2.Location = new Point(62, 226);
+            l_password2.Name = "l_password2";
+            l_password2.Size = new Size(100, 23);
+            l_password2.TabIndex = 3;
+            l_password2.Text = "Password:";
+            // 
+            // l_username2
+            // 
+            l_username2.Font = new Font("Sitka Subheading", 10F);
+            l_username2.Location = new Point(62, 186);
+            l_username2.Name = "l_username2";
+            l_username2.Size = new Size(100, 23);
+            l_username2.TabIndex = 2;
+            l_username2.Text = "Username:";
+            // 
+            // l_lastname
+            // 
+            l_lastname.Font = new Font("Sitka Subheading", 10F);
+            l_lastname.Location = new Point(62, 146);
+            l_lastname.Name = "l_lastname";
+            l_lastname.Size = new Size(100, 23);
+            l_lastname.TabIndex = 1;
+            l_lastname.Text = "Last Name:";
+            // 
+            // l_name
+            // 
+            l_name.Font = new Font("Sitka Subheading", 10F);
+            l_name.Location = new Point(62, 106);
+            l_name.Name = "l_name";
+            l_name.Size = new Size(100, 23);
+            l_name.TabIndex = 0;
+            l_name.Text = "Name:";
             // 
             // t_login
             // 
@@ -78,7 +216,7 @@
             t_login.Controls.Add(b_login);
             t_login.Controls.Add(l_or);
             t_login.Controls.Add(l_password);
-            t_login.Controls.Add(WelcomeBackLabel);
+            t_login.Controls.Add(l_welcomeback);
             t_login.Controls.Add(l_username);
             t_login.Controls.Add(rb_member);
             t_login.Controls.Add(rb_admin);
@@ -92,30 +230,35 @@
             // 
             // b_show_password
             // 
+            b_show_password.BackColor = Color.White;
+            b_show_password.FlatAppearance.BorderColor = Color.White;
+            b_show_password.FlatStyle = FlatStyle.Flat;
             b_show_password.Image = icons.closedeye;
-            b_show_password.Location = new Point(339, 190);
+            b_show_password.Location = new Point(283, 206);
             b_show_password.Name = "b_show_password";
-            b_show_password.Size = new Size(37, 36);
+            b_show_password.Size = new Size(25, 25);
             b_show_password.TabIndex = 26;
-            b_show_password.UseVisualStyleBackColor = true;
+            b_show_password.UseVisualStyleBackColor = false;
             b_show_password.Click += b_show_password_Click;
             // 
             // tb_username
             // 
-            tb_username.Font = new Font("Segoe UI", 9F);
-            tb_username.Location = new Point(138, 154);
+            tb_username.Font = new Font("Segoe UI", 11F);
+            tb_username.Location = new Point(167, 165);
             tb_username.Name = "tb_username";
-            tb_username.Size = new Size(207, 23);
+            tb_username.Size = new Size(142, 27);
             tb_username.TabIndex = 17;
+            tb_username.Validating += tb_username_Validating;
             // 
             // tb_password
             // 
-            tb_password.Font = new Font("Segoe UI", 9F);
-            tb_password.Location = new Point(138, 195);
+            tb_password.Font = new Font("Segoe UI", 11F);
+            tb_password.Location = new Point(167, 205);
             tb_password.Name = "tb_password";
             tb_password.PasswordChar = '*';
-            tb_password.Size = new Size(207, 23);
+            tb_password.Size = new Size(142, 27);
             tb_password.TabIndex = 16;
+            tb_password.Validating += tb_password_Validating;
             // 
             // b_signup
             // 
@@ -158,26 +301,26 @@
             // 
             l_password.AutoSize = true;
             l_password.Font = new Font("Sitka Subheading", 10F);
-            l_password.Location = new Point(39, 198);
+            l_password.Location = new Point(62, 206);
             l_password.Name = "l_password";
             l_password.Size = new Size(73, 20);
             l_password.TabIndex = 24;
             l_password.Text = "Password:";
             // 
-            // WelcomeBackLabel
+            // l_welcomeback
             // 
-            WelcomeBackLabel.Font = new Font("Aldhabi", 36F, FontStyle.Italic, GraphicsUnit.Point, 0);
-            WelcomeBackLabel.Location = new Point(87, 15);
-            WelcomeBackLabel.Name = "WelcomeBackLabel";
-            WelcomeBackLabel.Size = new Size(237, 70);
-            WelcomeBackLabel.TabIndex = 23;
-            WelcomeBackLabel.Text = "Welcome Back!";
+            l_welcomeback.Font = new Font("Aldhabi", 36F, FontStyle.Italic, GraphicsUnit.Point, 0);
+            l_welcomeback.Location = new Point(84, 18);
+            l_welcomeback.Name = "l_welcomeback";
+            l_welcomeback.Size = new Size(227, 70);
+            l_welcomeback.TabIndex = 23;
+            l_welcomeback.Text = "Welcome Back!";
             // 
             // l_username
             // 
             l_username.AutoSize = true;
             l_username.Font = new Font("Sitka Subheading", 10F);
-            l_username.Location = new Point(35, 154);
+            l_username.Location = new Point(62, 165);
             l_username.Name = "l_username";
             l_username.Size = new Size(77, 20);
             l_username.TabIndex = 22;
@@ -188,7 +331,7 @@
             rb_member.AutoSize = true;
             rb_member.Checked = true;
             rb_member.Font = new Font("Sitka Subheading", 10F);
-            rb_member.Location = new Point(60, 102);
+            rb_member.Location = new Point(84, 110);
             rb_member.Name = "rb_member";
             rb_member.Size = new Size(79, 24);
             rb_member.TabIndex = 21;
@@ -201,7 +344,7 @@
             // 
             rb_admin.AutoSize = true;
             rb_admin.Font = new Font("Sitka Subheading", 10F);
-            rb_admin.Location = new Point(245, 102);
+            rb_admin.Location = new Point(243, 110);
             rb_admin.Name = "rb_admin";
             rb_admin.Size = new Size(68, 24);
             rb_admin.TabIndex = 20;
@@ -209,98 +352,15 @@
             rb_admin.UseVisualStyleBackColor = true;
             rb_admin.CheckedChanged += rb_admin_CheckedChanged;
             // 
-            // t_signup
+            // tabcontrol
             // 
-            t_signup.Controls.Add(b_signup2);
-            t_signup.Controls.Add(tb_password2);
-            t_signup.Controls.Add(tb_username2);
-            t_signup.Controls.Add(tb_lastname);
-            t_signup.Controls.Add(tb_name);
-            t_signup.Controls.Add(l_password2);
-            t_signup.Controls.Add(l_username2);
-            t_signup.Controls.Add(l_lastname);
-            t_signup.Controls.Add(l_name);
-            t_signup.Location = new Point(4, 24);
-            t_signup.Name = "t_signup";
-            t_signup.Padding = new Padding(3);
-            t_signup.Size = new Size(392, 463);
-            t_signup.TabIndex = 1;
-            t_signup.Text = "Signup";
-            t_signup.UseVisualStyleBackColor = true;
-            // 
-            // errorProvider1
-            // 
-            errorProvider1.ContainerControl = this;
-            // 
-            // l_name
-            // 
-            l_name.Location = new Point(17, 79);
-            l_name.Name = "l_name";
-            l_name.Size = new Size(100, 23);
-            l_name.TabIndex = 0;
-            l_name.Text = "Name:";
-            // 
-            // l_lastname
-            // 
-            l_lastname.Location = new Point(17, 108);
-            l_lastname.Name = "l_lastname";
-            l_lastname.Size = new Size(100, 23);
-            l_lastname.TabIndex = 1;
-            l_lastname.Text = "Last Name:";
-            // 
-            // l_username2
-            // 
-            l_username2.Location = new Point(17, 137);
-            l_username2.Name = "l_username2";
-            l_username2.Size = new Size(100, 23);
-            l_username2.TabIndex = 2;
-            l_username2.Text = "Username:";
-            // 
-            // l_password2
-            // 
-            l_password2.Location = new Point(17, 166);
-            l_password2.Name = "l_password2";
-            l_password2.Size = new Size(100, 23);
-            l_password2.TabIndex = 3;
-            l_password2.Text = "Password:";
-            // 
-            // tb_name
-            // 
-            tb_name.Location = new Point(112, 79);
-            tb_name.Name = "tb_name";
-            tb_name.Size = new Size(100, 23);
-            tb_name.TabIndex = 4;
-            // 
-            // tb_lastname
-            // 
-            tb_lastname.Location = new Point(112, 108);
-            tb_lastname.Name = "tb_lastname";
-            tb_lastname.Size = new Size(100, 23);
-            tb_lastname.TabIndex = 5;
-            // 
-            // tb_username2
-            // 
-            tb_username2.Location = new Point(112, 137);
-            tb_username2.Name = "tb_username2";
-            tb_username2.Size = new Size(100, 23);
-            tb_username2.TabIndex = 6;
-            // 
-            // tb_password2
-            // 
-            tb_password2.Location = new Point(112, 166);
-            tb_password2.Name = "tb_password2";
-            tb_password2.Size = new Size(100, 23);
-            tb_password2.TabIndex = 7;
-            // 
-            // b_signup2
-            // 
-            b_signup2.Location = new Point(161, 345);
-            b_signup2.Name = "b_signup2";
-            b_signup2.Size = new Size(75, 23);
-            b_signup2.TabIndex = 8;
-            b_signup2.Text = "Signup";
-            b_signup2.UseVisualStyleBackColor = true;
-            b_signup2.Click += b_signup2_Click;
+            tabcontrol.Controls.Add(t_login);
+            tabcontrol.Controls.Add(t_signup);
+            tabcontrol.Location = new Point(2, -21);
+            tabcontrol.Name = "tabcontrol";
+            tabcontrol.SelectedIndex = 0;
+            tabcontrol.Size = new Size(400, 491);
+            tabcontrol.TabIndex = 0;
             // 
             // Login
             // 
@@ -308,42 +368,47 @@
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(398, 466);
             Controls.Add(tabcontrol);
+            FormBorderStyle = FormBorderStyle.FixedSingle;
+            MaximizeBox = false;
             Name = "Login";
-            Text = "Form1";
-            tabcontrol.ResumeLayout(false);
-            t_login.ResumeLayout(false);
-            t_login.PerformLayout();
+            StartPosition = FormStartPosition.CenterScreen;
+            Text = "Login";
+            ((System.ComponentModel.ISupportInitialize)errorProvider1).EndInit();
             t_signup.ResumeLayout(false);
             t_signup.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)errorProvider1).EndInit();
+            t_login.ResumeLayout(false);
+            t_login.PerformLayout();
+            tabcontrol.ResumeLayout(false);
             ResumeLayout(false);
         }
 
         #endregion
-
+        private ErrorProvider errorProvider1;
         private TabControl tabcontrol;
         private TabPage t_login;
-        private TabPage t_signup;
+        private Button b_show_password;
         private TextBox tb_username;
         private TextBox tb_password;
         private Button b_signup;
         private Button b_login;
         private Label l_or;
         private Label l_password;
-        private Label WelcomeBackLabel;
+        private Label l_welcomeback;
         private Label l_username;
         private RadioButton rb_member;
         private RadioButton rb_admin;
-        private ErrorProvider errorProvider1;
-        private Button b_show_password;
-        private Label l_username2;
-        private Label l_lastname;
-        private Label l_name;
+        private TabPage t_signup;
+        private Label l_or2;
+        private Label l_getstarted;
+        private Button b_lognin2;
+        private Button b_signup2;
         private TextBox tb_password2;
         private TextBox tb_username2;
         private TextBox tb_lastname;
         private TextBox tb_name;
         private Label l_password2;
-        private Button b_signup2;
+        private Label l_username2;
+        private Label l_lastname;
+        private Label l_name;
     }
 }
