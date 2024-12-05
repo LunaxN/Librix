@@ -14,12 +14,12 @@ namespace Librix
         {
             if (show_password_clicked)
             {
-                b_show_password.Image = icons.openeye;
+                b_show_password.Image = icons.closedeye;
                 tb_password.PasswordChar = '\0';
             }
             else
             {
-                b_show_password.Image = icons.closedeye;
+                b_show_password.Image = icons.openeye;
                 tb_password.PasswordChar = '*';
             }
             show_password_clicked = !show_password_clicked;
@@ -48,7 +48,6 @@ namespace Librix
         private void b_login_Click(object sender, EventArgs e)
         {
             DatabaseManager dbManager = new DatabaseManager();
-
             using (SqlConnection connection = new SqlConnection(dbManager.GetAdminDbConnectionString()))
             {
                 SqlCommand command = new SqlCommand(rb_admin.Checked ?
@@ -73,7 +72,7 @@ namespace Librix
                             }
                             else if (rb_member.Checked)
                             {
-                                MembersDashboard dashboard = new MembersDashboard();
+                                MemberDashboard dashboard = new MemberDashboard();
                                 dashboard.Show();
                                 this.Hide();
                             }
@@ -90,6 +89,10 @@ namespace Librix
                 {
                     MessageBox.Show("Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
+                finally
+                {
+                    connection.Close();
+                }
             }
         }
 
@@ -103,12 +106,13 @@ namespace Librix
             DatabaseManager dbManager = new DatabaseManager();
             using (SqlConnection connection = new SqlConnection(dbManager.GetAdminDbConnectionString()))
             {
-                SqlCommand command = new SqlCommand("INSERT INTO Members (FirstName, LastName, AccountBalance, CreatedAt, Username, Password) VALUES (@firstName, @lastName, @accountBalance, GETDATE(), @username, @password)", connection);
+                SqlCommand command = new SqlCommand("INSERT INTO Members (FirstName, LastName, AccountBalance, CreatedAt, Username, Password, PhoneNumber) VALUES (@firstName, @lastName, @accountBalance, GETDATE(), @username, @password, @phoneNumber)", connection);
                 command.Parameters.AddWithValue("@firstName", tb_name.Text);
                 command.Parameters.AddWithValue("@lastName", tb_lastname.Text);
                 command.Parameters.AddWithValue("@accountBalance", 0.00);
                 command.Parameters.AddWithValue("@username", tb_username2.Text);
                 command.Parameters.AddWithValue("@password", tb_password2.Text);
+                command.Parameters.AddWithValue("@phoneNumber", tb_phonenumber.Text);
                 try
                 {
                     connection.Open();
@@ -125,6 +129,10 @@ namespace Librix
                 catch (Exception ex)
                 {
                     MessageBox.Show("Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                finally 
+                {
+                    connection.Close();
                 }
             }
         }
@@ -179,6 +187,14 @@ namespace Librix
             if (tb_password.Text == string.Empty)
             {
                 errorProvider1.SetError(tb_password, "Please Enter Password");
+            }
+        }
+
+        private void tb_phonenumber_Validating(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            if (tb_phonenumber.Text == string.Empty)
+            {
+                errorProvider1.SetError(tb_phonenumber, "Please Enter Phone Number");
             }
         }
     }

@@ -31,6 +31,8 @@
             components = new System.ComponentModel.Container();
             errorProvider1 = new ErrorProvider(components);
             t_signup = new TabPage();
+            l_phonenumber = new Label();
+            tb_phonenumber = new TextBox();
             l_or2 = new Label();
             l_getstarted = new Label();
             b_lognin2 = new Button();
@@ -68,6 +70,8 @@
             // 
             // t_signup
             // 
+            t_signup.Controls.Add(l_phonenumber);
+            t_signup.Controls.Add(tb_phonenumber);
             t_signup.Controls.Add(l_or2);
             t_signup.Controls.Add(l_getstarted);
             t_signup.Controls.Add(b_lognin2);
@@ -87,6 +91,24 @@
             t_signup.TabIndex = 1;
             t_signup.Text = "Signup";
             t_signup.UseVisualStyleBackColor = true;
+            // 
+            // l_phonenumber
+            // 
+            l_phonenumber.Font = new Font("Sitka Subheading", 10F);
+            l_phonenumber.Location = new Point(45, 240);
+            l_phonenumber.Name = "l_phonenumber";
+            l_phonenumber.Size = new Size(110, 23);
+            l_phonenumber.TabIndex = 11;
+            l_phonenumber.Text = "Phone Number:";
+            // 
+            // tb_phonenumber
+            // 
+            tb_phonenumber.Font = new Font("Segoe UI", 10F);
+            tb_phonenumber.Location = new Point(158, 240);
+            tb_phonenumber.Name = "tb_phonenumber";
+            tb_phonenumber.Size = new Size(175, 25);
+            tb_phonenumber.TabIndex = 12;
+            tb_phonenumber.Validating += tb_phonenumber_Validating;
             // 
             // l_or2
             // 
@@ -137,44 +159,44 @@
             // 
             // tb_password2
             // 
-            tb_password2.Font = new Font("Segoe UI", 11F);
-            tb_password2.Location = new Point(168, 226);
+            tb_password2.Font = new Font("Segoe UI", 10F);
+            tb_password2.Location = new Point(158, 205);
             tb_password2.Name = "tb_password2";
-            tb_password2.Size = new Size(142, 27);
+            tb_password2.Size = new Size(175, 25);
             tb_password2.TabIndex = 7;
             tb_password2.Validating += tb_password2_Validating;
             // 
             // tb_username2
             // 
-            tb_username2.Font = new Font("Segoe UI", 11F);
-            tb_username2.Location = new Point(168, 186);
+            tb_username2.Font = new Font("Segoe UI", 10F);
+            tb_username2.Location = new Point(158, 170);
             tb_username2.Name = "tb_username2";
-            tb_username2.Size = new Size(142, 27);
+            tb_username2.Size = new Size(175, 25);
             tb_username2.TabIndex = 6;
             tb_username2.Validating += tb_username2_Validating;
             // 
             // tb_lastname
             // 
-            tb_lastname.Font = new Font("Segoe UI", 11F);
-            tb_lastname.Location = new Point(168, 146);
+            tb_lastname.Font = new Font("Segoe UI", 10F);
+            tb_lastname.Location = new Point(158, 135);
             tb_lastname.Name = "tb_lastname";
-            tb_lastname.Size = new Size(142, 27);
+            tb_lastname.Size = new Size(175, 25);
             tb_lastname.TabIndex = 5;
             tb_lastname.Validating += tb_lastname_Validating;
             // 
             // tb_name
             // 
-            tb_name.Font = new Font("Segoe UI", 11F);
-            tb_name.Location = new Point(168, 106);
+            tb_name.Font = new Font("Segoe UI", 10F);
+            tb_name.Location = new Point(158, 100);
             tb_name.Name = "tb_name";
-            tb_name.Size = new Size(142, 27);
+            tb_name.Size = new Size(175, 25);
             tb_name.TabIndex = 4;
             tb_name.Validating += tb_name_Validating;
             // 
             // l_password2
             // 
             l_password2.Font = new Font("Sitka Subheading", 10F);
-            l_password2.Location = new Point(62, 226);
+            l_password2.Location = new Point(45, 205);
             l_password2.Name = "l_password2";
             l_password2.Size = new Size(100, 23);
             l_password2.TabIndex = 3;
@@ -183,7 +205,7 @@
             // l_username2
             // 
             l_username2.Font = new Font("Sitka Subheading", 10F);
-            l_username2.Location = new Point(62, 186);
+            l_username2.Location = new Point(45, 170);
             l_username2.Name = "l_username2";
             l_username2.Size = new Size(100, 23);
             l_username2.TabIndex = 2;
@@ -192,7 +214,7 @@
             // l_lastname
             // 
             l_lastname.Font = new Font("Sitka Subheading", 10F);
-            l_lastname.Location = new Point(62, 146);
+            l_lastname.Location = new Point(45, 135);
             l_lastname.Name = "l_lastname";
             l_lastname.Size = new Size(100, 23);
             l_lastname.TabIndex = 1;
@@ -201,7 +223,7 @@
             // l_name
             // 
             l_name.Font = new Font("Sitka Subheading", 10F);
-            l_name.Location = new Point(62, 106);
+            l_name.Location = new Point(45, 100);
             l_name.Name = "l_name";
             l_name.Size = new Size(100, 23);
             l_name.TabIndex = 0;
@@ -233,30 +255,30 @@
             b_show_password.BackColor = Color.White;
             b_show_password.FlatAppearance.BorderColor = Color.White;
             b_show_password.FlatStyle = FlatStyle.Flat;
-            b_show_password.Image = icons.closedeye;
-            b_show_password.Location = new Point(283, 206);
+            b_show_password.Image = icons.openeye;
+            b_show_password.Location = new Point(304, 206);
             b_show_password.Name = "b_show_password";
-            b_show_password.Size = new Size(25, 25);
+            b_show_password.Size = new Size(26, 23);
             b_show_password.TabIndex = 26;
             b_show_password.UseVisualStyleBackColor = false;
             b_show_password.Click += b_show_password_Click;
             // 
             // tb_username
             // 
-            tb_username.Font = new Font("Segoe UI", 11F);
-            tb_username.Location = new Point(167, 165);
+            tb_username.Font = new Font("Segoe UI", 10F);
+            tb_username.Location = new Point(158, 165);
             tb_username.Name = "tb_username";
-            tb_username.Size = new Size(142, 27);
+            tb_username.Size = new Size(175, 25);
             tb_username.TabIndex = 17;
             tb_username.Validating += tb_username_Validating;
             // 
             // tb_password
             // 
-            tb_password.Font = new Font("Segoe UI", 11F);
-            tb_password.Location = new Point(167, 205);
+            tb_password.Font = new Font("Segoe UI", 10F);
+            tb_password.Location = new Point(158, 205);
             tb_password.Name = "tb_password";
             tb_password.PasswordChar = '*';
-            tb_password.Size = new Size(142, 27);
+            tb_password.Size = new Size(175, 25);
             tb_password.TabIndex = 16;
             tb_password.Validating += tb_password_Validating;
             // 
@@ -301,7 +323,7 @@
             // 
             l_password.AutoSize = true;
             l_password.Font = new Font("Sitka Subheading", 10F);
-            l_password.Location = new Point(62, 206);
+            l_password.Location = new Point(45, 206);
             l_password.Name = "l_password";
             l_password.Size = new Size(73, 20);
             l_password.TabIndex = 24;
@@ -320,7 +342,7 @@
             // 
             l_username.AutoSize = true;
             l_username.Font = new Font("Sitka Subheading", 10F);
-            l_username.Location = new Point(62, 165);
+            l_username.Location = new Point(45, 165);
             l_username.Name = "l_username";
             l_username.Size = new Size(77, 20);
             l_username.TabIndex = 22;
@@ -410,5 +432,7 @@
         private Label l_username2;
         private Label l_lastname;
         private Label l_name;
+        private TextBox tb_phonenumber;
+        private Label l_phonenumber;
     }
 }
