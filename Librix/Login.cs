@@ -31,7 +31,7 @@ namespace Librix
             {
                 l_or.Visible = false;
                 b_signup.Visible = false;
-                this.Size = new Size(414, 415);
+                this.Size = new Size(416, 415);
             }
         }
 
@@ -41,14 +41,14 @@ namespace Librix
             {
                 l_or.Visible = true;
                 b_signup.Visible = true;
-                this.Size = new Size(414, 505);
+                this.Size = new Size(416, 517);
             }
         }
 
         private void b_login_Click(object sender, EventArgs e)
         {
             DatabaseManager dbManager = new DatabaseManager();
-            using (SqlConnection connection = new SqlConnection(dbManager.GetAdminDbConnectionString()))
+            using (SqlConnection connection = new SqlConnection(dbManager.GetUsersDbConnectionString()))
             {
                 SqlCommand command = new SqlCommand(rb_admin.Checked ?
                                                       "SELECT * FROM Admins WHERE Username = @username AND Password = @password"
@@ -104,7 +104,7 @@ namespace Librix
         private void b_signup2_Click(object sender, EventArgs e)
         {
             DatabaseManager dbManager = new DatabaseManager();
-            using (SqlConnection connection = new SqlConnection(dbManager.GetAdminDbConnectionString()))
+            using (SqlConnection connection = new SqlConnection(dbManager.GetUsersDbConnectionString()))
             {
                 SqlCommand command = new SqlCommand("INSERT INTO Members (FirstName, LastName, AccountBalance, CreatedAt, Username, Password, PhoneNumber) VALUES (@firstName, @lastName, @accountBalance, GETDATE(), @username, @password, @phoneNumber)", connection);
                 command.Parameters.AddWithValue("@firstName", tb_name.Text);
@@ -130,7 +130,7 @@ namespace Librix
                 {
                     MessageBox.Show("Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
-                finally 
+                finally
                 {
                     connection.Close();
                 }
@@ -187,14 +187,6 @@ namespace Librix
             if (tb_password.Text == string.Empty)
             {
                 errorProvider1.SetError(tb_password, "Please Enter Password");
-            }
-        }
-
-        private void tb_phonenumber_Validating(object sender, System.ComponentModel.CancelEventArgs e)
-        {
-            if (tb_phonenumber.Text == string.Empty)
-            {
-                errorProvider1.SetError(tb_phonenumber, "Please Enter Phone Number");
             }
         }
     }

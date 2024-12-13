@@ -124,9 +124,11 @@
             Controls.Add(tb_lastname);
             Controls.Add(l_lastname);
             Controls.Add(l_name);
+            FormBorderStyle = FormBorderStyle.FixedSingle;
             MaximizeBox = false;
             MinimizeBox = false;
             Name = "AddMember";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "Add Member";
             ((System.ComponentModel.ISupportInitialize)errorProvider1).EndInit();
             ResumeLayout(false);

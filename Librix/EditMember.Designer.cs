@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             l_phonenumber = new Label();
             tb_phonenumber = new TextBox();
             b_save = new Button();
@@ -37,6 +38,8 @@
             l_name = new Label();
             b_cancel = new Button();
             l_or = new Label();
+            errorProvider1 = new ErrorProvider(components);
+            ((System.ComponentModel.ISupportInitialize)errorProvider1).BeginInit();
             SuspendLayout();
             // 
             // l_phonenumber
@@ -76,6 +79,7 @@
             tb_name.Name = "tb_name";
             tb_name.Size = new Size(175, 25);
             tb_name.TabIndex = 15;
+            tb_name.Validating += tb_name_Validating;
             // 
             // tb_lastname
             // 
@@ -84,6 +88,7 @@
             tb_lastname.Name = "tb_lastname";
             tb_lastname.Size = new Size(175, 25);
             tb_lastname.TabIndex = 16;
+            tb_lastname.Validating += tb_lastname_Validating;
             // 
             // l_lastname
             // 
@@ -127,6 +132,10 @@
             l_or.TabIndex = 26;
             l_or.Text = "Or";
             // 
+            // errorProvider1
+            // 
+            errorProvider1.ContainerControl = this;
+            // 
             // EditMember
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -142,11 +151,13 @@
             Controls.Add(l_lastname);
             Controls.Add(l_name);
             Controls.Add(b_cancel);
+            FormBorderStyle = FormBorderStyle.FixedSingle;
             MaximizeBox = false;
             MinimizeBox = false;
             Name = "EditMember";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "Edit Member";
-            Load += EditMember_Load;
+            ((System.ComponentModel.ISupportInitialize)errorProvider1).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -161,5 +172,6 @@
         private Label l_name;
         private Button b_cancel;
         private Label l_or;
+        private ErrorProvider errorProvider1;
     }
 }

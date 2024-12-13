@@ -31,6 +31,16 @@
             tabControl = new TabControl();
             t_dashboard = new TabPage();
             t_books = new TabPage();
+            l_editBook = new Label();
+            b_editBook = new Button();
+            b_resetBooks = new Button();
+            l_addBook = new Label();
+            l_deleteBook = new Label();
+            b_deleteBook = new Button();
+            b_addBook = new Button();
+            pb_searchBook = new PictureBox();
+            tb_searchBook = new TextBox();
+            dgv_books = new DataGridView();
             t_bookLoan = new TabPage();
             t_members = new TabPage();
             l_editMember = new Label();
@@ -40,8 +50,8 @@
             l_deleteMember = new Label();
             b_deleteMember = new Button();
             b_addMember = new Button();
-            pb_search = new PictureBox();
-            tb_search = new TextBox();
+            pb_searchMember = new PictureBox();
+            tb_searchMember = new TextBox();
             dgv_members = new DataGridView();
             b_books = new Button();
             panel = new Panel();
@@ -54,8 +64,11 @@
             b_members = new Button();
             l_dashboard = new Label();
             tabControl.SuspendLayout();
+            t_books.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pb_searchBook).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)dgv_books).BeginInit();
             t_members.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)pb_search).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pb_searchMember).BeginInit();
             ((System.ComponentModel.ISupportInitialize)dgv_members).BeginInit();
             panel.SuspendLayout();
             SuspendLayout();
@@ -66,10 +79,10 @@
             tabControl.Controls.Add(t_books);
             tabControl.Controls.Add(t_bookLoan);
             tabControl.Controls.Add(t_members);
-            tabControl.Location = new Point(0, 84);
+            tabControl.Location = new Point(0, 87);
             tabControl.Name = "tabControl";
             tabControl.SelectedIndex = 0;
-            tabControl.Size = new Size(1284, 623);
+            tabControl.Size = new Size(1284, 620);
             tabControl.TabIndex = 0;
             // 
             // t_dashboard
@@ -77,27 +90,171 @@
             t_dashboard.Location = new Point(4, 24);
             t_dashboard.Name = "t_dashboard";
             t_dashboard.Padding = new Padding(3);
-            t_dashboard.Size = new Size(1276, 595);
+            t_dashboard.Size = new Size(1276, 592);
             t_dashboard.TabIndex = 0;
             t_dashboard.Text = "Dashborad";
             t_dashboard.UseVisualStyleBackColor = true;
             // 
             // t_books
             // 
+            t_books.Controls.Add(l_editBook);
+            t_books.Controls.Add(b_editBook);
+            t_books.Controls.Add(b_resetBooks);
+            t_books.Controls.Add(l_addBook);
+            t_books.Controls.Add(l_deleteBook);
+            t_books.Controls.Add(b_deleteBook);
+            t_books.Controls.Add(b_addBook);
+            t_books.Controls.Add(pb_searchBook);
+            t_books.Controls.Add(tb_searchBook);
+            t_books.Controls.Add(dgv_books);
             t_books.Location = new Point(4, 24);
             t_books.Name = "t_books";
             t_books.Padding = new Padding(3);
-            t_books.Size = new Size(1276, 595);
+            t_books.Size = new Size(1276, 592);
             t_books.TabIndex = 1;
             t_books.Text = "Books";
             t_books.UseVisualStyleBackColor = true;
+            // 
+            // l_editBook
+            // 
+            l_editBook.AutoSize = true;
+            l_editBook.BackColor = SystemColors.ControlDarkDark;
+            l_editBook.Font = new Font("Sitka Subheading", 10F);
+            l_editBook.ForeColor = Color.White;
+            l_editBook.Location = new Point(143, 43);
+            l_editBook.Name = "l_editBook";
+            l_editBook.Size = new Size(34, 20);
+            l_editBook.TabIndex = 21;
+            l_editBook.Text = "Edit";
+            l_editBook.Visible = false;
+            // 
+            // b_editBook
+            // 
+            b_editBook.BackColor = Color.Transparent;
+            b_editBook.FlatAppearance.BorderColor = Color.White;
+            b_editBook.FlatStyle = FlatStyle.Flat;
+            b_editBook.Font = new Font("Sitka Subheading", 10F);
+            b_editBook.Image = icons.edit;
+            b_editBook.Location = new Point(145, 11);
+            b_editBook.Name = "b_editBook";
+            b_editBook.Size = new Size(30, 30);
+            b_editBook.TabIndex = 20;
+            b_editBook.UseVisualStyleBackColor = false;
+            b_editBook.Click += b_editBook_Click;
+            b_editBook.MouseLeave += b_editBook_MouseLeave;
+            b_editBook.MouseHover += b_editBook_MouseHover;
+            // 
+            // b_resetBooks
+            // 
+            b_resetBooks.BackColor = Color.FromArgb(255, 192, 192);
+            b_resetBooks.FlatStyle = FlatStyle.Flat;
+            b_resetBooks.Font = new Font("Sitka Subheading", 10F);
+            b_resetBooks.Location = new Point(595, 8);
+            b_resetBooks.Name = "b_resetBooks";
+            b_resetBooks.Size = new Size(116, 35);
+            b_resetBooks.TabIndex = 19;
+            b_resetBooks.Text = "Show Books";
+            b_resetBooks.UseVisualStyleBackColor = false;
+            b_resetBooks.Visible = false;
+            b_resetBooks.Click += b_resetBooks_Click;
+            // 
+            // l_addBook
+            // 
+            l_addBook.AutoSize = true;
+            l_addBook.BackColor = SystemColors.ControlDarkDark;
+            l_addBook.Font = new Font("Sitka Subheading", 10F);
+            l_addBook.ForeColor = Color.White;
+            l_addBook.Location = new Point(21, 43);
+            l_addBook.Name = "l_addBook";
+            l_addBook.Size = new Size(34, 20);
+            l_addBook.TabIndex = 18;
+            l_addBook.Text = "Add";
+            l_addBook.Visible = false;
+            // 
+            // l_deleteBook
+            // 
+            l_deleteBook.AutoSize = true;
+            l_deleteBook.BackColor = SystemColors.ControlDarkDark;
+            l_deleteBook.Font = new Font("Sitka Subheading", 10F);
+            l_deleteBook.ForeColor = Color.White;
+            l_deleteBook.Location = new Point(75, 43);
+            l_deleteBook.Name = "l_deleteBook";
+            l_deleteBook.Size = new Size(48, 20);
+            l_deleteBook.TabIndex = 17;
+            l_deleteBook.Text = "Delete";
+            l_deleteBook.Visible = false;
+            // 
+            // b_deleteBook
+            // 
+            b_deleteBook.BackColor = Color.Transparent;
+            b_deleteBook.FlatAppearance.BorderColor = Color.White;
+            b_deleteBook.FlatStyle = FlatStyle.Flat;
+            b_deleteBook.Font = new Font("Sitka Subheading", 10F);
+            b_deleteBook.Image = icons.delete;
+            b_deleteBook.Location = new Point(84, 11);
+            b_deleteBook.Name = "b_deleteBook";
+            b_deleteBook.Size = new Size(30, 30);
+            b_deleteBook.TabIndex = 16;
+            b_deleteBook.UseVisualStyleBackColor = false;
+            b_deleteBook.Click += b_deleteBook_Click;
+            b_deleteBook.MouseLeave += b_deleteBook_MouseLeave;
+            b_deleteBook.MouseHover += b_deleteBook_MouseHover;
+            // 
+            // b_addBook
+            // 
+            b_addBook.BackColor = Color.Transparent;
+            b_addBook.FlatAppearance.BorderColor = Color.White;
+            b_addBook.FlatStyle = FlatStyle.Flat;
+            b_addBook.Font = new Font("Sitka Subheading", 10F);
+            b_addBook.Image = icons.add;
+            b_addBook.Location = new Point(23, 11);
+            b_addBook.Name = "b_addBook";
+            b_addBook.Size = new Size(30, 30);
+            b_addBook.TabIndex = 15;
+            b_addBook.UseVisualStyleBackColor = false;
+            b_addBook.Click += b_addBook_Click;
+            b_addBook.MouseLeave += b_addBook_MouseLeave;
+            b_addBook.MouseHover += b_addBook_MouseHover;
+            // 
+            // pb_searchBook
+            // 
+            pb_searchBook.Image = icons.search;
+            pb_searchBook.Location = new Point(546, 15);
+            pb_searchBook.Name = "pb_searchBook";
+            pb_searchBook.Size = new Size(23, 23);
+            pb_searchBook.TabIndex = 14;
+            pb_searchBook.TabStop = false;
+            // 
+            // tb_searchBook
+            // 
+            tb_searchBook.Font = new Font("Segoe UI", 10F);
+            tb_searchBook.ForeColor = Color.Gray;
+            tb_searchBook.Location = new Point(205, 14);
+            tb_searchBook.Name = "tb_searchBook";
+            tb_searchBook.Size = new Size(365, 25);
+            tb_searchBook.TabIndex = 13;
+            tb_searchBook.Text = "Search for a book...";
+            tb_searchBook.Click += tb_searchBook_Click;
+            tb_searchBook.KeyDown += tb_searchBook_KeyDown;
+            // 
+            // dgv_books
+            // 
+            dgv_books.AllowUserToAddRows = false;
+            dgv_books.AllowUserToDeleteRows = false;
+            dgv_books.BackgroundColor = Color.White;
+            dgv_books.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgv_books.Location = new Point(0, 51);
+            dgv_books.Name = "dgv_books";
+            dgv_books.ReadOnly = true;
+            dgv_books.Size = new Size(1276, 544);
+            dgv_books.TabIndex = 12;
             // 
             // t_bookLoan
             // 
             t_bookLoan.Location = new Point(4, 24);
             t_bookLoan.Name = "t_bookLoan";
             t_bookLoan.Padding = new Padding(3);
-            t_bookLoan.Size = new Size(1276, 595);
+            t_bookLoan.Size = new Size(1276, 592);
             t_bookLoan.TabIndex = 3;
             t_bookLoan.Text = "Book Loan";
             t_bookLoan.UseVisualStyleBackColor = true;
@@ -111,13 +268,13 @@
             t_members.Controls.Add(l_deleteMember);
             t_members.Controls.Add(b_deleteMember);
             t_members.Controls.Add(b_addMember);
-            t_members.Controls.Add(pb_search);
-            t_members.Controls.Add(tb_search);
+            t_members.Controls.Add(pb_searchMember);
+            t_members.Controls.Add(tb_searchMember);
             t_members.Controls.Add(dgv_members);
             t_members.Location = new Point(4, 24);
             t_members.Name = "t_members";
             t_members.Padding = new Padding(3);
-            t_members.Size = new Size(1276, 595);
+            t_members.Size = new Size(1276, 592);
             t_members.TabIndex = 4;
             t_members.Text = "Members";
             t_members.UseVisualStyleBackColor = true;
@@ -148,6 +305,7 @@
             b_editMember.TabIndex = 10;
             b_editMember.UseVisualStyleBackColor = false;
             b_editMember.Click += b_editMember_Click;
+            b_editMember.MouseLeave += b_editMember_MouseLeave;
             b_editMember.MouseHover += b_editMember_MouseHover;
             // 
             // b_resetMembers
@@ -203,6 +361,7 @@
             b_deleteMember.TabIndex = 5;
             b_deleteMember.UseVisualStyleBackColor = false;
             b_deleteMember.Click += b_deleteMember_Click;
+            b_deleteMember.MouseLeave += b_deleteMember_MouseLeave;
             b_deleteMember.MouseHover += b_deleteMember_MouseHover;
             // 
             // b_addMember
@@ -218,27 +377,29 @@
             b_addMember.TabIndex = 4;
             b_addMember.UseVisualStyleBackColor = false;
             b_addMember.Click += b_addMember_Click;
+            b_addMember.MouseLeave += b_addMember_MouseLeave;
             b_addMember.MouseHover += b_addMember_MouseHover;
             // 
-            // pb_search
+            // pb_searchMember
             // 
-            pb_search.Image = icons.search;
-            pb_search.Location = new Point(546, 15);
-            pb_search.Name = "pb_search";
-            pb_search.Size = new Size(23, 23);
-            pb_search.TabIndex = 2;
-            pb_search.TabStop = false;
+            pb_searchMember.Image = icons.search;
+            pb_searchMember.Location = new Point(546, 15);
+            pb_searchMember.Name = "pb_searchMember";
+            pb_searchMember.Size = new Size(23, 23);
+            pb_searchMember.TabIndex = 2;
+            pb_searchMember.TabStop = false;
             // 
-            // tb_search
+            // tb_searchMember
             // 
-            tb_search.Font = new Font("Segoe UI", 10F);
-            tb_search.ForeColor = Color.Gray;
-            tb_search.Location = new Point(205, 14);
-            tb_search.Name = "tb_search";
-            tb_search.Size = new Size(365, 25);
-            tb_search.TabIndex = 1;
-            tb_search.Text = "Search for a member...";
-            tb_search.KeyDown += tb_search_KeyDown;
+            tb_searchMember.Font = new Font("Segoe UI", 10F);
+            tb_searchMember.ForeColor = Color.Gray;
+            tb_searchMember.Location = new Point(205, 14);
+            tb_searchMember.Name = "tb_searchMember";
+            tb_searchMember.Size = new Size(365, 25);
+            tb_searchMember.TabIndex = 1;
+            tb_searchMember.Text = "Search for a member...";
+            tb_searchMember.Click += tb_searchMember_Click;
+            tb_searchMember.KeyDown += tb_searchMember_KeyDown;
             // 
             // dgv_members
             // 
@@ -380,11 +541,16 @@
             Controls.Add(panel);
             Controls.Add(tabControl);
             Name = "AdminDashboard";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "Admin Dashboard";
             tabControl.ResumeLayout(false);
+            t_books.ResumeLayout(false);
+            t_books.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)pb_searchBook).EndInit();
+            ((System.ComponentModel.ISupportInitialize)dgv_books).EndInit();
             t_members.ResumeLayout(false);
             t_members.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)pb_search).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pb_searchMember).EndInit();
             ((System.ComponentModel.ISupportInitialize)dgv_members).EndInit();
             panel.ResumeLayout(false);
             panel.PerformLayout();
@@ -409,8 +575,8 @@
         private TabPage t_members;
         private Button b_logout;
         private DataGridView dgv_members;
-        private TextBox tb_search;
-        private PictureBox pb_search;
+        private TextBox tb_searchMember;
+        private PictureBox pb_searchMember;
         private Button b_addMember;
         private Button b_deleteMember;
         private Label l_addMember;
@@ -418,5 +584,15 @@
         private Button b_resetMembers;
         private Button b_editMember;
         private Label l_editMember;
+        private Label l_editBook;
+        private Button b_editBook;
+        private Button b_resetBooks;
+        private Label l_addBook;
+        private Label l_deleteBook;
+        private Button b_deleteBook;
+        private Button b_addBook;
+        private PictureBox pb_searchBook;
+        private TextBox tb_searchBook;
+        private DataGridView dgv_books;
     }
 }

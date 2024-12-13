@@ -13,16 +13,19 @@ namespace Librix
     public partial class EditMember : Form
     {
         public string RecordID { get; set; }
+
         public string RecordFirstName
         {
             get { return tb_name.Text; }
             set { tb_name.Text = value; }
         }
+
         public string RecordLastName
         {
             get { return tb_lastname.Text; }
             set { tb_lastname.Text = value; }
         }
+
         public string RecordPhoneNumber
         {
             get { return tb_phonenumber.Text; }
@@ -46,9 +49,20 @@ namespace Librix
             this.Hide();
         }
 
-        private void EditMember_Load(object sender, EventArgs e)
+        private void tb_name_Validating(object sender, CancelEventArgs e)
         {
+            if (tb_name.Text == string.Empty) 
+            {
+                errorProvider1.SetError(tb_name, "This field can not be empty");
+            }
+        }
 
+        private void tb_lastname_Validating(object sender, CancelEventArgs e)
+        {
+            if (tb_lastname.Text == string.Empty)
+            {
+                errorProvider1.SetError(tb_lastname, "This field can not be empty");
+            }
         }
     }
 }

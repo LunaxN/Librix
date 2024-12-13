@@ -4,15 +4,15 @@ namespace Librix
 {
     internal class DatabaseManager
     {
-        private string adminDbConnectionString =
-            @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=""C:\Users\Luna\Desktop\New folder\Librix\Librix\data\admin.mdf"";Integrated Security=True;Connect Timeout=30;Encrypt=True";
+        private string usersDbConnectionString =
+            @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=""C:\Users\Luna\Desktop\New folder\Librix\Librix\data\users.mdf"";Integrated Security=True;Connect Timeout=30";
 
         private string itemsDbConnectionString =
-            @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=""C:\Users\Luna\Desktop\New folder\Librix\Librix\data\items.mdf"";Integrated Security=True;Connect Timeout=30;Encrypt=True";
+            @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=""C:\Users\Luna\Desktop\New folder\Librix\Librix\data\items.mdf"";Integrated Security=True;Connect Timeout=30";
 
-        public string GetAdminDbConnectionString()
+        public string GetUsersDbConnectionString()
         {
-            return adminDbConnectionString;
+            return usersDbConnectionString;
         }
 
         public string GetItemsDbConnectionString()

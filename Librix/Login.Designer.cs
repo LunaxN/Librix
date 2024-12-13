@@ -87,7 +87,7 @@
             t_signup.Location = new Point(4, 24);
             t_signup.Name = "t_signup";
             t_signup.Padding = new Padding(3);
-            t_signup.Size = new Size(392, 463);
+            t_signup.Size = new Size(394, 474);
             t_signup.TabIndex = 1;
             t_signup.Text = "Signup";
             t_signup.UseVisualStyleBackColor = true;
@@ -108,13 +108,12 @@
             tb_phonenumber.Name = "tb_phonenumber";
             tb_phonenumber.Size = new Size(175, 25);
             tb_phonenumber.TabIndex = 12;
-            tb_phonenumber.Validating += tb_phonenumber_Validating;
             // 
             // l_or2
             // 
             l_or2.AutoSize = true;
             l_or2.Font = new Font("Sitka Subheading", 10F);
-            l_or2.Location = new Point(180, 351);
+            l_or2.Location = new Point(186, 368);
             l_or2.Name = "l_or2";
             l_or2.Size = new Size(25, 20);
             l_or2.TabIndex = 11;
@@ -136,7 +135,7 @@
             b_lognin2.FlatStyle = FlatStyle.Flat;
             b_lognin2.Font = new Font("Sitka Subheading", 10F);
             b_lognin2.ForeColor = Color.White;
-            b_lognin2.Location = new Point(15, 387);
+            b_lognin2.Location = new Point(16, 404);
             b_lognin2.Name = "b_lognin2";
             b_lognin2.Size = new Size(360, 52);
             b_lognin2.TabIndex = 9;
@@ -149,7 +148,7 @@
             b_signup2.BackColor = Color.FromArgb(255, 192, 192);
             b_signup2.FlatStyle = FlatStyle.Flat;
             b_signup2.Font = new Font("Sitka Subheading", 10F);
-            b_signup2.Location = new Point(16, 284);
+            b_signup2.Location = new Point(16, 301);
             b_signup2.Name = "b_signup2";
             b_signup2.Size = new Size(360, 52);
             b_signup2.TabIndex = 8;
@@ -245,7 +244,7 @@
             t_login.Location = new Point(4, 24);
             t_login.Name = "t_login";
             t_login.Padding = new Padding(3);
-            t_login.Size = new Size(392, 463);
+            t_login.Size = new Size(394, 474);
             t_login.TabIndex = 0;
             t_login.Text = "Login";
             t_login.UseVisualStyleBackColor = true;
@@ -256,7 +255,7 @@
             b_show_password.FlatAppearance.BorderColor = Color.White;
             b_show_password.FlatStyle = FlatStyle.Flat;
             b_show_password.Image = icons.openeye;
-            b_show_password.Location = new Point(304, 206);
+            b_show_password.Location = new Point(305, 215);
             b_show_password.Name = "b_show_password";
             b_show_password.Size = new Size(26, 23);
             b_show_password.TabIndex = 26;
@@ -266,7 +265,7 @@
             // tb_username
             // 
             tb_username.Font = new Font("Segoe UI", 10F);
-            tb_username.Location = new Point(158, 165);
+            tb_username.Location = new Point(159, 174);
             tb_username.Name = "tb_username";
             tb_username.Size = new Size(175, 25);
             tb_username.TabIndex = 17;
@@ -275,7 +274,7 @@
             // tb_password
             // 
             tb_password.Font = new Font("Segoe UI", 10F);
-            tb_password.Location = new Point(158, 205);
+            tb_password.Location = new Point(159, 214);
             tb_password.Name = "tb_password";
             tb_password.PasswordChar = '*';
             tb_password.Size = new Size(175, 25);
@@ -288,7 +287,7 @@
             b_signup.FlatStyle = FlatStyle.Flat;
             b_signup.Font = new Font("Sitka Subheading", 10F);
             b_signup.ForeColor = Color.White;
-            b_signup.Location = new Point(16, 387);
+            b_signup.Location = new Point(16, 404);
             b_signup.Name = "b_signup";
             b_signup.Size = new Size(360, 52);
             b_signup.TabIndex = 15;
@@ -301,7 +300,7 @@
             b_login.BackColor = Color.FromArgb(255, 192, 192);
             b_login.FlatStyle = FlatStyle.Flat;
             b_login.Font = new Font("Sitka Subheading", 10F);
-            b_login.Location = new Point(16, 284);
+            b_login.Location = new Point(16, 301);
             b_login.Name = "b_login";
             b_login.Size = new Size(360, 52);
             b_login.TabIndex = 14;
@@ -313,7 +312,7 @@
             // 
             l_or.AutoSize = true;
             l_or.Font = new Font("Sitka Subheading", 10F);
-            l_or.Location = new Point(180, 351);
+            l_or.Location = new Point(186, 368);
             l_or.Name = "l_or";
             l_or.Size = new Size(25, 20);
             l_or.TabIndex = 25;
@@ -323,7 +322,7 @@
             // 
             l_password.AutoSize = true;
             l_password.Font = new Font("Sitka Subheading", 10F);
-            l_password.Location = new Point(45, 206);
+            l_password.Location = new Point(46, 215);
             l_password.Name = "l_password";
             l_password.Size = new Size(73, 20);
             l_password.TabIndex = 24;
@@ -342,7 +341,7 @@
             // 
             l_username.AutoSize = true;
             l_username.Font = new Font("Sitka Subheading", 10F);
-            l_username.Location = new Point(45, 165);
+            l_username.Location = new Point(46, 174);
             l_username.Name = "l_username";
             l_username.Size = new Size(77, 20);
             l_username.TabIndex = 22;
@@ -378,17 +377,17 @@
             // 
             tabcontrol.Controls.Add(t_login);
             tabcontrol.Controls.Add(t_signup);
-            tabcontrol.Location = new Point(2, -21);
+            tabcontrol.Location = new Point(0, -21);
             tabcontrol.Name = "tabcontrol";
             tabcontrol.SelectedIndex = 0;
-            tabcontrol.Size = new Size(400, 491);
+            tabcontrol.Size = new Size(402, 502);
             tabcontrol.TabIndex = 0;
             // 
             // Login
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(398, 466);
+            ClientSize = new Size(400, 478);
             Controls.Add(tabcontrol);
             FormBorderStyle = FormBorderStyle.FixedSingle;
             MaximizeBox = false;
