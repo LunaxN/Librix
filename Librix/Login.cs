@@ -51,8 +51,8 @@ namespace Librix
             using (SqlConnection connection = new SqlConnection(dbManager.GetUsersDbConnectionString()))
             {
                 SqlCommand command = new SqlCommand(rb_admin.Checked ?
-                                                      "SELECT * FROM Admins WHERE Username = @username AND Password = @password"
-                                                    : "SELECT * FROM Members WHERE Username = @username AND Password = @password"
+                                                      "SELECT ID FROM Admins WHERE Username = @username AND Password = @password"
+                                                    : "SELECT MembershipID FROM Members WHERE Username = @username AND Password = @password"
                                                     , connection);
                 command.Parameters.AddWithValue("@username", tb_username.Text);
                 command.Parameters.AddWithValue("@password", tb_password.Text);
@@ -64,15 +64,16 @@ namespace Librix
                     {
                         if (reader.Read())
                         {
+                            int id = reader.GetInt32(0);
                             if (rb_admin.Checked)
                             {
-                                AdminDashboard dashboard = new AdminDashboard();
+                                AdminDashboard dashboard = new AdminDashboard(id);
                                 dashboard.Show();
                                 this.Hide();
                             }
                             else if (rb_member.Checked)
                             {
-                                MemberDashboard dashboard = new MemberDashboard();
+                                MemberDashboard dashboard = new MemberDashboard(id);
                                 dashboard.Show();
                                 this.Hide();
                             }

@@ -39,16 +39,21 @@
             tabControl = new TabControl();
             t_dashboard = new TabPage();
             t_books = new TabPage();
+            b_reserve = new Button();
             b_resetBooks = new Button();
             pb_searchBook = new PictureBox();
             tb_searchBook = new TextBox();
             dgv_books = new DataGridView();
             t_bookLoan = new TabPage();
+            dgv_reserved = new DataGridView();
+            b_unreserve = new Button();
             panel.SuspendLayout();
             tabControl.SuspendLayout();
             t_books.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pb_searchBook).BeginInit();
             ((System.ComponentModel.ISupportInitialize)dgv_books).BeginInit();
+            t_bookLoan.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dgv_reserved).BeginInit();
             SuspendLayout();
             // 
             // panel
@@ -115,6 +120,7 @@
             b_reservedBooks.Size = new Size(55, 55);
             b_reservedBooks.TabIndex = 9;
             b_reservedBooks.UseVisualStyleBackColor = false;
+            b_reservedBooks.Click += b_reservedBooks_Click;
             // 
             // l_books
             // 
@@ -171,6 +177,7 @@
             // 
             // t_books
             // 
+            t_books.Controls.Add(b_reserve);
             t_books.Controls.Add(b_resetBooks);
             t_books.Controls.Add(pb_searchBook);
             t_books.Controls.Add(tb_searchBook);
@@ -182,6 +189,16 @@
             t_books.TabIndex = 1;
             t_books.Text = "Books";
             t_books.UseVisualStyleBackColor = true;
+            // 
+            // b_reserve
+            // 
+            b_reserve.Location = new Point(668, 8);
+            b_reserve.Name = "b_reserve";
+            b_reserve.Size = new Size(75, 37);
+            b_reserve.TabIndex = 20;
+            b_reserve.Text = "Reserve";
+            b_reserve.UseVisualStyleBackColor = true;
+            b_reserve.Click += b_reserve_Click;
             // 
             // b_resetBooks
             // 
@@ -232,6 +249,8 @@
             // 
             // t_bookLoan
             // 
+            t_bookLoan.Controls.Add(b_unreserve);
+            t_bookLoan.Controls.Add(dgv_reserved);
             t_bookLoan.Location = new Point(4, 24);
             t_bookLoan.Name = "t_bookLoan";
             t_bookLoan.Padding = new Padding(3);
@@ -240,6 +259,28 @@
             t_bookLoan.Text = "Reserve Book";
             t_bookLoan.UseVisualStyleBackColor = true;
             t_bookLoan.Click += b_reservedBooks_Click;
+            // 
+            // dgv_reserved
+            // 
+            dgv_reserved.AllowUserToAddRows = false;
+            dgv_reserved.AllowUserToDeleteRows = false;
+            dgv_reserved.BackgroundColor = Color.White;
+            dgv_reserved.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgv_reserved.Location = new Point(0, 48);
+            dgv_reserved.Name = "dgv_reserved";
+            dgv_reserved.ReadOnly = true;
+            dgv_reserved.Size = new Size(1276, 544);
+            dgv_reserved.TabIndex = 13;
+            // 
+            // b_unreserve
+            // 
+            b_unreserve.Location = new Point(438, 15);
+            b_unreserve.Name = "b_unreserve";
+            b_unreserve.Size = new Size(75, 23);
+            b_unreserve.TabIndex = 14;
+            b_unreserve.Text = "Remove";
+            b_unreserve.UseVisualStyleBackColor = true;
+            b_unreserve.Click += b_unreserve_Click;
             // 
             // MemberDashboard
             // 
@@ -258,6 +299,8 @@
             t_books.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pb_searchBook).EndInit();
             ((System.ComponentModel.ISupportInitialize)dgv_books).EndInit();
+            t_bookLoan.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)dgv_reserved).EndInit();
             ResumeLayout(false);
         }
 
@@ -279,5 +322,8 @@
         private DataGridView dgv_books;
         private TabPage t_bookLoan;
         private Button b_resetBooks;
+        private Button b_reserve;
+        private DataGridView dgv_reserved;
+        private Button b_unreserve;
     }
 }

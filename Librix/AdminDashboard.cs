@@ -17,9 +17,11 @@ namespace Librix
 {
     public partial class AdminDashboard : Form
     {
-        public AdminDashboard(int ID)
+        private int user_id;
+        public AdminDashboard(int user_id)
         {
             InitializeComponent();
+            this.user_id = user_id;
         }
 
         private void b_dashboard_Click(object sender, EventArgs e)
@@ -612,7 +614,7 @@ namespace Librix
 
         private void b_editBorrowing_Click(object sender, EventArgs e)
         {
-            
+
         }
 
         private void tb_searchBorrowing_KeyDown(object sender, KeyEventArgs e)
