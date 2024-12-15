@@ -17,9 +17,43 @@ namespace Librix
 {
     public partial class AdminDashboard : Form
     {
-        public AdminDashboard()
+        public AdminDashboard(int ID)
         {
             InitializeComponent();
+        }
+
+        private void b_dashboard_Click(object sender, EventArgs e)
+        {
+            tabControl.SelectedIndex = 0;
+        }
+
+        private void b_books_Click(object sender, EventArgs e)
+        {
+            tabControl.SelectedIndex = 1;
+            showBooks();
+        }
+
+        private void b_borrowings_Click(object sender, EventArgs e)
+        {
+            tabControl.SelectedIndex = 2;
+            showBorrowings();
+        }
+
+        private void b_members_Click(object sender, EventArgs e)
+        {
+            tabControl.SelectedIndex = 3;
+            showMembers();
+        }
+
+        private void b_logout_Click(object sender, EventArgs e)
+        {
+            DialogResult result = MessageBox.Show("Are you sure you want to log out?", "Confrim Logout", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (result == DialogResult.Yes)
+            {
+                Login login = new Login();
+                login.Show();
+                this.Hide();
+            }
         }
 
         private void showMembers()
@@ -44,64 +78,6 @@ namespace Librix
                 {
                     connection.Close();
                 }
-            }
-        }
-
-        private void showBooks()
-        {
-            DatabaseManager dbManager = new DatabaseManager();
-            using (SqlConnection connection = new SqlConnection(dbManager.GetItemsDbConnectionString()))
-            {
-                SqlCommand command = new SqlCommand("SELECT * FROM Books", connection);
-                try
-                {
-                    connection.Open();
-                    SqlDataAdapter adapter = new SqlDataAdapter(command);
-                    DataTable dataTable = new DataTable();
-                    adapter.Fill(dataTable);
-                    dgv_books.DataSource = dataTable;
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-                finally
-                {
-                    connection.Close();
-                }
-            }
-        }
-
-        private void b_dashboard_Click(object sender, EventArgs e)
-        {
-            tabControl.SelectedIndex = 0;
-        }
-
-        private void b_books_Click(object sender, EventArgs e)
-        {
-            tabControl.SelectedIndex = 1;
-            showBooks();
-        }
-
-        private void b_bookLoan_Click(object sender, EventArgs e)
-        {
-            tabControl.SelectedIndex = 2;
-        }
-
-        private void b_members_Click(object sender, EventArgs e)
-        {
-            tabControl.SelectedIndex = 3;
-            showMembers();
-        }
-
-        private void b_logout_Click(object sender, EventArgs e)
-        {
-            DialogResult result = MessageBox.Show("Are you sure you want to log out?", "Confrim Logout", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-            if (result == DialogResult.Yes)
-            {
-                Login login = new Login();
-                login.Show();
-                this.Hide();
             }
         }
 
@@ -169,63 +145,6 @@ namespace Librix
             }
         }
 
-        private void tb_searchMember_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Enter)
-            {
-                e.SuppressKeyPress = true;
-                DatabaseManager dbManager = new DatabaseManager();
-                using (SqlConnection connection = new SqlConnection(dbManager.GetUsersDbConnectionString()))
-                {
-                    SqlCommand command = new SqlCommand("SELECT MembershipID, FirstName, LastName, PhoneNumber, AccountBalance, CreatedAt FROM Members WHERE MembershipID = @membershipId OR (FirstName + ' ' + LastName) LIKE @fullName", connection);
-
-                    int membershipId;
-                    if (int.TryParse(tb_searchMember.Text, out membershipId))
-                    {
-                        command.Parameters.AddWithValue("@membershipId", membershipId);
-                        command.Parameters.AddWithValue("@fullName", DBNull.Value);
-                    }
-                    else
-                    {
-                        command.Parameters.AddWithValue("@membershipId", DBNull.Value);
-                        command.Parameters.AddWithValue("@fullName", "%" + tb_searchMember.Text + "%");
-                    }
-
-                    try
-                    {
-                        connection.Open();
-                        SqlDataAdapter adapter = new SqlDataAdapter(command);
-                        DataTable searchResult = new DataTable();
-                        adapter.Fill(searchResult);
-                        if (searchResult.Rows.Count > 0)
-                        {
-                            dgv_members.DataSource = searchResult;
-                            b_resetMembers.Visible = true;
-                        }
-                        else
-                        {
-                            MessageBox.Show("Member not found!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show("Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
-                    finally
-                    {
-                        connection.Close();
-                    }
-                }
-            }
-
-        }
-
-        private void b_resetMembers_Click(object sender, EventArgs e)
-        {
-            showMembers();
-            tb_searchMember.Clear();
-        }
-
         private void b_editMember_Click(object sender, EventArgs e)
         {
             if (dgv_members.SelectedRows.Count == 1)
@@ -279,14 +198,86 @@ namespace Librix
             }
         }
 
+        private void tb_searchMember_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                e.SuppressKeyPress = true;
+                DatabaseManager dbManager = new DatabaseManager();
+                using (SqlConnection connection = new SqlConnection(dbManager.GetUsersDbConnectionString()))
+                {
+                    SqlCommand command = new SqlCommand("SELECT MembershipID, FirstName, LastName, PhoneNumber, AccountBalance, CreatedAt FROM Members WHERE MembershipID = @membershipId OR (FirstName + ' ' + LastName) LIKE @fullName", connection);
+
+                    int membershipId;
+                    if (int.TryParse(tb_searchMember.Text, out membershipId))
+                    {
+                        command.Parameters.AddWithValue("@membershipId", membershipId);
+                        command.Parameters.AddWithValue("@fullName", DBNull.Value);
+                    }
+                    else
+                    {
+                        command.Parameters.AddWithValue("@membershipId", DBNull.Value);
+                        command.Parameters.AddWithValue("@fullName", "%" + tb_searchMember.Text + "%");
+                    }
+
+                    try
+                    {
+                        connection.Open();
+                        SqlDataAdapter adapter = new SqlDataAdapter(command);
+                        DataTable searchResult = new DataTable();
+                        adapter.Fill(searchResult);
+                        if (searchResult.Rows.Count > 0)
+                        {
+                            dgv_members.DataSource = searchResult;
+                            b_resetMembers.Visible = true;
+                        }
+                        else
+                        {
+                            MessageBox.Show("Member not found!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                    finally
+                    {
+                        connection.Close();
+                    }
+                }
+            }
+        }
+
+        private void tb_searchMember_Click(object sender, EventArgs e)
+        {
+            tb_searchMember.Clear();
+            tb_searchMember.ForeColor = Color.Black;
+        }
+
+        private void b_resetMembers_Click(object sender, EventArgs e)
+        {
+            showMembers();
+            tb_searchMember.Clear();
+        }
+
         private void b_addMember_MouseHover(object sender, EventArgs e)
         {
             l_addMember.Visible = true;
         }
 
+        private void b_addMember_MouseLeave(object sender, EventArgs e)
+        {
+            l_addMember.Visible = false;
+        }
+
         private void b_deleteMember_MouseHover(object sender, EventArgs e)
         {
             l_deleteMember.Visible = true;
+        }
+
+        private void b_deleteMember_MouseLeave(object sender, EventArgs e)
+        {
+            l_deleteMember.Visible = false;
         }
 
         private void b_editMember_MouseHover(object sender, EventArgs e)
@@ -299,50 +290,29 @@ namespace Librix
             l_editMember.Visible = false;
         }
 
-        private void b_deleteMember_MouseLeave(object sender, EventArgs e)
+        private void showBooks()
         {
-            l_deleteMember.Visible = false;
-        }
-
-        private void b_addMember_MouseLeave(object sender, EventArgs e)
-        {
-            l_addMember.Visible = false;
-        }
-
-        private void b_addBook_MouseHover(object sender, EventArgs e)
-        {
-            l_addBook.Visible = true;
-        }
-
-        private void b_deleteBook_MouseHover(object sender, EventArgs e)
-        {
-            l_deleteBook.Visible = true;
-        }
-
-        private void b_editBook_MouseHover(object sender, EventArgs e)
-        {
-            l_editBook.Visible = true;
-        }
-
-        private void b_addBook_MouseLeave(object sender, EventArgs e)
-        {
-            l_addBook.Visible = false;
-        }
-
-        private void b_deleteBook_MouseLeave(object sender, EventArgs e)
-        {
-            l_deleteBook.Visible = false;
-        }
-
-        private void b_editBook_MouseLeave(object sender, EventArgs e)
-        {
-            l_editBook.Visible = false;
-        }
-
-        private void b_resetBooks_Click(object sender, EventArgs e)
-        {
-            showBooks();
-            tb_searchBook.Clear();
+            DatabaseManager dbManager = new DatabaseManager();
+            using (SqlConnection connection = new SqlConnection(dbManager.GetItemsDbConnectionString()))
+            {
+                SqlCommand command = new SqlCommand("SELECT * FROM Books", connection);
+                try
+                {
+                    connection.Open();
+                    SqlDataAdapter adapter = new SqlDataAdapter(command);
+                    DataTable dataTable = new DataTable();
+                    adapter.Fill(dataTable);
+                    dgv_books.DataSource = dataTable;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                finally
+                {
+                    connection.Close();
+                }
+            }
         }
 
         private void b_addBook_Click(object sender, EventArgs e)
@@ -351,6 +321,61 @@ namespace Librix
             if (addBook.ShowDialog() == DialogResult.OK)
             {
                 showBooks();
+            }
+        }
+
+        private void b_deleteBook_Click(object sender, EventArgs e)
+        {
+            int selectedRowCount = dgv_books.SelectedRows.Count;
+
+            DialogResult result = MessageBox.Show(
+                String.Format("You are about to delete {0} row(s).\n\n Click Yes to permanently delete those rows. You won't be able to undo those changes", selectedRowCount),
+                "Warning",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Warning
+            );
+
+            if (result == DialogResult.Yes)
+            {
+                if (selectedRowCount > 0)
+                {
+                    DatabaseManager dbManager = new DatabaseManager();
+                    using (SqlConnection connection = new SqlConnection(dbManager.GetItemsDbConnectionString()))
+                    {
+                        connection.Open();
+                        foreach (DataGridViewRow row in dgv_books.SelectedRows)
+                        {
+                            try
+                            {
+                                int bookID = Convert.ToInt32(row.Cells["BookID"].Value);
+                                SqlCommand command = new SqlCommand("DELETE FROM Books WHERE BookID = @bookID", connection);
+                                command.Parameters.AddWithValue("@bookID", bookID);
+                                int rowsAffected = command.ExecuteNonQuery();
+                                if (rowsAffected > 0)
+                                {
+                                    MessageBox.Show("Book(s) deleted successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                    showBooks();
+                                }
+                                else
+                                {
+                                    MessageBox.Show("Failed to delete book(s).", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                }
+                            }
+                            catch (Exception ex)
+                            {
+                                MessageBox.Show("Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            }
+                            finally
+                            {
+                                connection.Close();
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Please select at least one record.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
             }
         }
 
@@ -413,18 +438,6 @@ namespace Librix
             }
         }
 
-        private void tb_searchBook_Click(object sender, EventArgs e)
-        {
-            tb_searchBook.Clear();
-            tb_searchBook.ForeColor = Color.Black;
-        }
-
-        private void tb_searchMember_Click(object sender, EventArgs e)
-        {
-            tb_searchMember.Clear();
-            tb_searchMember.ForeColor = Color.Black;
-        }
-
         private void tb_searchBook_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
@@ -475,9 +488,76 @@ namespace Librix
             }
         }
 
-        private void b_deleteBook_Click(object sender, EventArgs e)
+        private void tb_searchBook_Click(object sender, EventArgs e)
         {
-            int selectedRowCount = dgv_books.SelectedRows.Count;
+            tb_searchBook.Clear();
+            tb_searchBook.ForeColor = Color.Black;
+        }
+
+        private void b_resetBooks_Click(object sender, EventArgs e)
+        {
+            showBooks();
+            tb_searchBook.Clear();
+        }
+
+        private void b_addBook_MouseHover(object sender, EventArgs e)
+        {
+            l_addBook.Visible = true;
+        }
+
+        private void b_addBook_MouseLeave(object sender, EventArgs e)
+        {
+            l_addBook.Visible = false;
+        }
+
+        private void b_deleteBook_MouseHover(object sender, EventArgs e)
+        {
+            l_deleteBook.Visible = true;
+        }
+
+        private void b_deleteBook_MouseLeave(object sender, EventArgs e)
+        {
+            l_deleteBook.Visible = false;
+        }
+
+        private void b_editBook_MouseHover(object sender, EventArgs e)
+        {
+            l_editBook.Visible = true;
+        }
+
+        private void b_editBook_MouseLeave(object sender, EventArgs e)
+        {
+            l_editBook.Visible = false;
+        }
+
+        private void showBorrowings()
+        {
+            DatabaseManager dbManger = new DatabaseManager();
+            using (SqlConnection connection = new SqlConnection(dbManger.GetItemsDbConnectionString()))
+            {
+                SqlCommand command = new SqlCommand("SELECT * FROM Borrowings", connection);
+                try
+                {
+                    connection.Open();
+                    SqlDataAdapter adapter = new SqlDataAdapter(command);
+                    DataTable dataTable = new DataTable();
+                    adapter.Fill(dataTable);
+                    dgv_borrowings.DataSource = dataTable;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                finally
+                {
+                    connection.Close();
+                }
+            }
+        }
+
+        private void b_deleteBorrowing_Click(object sender, EventArgs e)
+        {
+            int selectedRowCount = dgv_borrowings.SelectedRows.Count;
 
             DialogResult result = MessageBox.Show(
                 String.Format("You are about to delete {0} row(s).\n\n Click Yes to permanently delete those rows. You won't be able to undo those changes", selectedRowCount),
@@ -494,22 +574,22 @@ namespace Librix
                     using (SqlConnection connection = new SqlConnection(dbManager.GetItemsDbConnectionString()))
                     {
                         connection.Open();
-                        foreach (DataGridViewRow row in dgv_books.SelectedRows)
+                        foreach (DataGridViewRow row in dgv_borrowings.SelectedRows)
                         {
                             try
                             {
-                                int bookID = Convert.ToInt32(row.Cells["BookID"].Value);
-                                SqlCommand command = new SqlCommand("DELETE FROM Books WHERE BookID = @bookID", connection);
-                                command.Parameters.AddWithValue("@bookID", bookID);
+                                int borrowingId = Convert.ToInt32(row.Cells["BorrowingID"].Value);
+                                SqlCommand command = new SqlCommand("DELETE FROM Borrowings WHERE BorrowingID = @borrowingID", connection);
+                                command.Parameters.AddWithValue("@borrowingID", borrowingId);
                                 int rowsAffected = command.ExecuteNonQuery();
                                 if (rowsAffected > 0)
                                 {
-                                    MessageBox.Show("Book(s) deleted successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                                    showBooks();
+                                    MessageBox.Show("Borrowing(s) deleted successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                    showBorrowings();
                                 }
                                 else
                                 {
-                                    MessageBox.Show("Failed to delete book(s).", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                    MessageBox.Show("Failed to delete borrowing(s).", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                                 }
                             }
                             catch (Exception ex)
@@ -528,6 +608,82 @@ namespace Librix
                     MessageBox.Show("Please select at least one record.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
             }
+        }
+
+        private void b_editBorrowing_Click(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void tb_searchBorrowing_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                e.SuppressKeyPress = true;
+                DatabaseManager dbManager = new DatabaseManager();
+                using (SqlConnection connection = new SqlConnection(dbManager.GetItemsDbConnectionString()))
+                {
+                    SqlCommand command = new SqlCommand("SELECT * FROM Borrowings WHERE BorrowingID = @borrowingID", connection);
+                    command.Parameters.AddWithValue("@borrowingID", tb_searchBorrowing.Text);
+
+                    try
+                    {
+                        connection.Open();
+                        SqlDataAdapter adapter = new SqlDataAdapter(command);
+                        DataTable searchResult = new DataTable();
+                        adapter.Fill(searchResult);
+                        if (searchResult.Rows.Count > 0)
+                        {
+                            dgv_borrowings.DataSource = searchResult;
+                            b_resetBorrowings.Visible = true;
+                        }
+                        else
+                        {
+                            MessageBox.Show("Borrowing not found!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                    finally
+                    {
+                        connection.Close();
+                    }
+                }
+            }
+        }
+
+        private void tb_searchBorrowing_Click(object sender, EventArgs e)
+        {
+            tb_searchBorrowing.Clear();
+            tb_searchBorrowing.ForeColor = Color.Black;
+        }
+
+        private void b_resetBorrowings_Click(object sender, EventArgs e)
+        {
+            showBorrowings();
+            tb_searchBorrowing.Clear();
+        }
+
+        private void b_deleteBorrowing_MouseHover(object sender, EventArgs e)
+        {
+            l_deleteBorrowing.Visible = true;
+        }
+
+        private void b_deleteBorrowing_MouseLeave(object sender, EventArgs e)
+        {
+            l_deleteBorrowing.Visible = false;
+        }
+
+        private void b_editBorrowing_MouseHover(object sender, EventArgs e)
+        {
+            l_editBorrowing.Visible = true;
+        }
+
+        private void b_editBorrowing_MouseLeave(object sender, EventArgs e)
+        {
+            l_editBorrowing.Visible = false;
         }
     }
 }

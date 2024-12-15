@@ -42,6 +42,14 @@
             tb_searchBook = new TextBox();
             dgv_books = new DataGridView();
             t_bookLoan = new TabPage();
+            b_resetBorrowings = new Button();
+            pb_searchBorrowing = new PictureBox();
+            tb_searchBorrowing = new TextBox();
+            l_editBorrowing = new Label();
+            b_editBorrowing = new Button();
+            l_deleteBorrowing = new Label();
+            b_deleteBorrowing = new Button();
+            dgv_borrowings = new DataGridView();
             t_members = new TabPage();
             l_editMember = new Label();
             b_editMember = new Button();
@@ -58,8 +66,8 @@
             b_logout = new Button();
             l_members = new Label();
             b_dashboard = new Button();
-            l_bookLoan = new Label();
-            b_bookLoan = new Button();
+            l_borrowings = new Label();
+            b_borrowings = new Button();
             l_books = new Label();
             b_members = new Button();
             l_dashboard = new Label();
@@ -67,6 +75,9 @@
             t_books.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pb_searchBook).BeginInit();
             ((System.ComponentModel.ISupportInitialize)dgv_books).BeginInit();
+            t_bookLoan.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pb_searchBorrowing).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)dgv_borrowings).BeginInit();
             t_members.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pb_searchMember).BeginInit();
             ((System.ComponentModel.ISupportInitialize)dgv_members).BeginInit();
@@ -251,13 +262,126 @@
             // 
             // t_bookLoan
             // 
+            t_bookLoan.Controls.Add(b_resetBorrowings);
+            t_bookLoan.Controls.Add(pb_searchBorrowing);
+            t_bookLoan.Controls.Add(tb_searchBorrowing);
+            t_bookLoan.Controls.Add(l_editBorrowing);
+            t_bookLoan.Controls.Add(b_editBorrowing);
+            t_bookLoan.Controls.Add(l_deleteBorrowing);
+            t_bookLoan.Controls.Add(b_deleteBorrowing);
+            t_bookLoan.Controls.Add(dgv_borrowings);
             t_bookLoan.Location = new Point(4, 24);
             t_bookLoan.Name = "t_bookLoan";
             t_bookLoan.Padding = new Padding(3);
             t_bookLoan.Size = new Size(1276, 592);
             t_bookLoan.TabIndex = 3;
-            t_bookLoan.Text = "Book Loan";
+            t_bookLoan.Text = "Borrowing";
             t_bookLoan.UseVisualStyleBackColor = true;
+            // 
+            // b_resetBorrowings
+            // 
+            b_resetBorrowings.BackColor = Color.FromArgb(255, 192, 192);
+            b_resetBorrowings.FlatStyle = FlatStyle.Flat;
+            b_resetBorrowings.Font = new Font("Sitka Subheading", 10F);
+            b_resetBorrowings.Location = new Point(595, 8);
+            b_resetBorrowings.Name = "b_resetBorrowings";
+            b_resetBorrowings.Size = new Size(127, 35);
+            b_resetBorrowings.TabIndex = 22;
+            b_resetBorrowings.Text = "Show Borrowings";
+            b_resetBorrowings.UseVisualStyleBackColor = false;
+            b_resetBorrowings.Visible = false;
+            b_resetBorrowings.Click += b_resetBorrowings_Click;
+            // 
+            // pb_searchBorrowing
+            // 
+            pb_searchBorrowing.Image = icons.search;
+            pb_searchBorrowing.Location = new Point(546, 15);
+            pb_searchBorrowing.Name = "pb_searchBorrowing";
+            pb_searchBorrowing.Size = new Size(23, 23);
+            pb_searchBorrowing.TabIndex = 21;
+            pb_searchBorrowing.TabStop = false;
+            // 
+            // tb_searchBorrowing
+            // 
+            tb_searchBorrowing.Font = new Font("Segoe UI", 10F);
+            tb_searchBorrowing.ForeColor = Color.Gray;
+            tb_searchBorrowing.Location = new Point(205, 14);
+            tb_searchBorrowing.Name = "tb_searchBorrowing";
+            tb_searchBorrowing.Size = new Size(365, 25);
+            tb_searchBorrowing.TabIndex = 20;
+            tb_searchBorrowing.Text = "Search for a borrowing...";
+            tb_searchBorrowing.Click += tb_searchBorrowing_Click;
+            tb_searchBorrowing.KeyDown += tb_searchBorrowing_KeyDown;
+            // 
+            // l_editBorrowing
+            // 
+            l_editBorrowing.AutoSize = true;
+            l_editBorrowing.BackColor = SystemColors.ControlDarkDark;
+            l_editBorrowing.Font = new Font("Sitka Subheading", 10F);
+            l_editBorrowing.ForeColor = Color.White;
+            l_editBorrowing.Location = new Point(143, 43);
+            l_editBorrowing.Name = "l_editBorrowing";
+            l_editBorrowing.Size = new Size(34, 20);
+            l_editBorrowing.TabIndex = 19;
+            l_editBorrowing.Text = "Edit";
+            l_editBorrowing.Visible = false;
+            // 
+            // b_editBorrowing
+            // 
+            b_editBorrowing.BackColor = Color.Transparent;
+            b_editBorrowing.FlatAppearance.BorderColor = Color.White;
+            b_editBorrowing.FlatStyle = FlatStyle.Flat;
+            b_editBorrowing.Font = new Font("Sitka Subheading", 10F);
+            b_editBorrowing.Image = icons.edit;
+            b_editBorrowing.Location = new Point(145, 11);
+            b_editBorrowing.Name = "b_editBorrowing";
+            b_editBorrowing.Size = new Size(30, 30);
+            b_editBorrowing.TabIndex = 18;
+            b_editBorrowing.UseVisualStyleBackColor = false;
+            b_editBorrowing.Click += b_editBorrowing_Click;
+            b_editBorrowing.MouseLeave += b_editBorrowing_MouseLeave;
+            b_editBorrowing.MouseHover += b_editBorrowing_MouseHover;
+            // 
+            // l_deleteBorrowing
+            // 
+            l_deleteBorrowing.AutoSize = true;
+            l_deleteBorrowing.BackColor = SystemColors.ControlDarkDark;
+            l_deleteBorrowing.Font = new Font("Sitka Subheading", 10F);
+            l_deleteBorrowing.ForeColor = Color.White;
+            l_deleteBorrowing.Location = new Point(75, 43);
+            l_deleteBorrowing.Name = "l_deleteBorrowing";
+            l_deleteBorrowing.Size = new Size(48, 20);
+            l_deleteBorrowing.TabIndex = 16;
+            l_deleteBorrowing.Text = "Delete";
+            l_deleteBorrowing.Visible = false;
+            // 
+            // b_deleteBorrowing
+            // 
+            b_deleteBorrowing.BackColor = Color.Transparent;
+            b_deleteBorrowing.FlatAppearance.BorderColor = Color.White;
+            b_deleteBorrowing.FlatStyle = FlatStyle.Flat;
+            b_deleteBorrowing.Font = new Font("Sitka Subheading", 10F);
+            b_deleteBorrowing.Image = icons.delete;
+            b_deleteBorrowing.Location = new Point(84, 11);
+            b_deleteBorrowing.Name = "b_deleteBorrowing";
+            b_deleteBorrowing.Size = new Size(30, 30);
+            b_deleteBorrowing.TabIndex = 15;
+            b_deleteBorrowing.UseVisualStyleBackColor = false;
+            b_deleteBorrowing.Click += b_deleteBorrowing_Click;
+            b_deleteBorrowing.MouseLeave += b_deleteBorrowing_MouseLeave;
+            b_deleteBorrowing.MouseHover += b_deleteBorrowing_MouseHover;
+            // 
+            // dgv_borrowings
+            // 
+            dgv_borrowings.AllowUserToAddRows = false;
+            dgv_borrowings.AllowUserToDeleteRows = false;
+            dgv_borrowings.BackgroundColor = Color.White;
+            dgv_borrowings.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgv_borrowings.Location = new Point(0, 48);
+            dgv_borrowings.Name = "dgv_borrowings";
+            dgv_borrowings.ReadOnly = true;
+            dgv_borrowings.Size = new Size(1276, 544);
+            dgv_borrowings.TabIndex = 13;
             // 
             // t_members
             // 
@@ -403,10 +527,13 @@
             // 
             // dgv_members
             // 
+            dgv_members.AllowUserToAddRows = false;
+            dgv_members.AllowUserToDeleteRows = false;
             dgv_members.BackgroundColor = Color.White;
             dgv_members.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgv_members.Location = new Point(0, 51);
             dgv_members.Name = "dgv_members";
+            dgv_members.ReadOnly = true;
             dgv_members.Size = new Size(1276, 544);
             dgv_members.TabIndex = 0;
             // 
@@ -428,8 +555,8 @@
             panel.Controls.Add(b_logout);
             panel.Controls.Add(l_members);
             panel.Controls.Add(b_dashboard);
-            panel.Controls.Add(l_bookLoan);
-            panel.Controls.Add(b_bookLoan);
+            panel.Controls.Add(l_borrowings);
+            panel.Controls.Add(b_borrowings);
             panel.Controls.Add(l_books);
             panel.Controls.Add(b_members);
             panel.Controls.Add(l_dashboard);
@@ -478,27 +605,27 @@
             b_dashboard.UseVisualStyleBackColor = false;
             b_dashboard.Click += b_dashboard_Click;
             // 
-            // l_bookLoan
+            // l_borrowings
             // 
-            l_bookLoan.AutoSize = true;
-            l_bookLoan.Font = new Font("Sitka Subheading", 10F);
-            l_bookLoan.Location = new Point(215, 70);
-            l_bookLoan.Name = "l_bookLoan";
-            l_bookLoan.Size = new Size(72, 20);
-            l_bookLoan.TabIndex = 5;
-            l_bookLoan.Text = "Book Loan";
+            l_borrowings.AutoSize = true;
+            l_borrowings.Font = new Font("Sitka Subheading", 10F);
+            l_borrowings.Location = new Point(211, 70);
+            l_borrowings.Name = "l_borrowings";
+            l_borrowings.Size = new Size(79, 20);
+            l_borrowings.TabIndex = 5;
+            l_borrowings.Text = "Borrowings";
             // 
-            // b_bookLoan
+            // b_borrowings
             // 
-            b_bookLoan.FlatAppearance.BorderColor = Color.White;
-            b_bookLoan.FlatStyle = FlatStyle.Flat;
-            b_bookLoan.Image = icons.book_loan;
-            b_bookLoan.Location = new Point(223, 14);
-            b_bookLoan.Name = "b_bookLoan";
-            b_bookLoan.Size = new Size(55, 55);
-            b_bookLoan.TabIndex = 9;
-            b_bookLoan.UseVisualStyleBackColor = false;
-            b_bookLoan.Click += b_bookLoan_Click;
+            b_borrowings.FlatAppearance.BorderColor = Color.White;
+            b_borrowings.FlatStyle = FlatStyle.Flat;
+            b_borrowings.Image = icons.book_loan;
+            b_borrowings.Location = new Point(223, 14);
+            b_borrowings.Name = "b_borrowings";
+            b_borrowings.Size = new Size(55, 55);
+            b_borrowings.TabIndex = 9;
+            b_borrowings.UseVisualStyleBackColor = false;
+            b_borrowings.Click += b_borrowings_Click;
             // 
             // l_books
             // 
@@ -548,6 +675,10 @@
             t_books.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pb_searchBook).EndInit();
             ((System.ComponentModel.ISupportInitialize)dgv_books).EndInit();
+            t_bookLoan.ResumeLayout(false);
+            t_bookLoan.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)pb_searchBorrowing).EndInit();
+            ((System.ComponentModel.ISupportInitialize)dgv_borrowings).EndInit();
             t_members.ResumeLayout(false);
             t_members.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pb_searchMember).EndInit();
@@ -566,11 +697,11 @@
         private Panel panel;
         private Button b_books;
         private Label l_members;
-        private Label l_bookLoan;
+        private Label l_borrowings;
         private Label l_books;
         private Label l_dashboard;
         private Button b_dashboard;
-        private Button b_bookLoan;
+        private Button b_borrowings;
         private Button b_members;
         private TabPage t_members;
         private Button b_logout;
@@ -594,5 +725,13 @@
         private PictureBox pb_searchBook;
         private TextBox tb_searchBook;
         private DataGridView dgv_books;
+        private Label l_editBorrowing;
+        private Button b_editBorrowing;
+        private Label l_deleteBorrowing;
+        private Button b_deleteBorrowing;
+        private DataGridView dgv_borrowings;
+        private Button b_resetBorrowings;
+        private PictureBox pb_searchBorrowing;
+        private TextBox tb_searchBorrowing;
     }
 }

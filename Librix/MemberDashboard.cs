@@ -13,9 +13,36 @@ namespace Librix
 {
     public partial class MemberDashboard : Form
     {
-        public MemberDashboard()
+        public MemberDashboard(int MembershipID)
         {
             InitializeComponent();
+        }
+
+        private void b_dashboard_Click(object sender, EventArgs e)
+        {
+            tabControl.SelectedIndex = 0;
+        }
+
+        private void b_books_Click(object sender, EventArgs e)
+        {
+            tabControl.SelectedIndex = 1;
+            showBooks();
+        }
+
+        private void b_reservedBooks_Click(object sender, EventArgs e)
+        {
+            tabControl.SelectedIndex = 2;
+        }
+
+        private void b_logout_Click(object sender, EventArgs e)
+        {
+            DialogResult result = MessageBox.Show("Are you sure you want to log out?", "Confrim Logout", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (result == DialogResult.Yes)
+            {
+                Login login = new Login();
+                login.Show();
+                this.Hide();
+            }
         }
 
         private void showBooks()
@@ -41,45 +68,6 @@ namespace Librix
                     connection.Close();
                 }
             }
-        }
-
-        private void b_dashboard_Click(object sender, EventArgs e)
-        {
-            tabControl.SelectedIndex = 0;
-        }
-
-        private void b_books_Click(object sender, EventArgs e)
-        {
-            tabControl.SelectedIndex = 1;
-            showBooks();
-        }
-
-        private void b_bookLoan_Click(object sender, EventArgs e)
-        {
-            tabControl.SelectedIndex = 2;
-        }
-
-        private void b_logout_Click(object sender, EventArgs e)
-        {
-            DialogResult result = MessageBox.Show("Are you sure you want to log out?", "Confrim Logout", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-            if (result == DialogResult.Yes)
-            {
-                Login login = new Login();
-                login.Show();
-                this.Hide();
-            }
-        }
-
-        private void b_resetBooks_Click(object sender, EventArgs e)
-        {
-            showBooks();
-            tb_searchBook.Clear();
-        }
-
-        private void tb_searchBook_Click(object sender, EventArgs e)
-        {
-            tb_searchBook.Clear();
-            tb_searchBook.ForeColor = Color.Black;
         }
 
         private void tb_searchBook_KeyDown(object sender, KeyEventArgs e)
@@ -130,6 +118,18 @@ namespace Librix
                     }
                 }
             }
+        }
+
+        private void tb_searchBook_Click(object sender, EventArgs e)
+        {
+            tb_searchBook.Clear();
+            tb_searchBook.ForeColor = Color.Black;
+        }
+
+        private void b_resetBooks_Click(object sender, EventArgs e)
+        {
+            showBooks();
+            tb_searchBook.Clear();
         }
     }
 }

@@ -19,7 +19,7 @@ namespace Librix
             InitializeComponent();
         }
 
-        private void b_save_Click(object sender, EventArgs e)
+        private void b_add_Click(object sender, EventArgs e)
         {
             DatabaseManager dbManager = new DatabaseManager();
             using (SqlConnection connection = new SqlConnection(dbManager.GetItemsDbConnectionString()))
@@ -52,6 +52,10 @@ namespace Librix
                 {
                     MessageBox.Show("Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
+                finally
+                {
+                    connection.Close();
+                }
             }
             this.Hide();
         }
@@ -68,7 +72,7 @@ namespace Librix
         {
             if (cb_availability.SelectedItem == null)
             {
-                errorProvider1.SetError(cb_availability, "Please Enter Availability");
+                errorProvider1.SetError(cb_availability, "Please Choose Availability");
             }
         }
 

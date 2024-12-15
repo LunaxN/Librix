@@ -48,6 +48,10 @@ namespace Librix
                 {
                     MessageBox.Show("Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
+                finally
+                {
+                    connection.Close();
+                }
             }
             this.Hide();
         }

@@ -35,7 +35,7 @@
             l_publishDate = new Label();
             l_edition = new Label();
             tb_edition = new TextBox();
-            b_save = new Button();
+            b_add = new Button();
             tb_title = new TextBox();
             tb_authors = new TextBox();
             l_authors = new Label();
@@ -101,18 +101,18 @@
             tb_edition.Size = new Size(175, 25);
             tb_edition.TabIndex = 47;
             // 
-            // b_save
+            // b_add
             // 
-            b_save.BackColor = Color.FromArgb(255, 192, 192);
-            b_save.FlatStyle = FlatStyle.Flat;
-            b_save.Font = new Font("Sitka Subheading", 10F);
-            b_save.Location = new Point(21, 365);
-            b_save.Name = "b_save";
-            b_save.Size = new Size(360, 52);
-            b_save.TabIndex = 45;
-            b_save.Text = "Add";
-            b_save.UseVisualStyleBackColor = false;
-            b_save.Click += b_save_Click;
+            b_add.BackColor = Color.FromArgb(255, 192, 192);
+            b_add.FlatStyle = FlatStyle.Flat;
+            b_add.Font = new Font("Sitka Subheading", 10F);
+            b_add.Location = new Point(21, 365);
+            b_add.Name = "b_add";
+            b_add.Size = new Size(360, 52);
+            b_add.TabIndex = 45;
+            b_add.Text = "Add";
+            b_add.UseVisualStyleBackColor = false;
+            b_add.Click += b_add_Click;
             // 
             // tb_title
             // 
@@ -230,7 +230,7 @@
             Controls.Add(l_publishDate);
             Controls.Add(l_edition);
             Controls.Add(tb_edition);
-            Controls.Add(b_save);
+            Controls.Add(b_add);
             Controls.Add(tb_title);
             Controls.Add(tb_authors);
             Controls.Add(l_authors);
@@ -254,7 +254,7 @@
         private Label l_publishDate;
         private Label l_edition;
         private TextBox tb_edition;
-        private Button b_save;
+        private Button b_add;
         private TextBox tb_title;
         private TextBox tb_authors;
         private Label l_authors;

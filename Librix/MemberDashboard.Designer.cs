@@ -31,8 +31,8 @@
             panel = new Panel();
             b_logout = new Button();
             b_dashboard = new Button();
-            l_bookLoan = new Label();
-            b_bookLoan = new Button();
+            l_reservedBooks = new Label();
+            b_reservedBooks = new Button();
             l_books = new Label();
             l_dashboard = new Label();
             b_books = new Button();
@@ -56,8 +56,8 @@
             panel.BackColor = Color.White;
             panel.Controls.Add(b_logout);
             panel.Controls.Add(b_dashboard);
-            panel.Controls.Add(l_bookLoan);
-            panel.Controls.Add(b_bookLoan);
+            panel.Controls.Add(l_reservedBooks);
+            panel.Controls.Add(b_reservedBooks);
             panel.Controls.Add(l_books);
             panel.Controls.Add(l_dashboard);
             panel.Controls.Add(b_books);
@@ -95,27 +95,26 @@
             b_dashboard.UseVisualStyleBackColor = false;
             b_dashboard.Click += b_dashboard_Click;
             // 
-            // l_bookLoan
+            // l_reservedBooks
             // 
-            l_bookLoan.AutoSize = true;
-            l_bookLoan.Font = new Font("Sitka Subheading", 10F);
-            l_bookLoan.Location = new Point(215, 70);
-            l_bookLoan.Name = "l_bookLoan";
-            l_bookLoan.Size = new Size(72, 20);
-            l_bookLoan.TabIndex = 5;
-            l_bookLoan.Text = "Book Loan";
+            l_reservedBooks.AutoSize = true;
+            l_reservedBooks.Font = new Font("Sitka Subheading", 10F);
+            l_reservedBooks.Location = new Point(206, 70);
+            l_reservedBooks.Name = "l_reservedBooks";
+            l_reservedBooks.Size = new Size(105, 20);
+            l_reservedBooks.TabIndex = 5;
+            l_reservedBooks.Text = "Reserved Books";
             // 
-            // b_bookLoan
+            // b_reservedBooks
             // 
-            b_bookLoan.FlatAppearance.BorderColor = Color.White;
-            b_bookLoan.FlatStyle = FlatStyle.Flat;
-            b_bookLoan.Image = icons.book_loan;
-            b_bookLoan.Location = new Point(223, 14);
-            b_bookLoan.Name = "b_bookLoan";
-            b_bookLoan.Size = new Size(55, 55);
-            b_bookLoan.TabIndex = 9;
-            b_bookLoan.UseVisualStyleBackColor = false;
-            b_bookLoan.Click += b_bookLoan_Click;
+            b_reservedBooks.FlatAppearance.BorderColor = Color.White;
+            b_reservedBooks.FlatStyle = FlatStyle.Flat;
+            b_reservedBooks.Image = icons.book_loan;
+            b_reservedBooks.Location = new Point(223, 14);
+            b_reservedBooks.Name = "b_reservedBooks";
+            b_reservedBooks.Size = new Size(55, 55);
+            b_reservedBooks.TabIndex = 9;
+            b_reservedBooks.UseVisualStyleBackColor = false;
             // 
             // l_books
             // 
@@ -238,8 +237,9 @@
             t_bookLoan.Padding = new Padding(3);
             t_bookLoan.Size = new Size(1276, 592);
             t_bookLoan.TabIndex = 3;
-            t_bookLoan.Text = "Book Loan";
+            t_bookLoan.Text = "Reserve Book";
             t_bookLoan.UseVisualStyleBackColor = true;
+            t_bookLoan.Click += b_reservedBooks_Click;
             // 
             // MemberDashboard
             // 
@@ -266,8 +266,8 @@
         private Panel panel;
         private Button b_logout;
         private Button b_dashboard;
-        private Label l_bookLoan;
-        private Button b_bookLoan;
+        private Label l_reservedBooks;
+        private Button b_reservedBooks;
         private Label l_books;
         private Label l_dashboard;
         private Button b_books;
