@@ -73,9 +73,9 @@ namespace Librix {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap book_loan {
+        internal static System.Drawing.Bitmap books {
             get {
-                object obj = ResourceManager.GetObject("book loan", resourceCulture);
+                object obj = ResourceManager.GetObject("books", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -83,9 +83,9 @@ namespace Librix {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap books {
+        internal static System.Drawing.Bitmap borrow {
             get {
-                object obj = ResourceManager.GetObject("books", resourceCulture);
+                object obj = ResourceManager.GetObject("borrow", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -156,6 +156,16 @@ namespace Librix {
         internal static System.Drawing.Bitmap openeye {
             get {
                 object obj = ResourceManager.GetObject("openeye", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap reserve {
+            get {
+                object obj = ResourceManager.GetObject("reserve", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

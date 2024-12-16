@@ -29,10 +29,12 @@
         private void InitializeComponent()
         {
             panel = new Panel();
+            l_borrowed = new Label();
+            b_borrowed = new Button();
             b_logout = new Button();
             b_dashboard = new Button();
-            l_reservedBooks = new Label();
-            b_reservedBooks = new Button();
+            l_reserved = new Label();
+            b_reserved = new Button();
             l_books = new Label();
             l_dashboard = new Label();
             b_books = new Button();
@@ -44,25 +46,40 @@
             pb_searchBook = new PictureBox();
             tb_searchBook = new TextBox();
             dgv_books = new DataGridView();
-            t_bookLoan = new TabPage();
-            dgv_reserved = new DataGridView();
+            t_reserved = new TabPage();
+            b_resetReserved = new Button();
+            pb_searchReserve = new PictureBox();
+            tb_searchReserve = new TextBox();
             b_unreserve = new Button();
+            dgv_reserved = new DataGridView();
+            t_borrowed = new TabPage();
+            b_renew = new Button();
+            b_resetBorrowed = new Button();
+            pb_searchBorrow = new PictureBox();
+            tb_searchBorrow = new TextBox();
+            dgv_borrowed = new DataGridView();
             panel.SuspendLayout();
             tabControl.SuspendLayout();
             t_books.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pb_searchBook).BeginInit();
             ((System.ComponentModel.ISupportInitialize)dgv_books).BeginInit();
-            t_bookLoan.SuspendLayout();
+            t_reserved.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pb_searchReserve).BeginInit();
             ((System.ComponentModel.ISupportInitialize)dgv_reserved).BeginInit();
+            t_borrowed.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pb_searchBorrow).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)dgv_borrowed).BeginInit();
             SuspendLayout();
             // 
             // panel
             // 
             panel.BackColor = Color.White;
+            panel.Controls.Add(l_borrowed);
+            panel.Controls.Add(b_borrowed);
             panel.Controls.Add(b_logout);
             panel.Controls.Add(b_dashboard);
-            panel.Controls.Add(l_reservedBooks);
-            panel.Controls.Add(b_reservedBooks);
+            panel.Controls.Add(l_reserved);
+            panel.Controls.Add(b_reserved);
             panel.Controls.Add(l_books);
             panel.Controls.Add(l_dashboard);
             panel.Controls.Add(b_books);
@@ -70,6 +87,28 @@
             panel.Name = "panel";
             panel.Size = new Size(1279, 101);
             panel.TabIndex = 3;
+            // 
+            // l_borrowed
+            // 
+            l_borrowed.AutoSize = true;
+            l_borrowed.Font = new Font("Sitka Subheading", 10F);
+            l_borrowed.Location = new Point(318, 70);
+            l_borrowed.Name = "l_borrowed";
+            l_borrowed.Size = new Size(108, 20);
+            l_borrowed.TabIndex = 10;
+            l_borrowed.Text = "Borrowed Books";
+            // 
+            // b_borrowed
+            // 
+            b_borrowed.FlatAppearance.BorderColor = Color.White;
+            b_borrowed.FlatStyle = FlatStyle.Flat;
+            b_borrowed.Image = icons.borrow;
+            b_borrowed.Location = new Point(344, 16);
+            b_borrowed.Name = "b_borrowed";
+            b_borrowed.Size = new Size(55, 55);
+            b_borrowed.TabIndex = 11;
+            b_borrowed.UseVisualStyleBackColor = false;
+            b_borrowed.Click += b_borrowed_Click;
             // 
             // b_logout
             // 
@@ -100,27 +139,27 @@
             b_dashboard.UseVisualStyleBackColor = false;
             b_dashboard.Click += b_dashboard_Click;
             // 
-            // l_reservedBooks
+            // l_reserved
             // 
-            l_reservedBooks.AutoSize = true;
-            l_reservedBooks.Font = new Font("Sitka Subheading", 10F);
-            l_reservedBooks.Location = new Point(206, 70);
-            l_reservedBooks.Name = "l_reservedBooks";
-            l_reservedBooks.Size = new Size(105, 20);
-            l_reservedBooks.TabIndex = 5;
-            l_reservedBooks.Text = "Reserved Books";
+            l_reserved.AutoSize = true;
+            l_reserved.Font = new Font("Sitka Subheading", 10F);
+            l_reserved.Location = new Point(206, 70);
+            l_reserved.Name = "l_reserved";
+            l_reserved.Size = new Size(105, 20);
+            l_reserved.TabIndex = 5;
+            l_reserved.Text = "Reserved Books";
             // 
-            // b_reservedBooks
+            // b_reserved
             // 
-            b_reservedBooks.FlatAppearance.BorderColor = Color.White;
-            b_reservedBooks.FlatStyle = FlatStyle.Flat;
-            b_reservedBooks.Image = icons.book_loan;
-            b_reservedBooks.Location = new Point(223, 14);
-            b_reservedBooks.Name = "b_reservedBooks";
-            b_reservedBooks.Size = new Size(55, 55);
-            b_reservedBooks.TabIndex = 9;
-            b_reservedBooks.UseVisualStyleBackColor = false;
-            b_reservedBooks.Click += b_reservedBooks_Click;
+            b_reserved.FlatAppearance.BorderColor = Color.White;
+            b_reserved.FlatStyle = FlatStyle.Flat;
+            b_reserved.Image = icons.reserve;
+            b_reserved.Location = new Point(229, 15);
+            b_reserved.Name = "b_reserved";
+            b_reserved.Size = new Size(51, 53);
+            b_reserved.TabIndex = 9;
+            b_reserved.UseVisualStyleBackColor = false;
+            b_reserved.Click += b_reserved_Click;
             // 
             // l_books
             // 
@@ -158,7 +197,8 @@
             // 
             tabControl.Controls.Add(t_dashboard);
             tabControl.Controls.Add(t_books);
-            tabControl.Controls.Add(t_bookLoan);
+            tabControl.Controls.Add(t_reserved);
+            tabControl.Controls.Add(t_borrowed);
             tabControl.Location = new Point(0, 87);
             tabControl.Name = "tabControl";
             tabControl.SelectedIndex = 0;
@@ -192,12 +232,15 @@
             // 
             // b_reserve
             // 
-            b_reserve.Location = new Point(668, 8);
+            b_reserve.BackColor = Color.LightSkyBlue;
+            b_reserve.FlatStyle = FlatStyle.Flat;
+            b_reserve.Font = new Font("Sitka Subheading", 10F);
+            b_reserve.Location = new Point(529, 8);
             b_reserve.Name = "b_reserve";
-            b_reserve.Size = new Size(75, 37);
+            b_reserve.Size = new Size(75, 35);
             b_reserve.TabIndex = 20;
             b_reserve.Text = "Reserve";
-            b_reserve.UseVisualStyleBackColor = true;
+            b_reserve.UseVisualStyleBackColor = false;
             b_reserve.Click += b_reserve_Click;
             // 
             // b_resetBooks
@@ -205,7 +248,7 @@
             b_resetBooks.BackColor = Color.FromArgb(255, 192, 192);
             b_resetBooks.FlatStyle = FlatStyle.Flat;
             b_resetBooks.Font = new Font("Sitka Subheading", 10F);
-            b_resetBooks.Location = new Point(529, 8);
+            b_resetBooks.Location = new Point(628, 8);
             b_resetBooks.Name = "b_resetBooks";
             b_resetBooks.Size = new Size(116, 35);
             b_resetBooks.TabIndex = 19;
@@ -247,18 +290,69 @@
             dgv_books.Size = new Size(1276, 544);
             dgv_books.TabIndex = 12;
             // 
-            // t_bookLoan
+            // t_reserved
             // 
-            t_bookLoan.Controls.Add(b_unreserve);
-            t_bookLoan.Controls.Add(dgv_reserved);
-            t_bookLoan.Location = new Point(4, 24);
-            t_bookLoan.Name = "t_bookLoan";
-            t_bookLoan.Padding = new Padding(3);
-            t_bookLoan.Size = new Size(1276, 592);
-            t_bookLoan.TabIndex = 3;
-            t_bookLoan.Text = "Reserve Book";
-            t_bookLoan.UseVisualStyleBackColor = true;
-            t_bookLoan.Click += b_reservedBooks_Click;
+            t_reserved.Controls.Add(b_resetReserved);
+            t_reserved.Controls.Add(pb_searchReserve);
+            t_reserved.Controls.Add(tb_searchReserve);
+            t_reserved.Controls.Add(b_unreserve);
+            t_reserved.Controls.Add(dgv_reserved);
+            t_reserved.Location = new Point(4, 24);
+            t_reserved.Name = "t_reserved";
+            t_reserved.Padding = new Padding(3);
+            t_reserved.Size = new Size(1276, 592);
+            t_reserved.TabIndex = 3;
+            t_reserved.Text = "Reserved";
+            t_reserved.UseVisualStyleBackColor = true;
+            t_reserved.Click += b_reserved_Click;
+            // 
+            // b_resetReserved
+            // 
+            b_resetReserved.BackColor = Color.FromArgb(255, 192, 192);
+            b_resetReserved.FlatStyle = FlatStyle.Flat;
+            b_resetReserved.Font = new Font("Sitka Subheading", 10F);
+            b_resetReserved.Location = new Point(628, 8);
+            b_resetReserved.Name = "b_resetReserved";
+            b_resetReserved.Size = new Size(116, 35);
+            b_resetReserved.TabIndex = 25;
+            b_resetReserved.Text = "Show Reserves";
+            b_resetReserved.UseVisualStyleBackColor = false;
+            b_resetReserved.Visible = false;
+            b_resetReserved.Click += b_resetReserved_Click;
+            // 
+            // pb_searchReserve
+            // 
+            pb_searchReserve.Image = icons.search;
+            pb_searchReserve.Location = new Point(472, 15);
+            pb_searchReserve.Name = "pb_searchReserve";
+            pb_searchReserve.Size = new Size(23, 23);
+            pb_searchReserve.TabIndex = 24;
+            pb_searchReserve.TabStop = false;
+            // 
+            // tb_searchReserve
+            // 
+            tb_searchReserve.Font = new Font("Segoe UI", 10F);
+            tb_searchReserve.ForeColor = Color.Gray;
+            tb_searchReserve.Location = new Point(23, 14);
+            tb_searchReserve.Name = "tb_searchReserve";
+            tb_searchReserve.Size = new Size(473, 25);
+            tb_searchReserve.TabIndex = 23;
+            tb_searchReserve.Text = "Search for a reserved book...";
+            tb_searchReserve.Click += tb_searchReserve_Click;
+            tb_searchReserve.KeyDown += tb_searchReserve_KeyDown;
+            // 
+            // b_unreserve
+            // 
+            b_unreserve.BackColor = Color.LightSkyBlue;
+            b_unreserve.FlatStyle = FlatStyle.Flat;
+            b_unreserve.Font = new Font("Sitka Subheading", 10F);
+            b_unreserve.Location = new Point(529, 8);
+            b_unreserve.Name = "b_unreserve";
+            b_unreserve.Size = new Size(75, 35);
+            b_unreserve.TabIndex = 14;
+            b_unreserve.Text = "Remove";
+            b_unreserve.UseVisualStyleBackColor = false;
+            b_unreserve.Click += b_unreserve_Click;
             // 
             // dgv_reserved
             // 
@@ -266,21 +360,86 @@
             dgv_reserved.AllowUserToDeleteRows = false;
             dgv_reserved.BackgroundColor = Color.White;
             dgv_reserved.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgv_reserved.Location = new Point(0, 48);
+            dgv_reserved.Location = new Point(0, 51);
             dgv_reserved.Name = "dgv_reserved";
             dgv_reserved.ReadOnly = true;
             dgv_reserved.Size = new Size(1276, 544);
             dgv_reserved.TabIndex = 13;
             // 
-            // b_unreserve
+            // t_borrowed
             // 
-            b_unreserve.Location = new Point(438, 15);
-            b_unreserve.Name = "b_unreserve";
-            b_unreserve.Size = new Size(75, 23);
-            b_unreserve.TabIndex = 14;
-            b_unreserve.Text = "Remove";
-            b_unreserve.UseVisualStyleBackColor = true;
-            b_unreserve.Click += b_unreserve_Click;
+            t_borrowed.Controls.Add(b_renew);
+            t_borrowed.Controls.Add(b_resetBorrowed);
+            t_borrowed.Controls.Add(pb_searchBorrow);
+            t_borrowed.Controls.Add(tb_searchBorrow);
+            t_borrowed.Controls.Add(dgv_borrowed);
+            t_borrowed.Location = new Point(4, 24);
+            t_borrowed.Name = "t_borrowed";
+            t_borrowed.Padding = new Padding(3);
+            t_borrowed.Size = new Size(1276, 592);
+            t_borrowed.TabIndex = 4;
+            t_borrowed.Text = "tabPage1";
+            t_borrowed.UseVisualStyleBackColor = true;
+            // 
+            // b_renew
+            // 
+            b_renew.BackColor = Color.LightSkyBlue;
+            b_renew.FlatStyle = FlatStyle.Flat;
+            b_renew.Font = new Font("Sitka Subheading", 10F);
+            b_renew.Location = new Point(529, 8);
+            b_renew.Name = "b_renew";
+            b_renew.Size = new Size(75, 35);
+            b_renew.TabIndex = 27;
+            b_renew.Text = "Renew";
+            b_renew.UseVisualStyleBackColor = false;
+            b_renew.Click += b_renew_Click;
+            // 
+            // b_resetBorrowed
+            // 
+            b_resetBorrowed.BackColor = Color.FromArgb(255, 192, 192);
+            b_resetBorrowed.FlatStyle = FlatStyle.Flat;
+            b_resetBorrowed.Font = new Font("Sitka Subheading", 10F);
+            b_resetBorrowed.Location = new Point(628, 8);
+            b_resetBorrowed.Name = "b_resetBorrowed";
+            b_resetBorrowed.Size = new Size(116, 35);
+            b_resetBorrowed.TabIndex = 26;
+            b_resetBorrowed.Text = "Show Borrows";
+            b_resetBorrowed.UseVisualStyleBackColor = false;
+            b_resetBorrowed.Visible = false;
+            b_resetBorrowed.Click += b_resetBorrowed_Click;
+            // 
+            // pb_searchBorrow
+            // 
+            pb_searchBorrow.Image = icons.search;
+            pb_searchBorrow.Location = new Point(472, 15);
+            pb_searchBorrow.Name = "pb_searchBorrow";
+            pb_searchBorrow.Size = new Size(23, 23);
+            pb_searchBorrow.TabIndex = 25;
+            pb_searchBorrow.TabStop = false;
+            // 
+            // tb_searchBorrow
+            // 
+            tb_searchBorrow.Font = new Font("Segoe UI", 10F);
+            tb_searchBorrow.ForeColor = Color.Gray;
+            tb_searchBorrow.Location = new Point(23, 14);
+            tb_searchBorrow.Name = "tb_searchBorrow";
+            tb_searchBorrow.Size = new Size(473, 25);
+            tb_searchBorrow.TabIndex = 24;
+            tb_searchBorrow.Text = "Search for a borrowed book...";
+            tb_searchBorrow.Click += tb_searchBorrow_Click;
+            tb_searchBorrow.KeyDown += tb_searchBorrow_KeyDown;
+            // 
+            // dgv_borrowed
+            // 
+            dgv_borrowed.AllowUserToAddRows = false;
+            dgv_borrowed.AllowUserToDeleteRows = false;
+            dgv_borrowed.BackgroundColor = Color.White;
+            dgv_borrowed.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgv_borrowed.Location = new Point(0, 51);
+            dgv_borrowed.Name = "dgv_borrowed";
+            dgv_borrowed.ReadOnly = true;
+            dgv_borrowed.Size = new Size(1276, 544);
+            dgv_borrowed.TabIndex = 23;
             // 
             // MemberDashboard
             // 
@@ -299,8 +458,14 @@
             t_books.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pb_searchBook).EndInit();
             ((System.ComponentModel.ISupportInitialize)dgv_books).EndInit();
-            t_bookLoan.ResumeLayout(false);
+            t_reserved.ResumeLayout(false);
+            t_reserved.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)pb_searchReserve).EndInit();
             ((System.ComponentModel.ISupportInitialize)dgv_reserved).EndInit();
+            t_borrowed.ResumeLayout(false);
+            t_borrowed.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)pb_searchBorrow).EndInit();
+            ((System.ComponentModel.ISupportInitialize)dgv_borrowed).EndInit();
             ResumeLayout(false);
         }
 
@@ -309,8 +474,8 @@
         private Panel panel;
         private Button b_logout;
         private Button b_dashboard;
-        private Label l_reservedBooks;
-        private Button b_reservedBooks;
+        private Label l_reserved;
+        private Button b_reserved;
         private Label l_books;
         private Label l_dashboard;
         private Button b_books;
@@ -320,10 +485,21 @@
         private PictureBox pb_searchBook;
         private TextBox tb_searchBook;
         private DataGridView dgv_books;
-        private TabPage t_bookLoan;
+        private TabPage t_reserved;
         private Button b_resetBooks;
         private Button b_reserve;
         private DataGridView dgv_reserved;
         private Button b_unreserve;
+        private Button b_resetReserved;
+        private PictureBox pb_searchReserve;
+        private TextBox tb_searchReserve;
+        private Label l_borrowed;
+        private Button b_borrowed;
+        private TabPage t_borrowed;
+        private Button b_resetBorrowed;
+        private PictureBox pb_searchBorrow;
+        private TextBox tb_searchBorrow;
+        private DataGridView dgv_borrowed;
+        private Button b_renew;
     }
 }
