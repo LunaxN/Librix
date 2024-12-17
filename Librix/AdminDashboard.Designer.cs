@@ -64,6 +64,8 @@
             tb_searchBook = new TextBox();
             dgv_books = new DataGridView();
             t_borrowed = new TabPage();
+            label1 = new Label();
+            b_addBorrowed = new Button();
             b_returned = new Button();
             b_resetBorrowed = new Button();
             pb_searchBorrow = new PictureBox();
@@ -84,7 +86,7 @@
             b_resetReserved = new Button();
             pb_searchReserve = new PictureBox();
             tb_searchReserve = new TextBox();
-            b_borrow = new Button();
+            b_issued = new Button();
             dgv_reserved = new DataGridView();
             b_books = new Button();
             panel = new Panel();
@@ -129,7 +131,7 @@
             tabControl.Controls.Add(t_borrowed);
             tabControl.Controls.Add(t_members);
             tabControl.Controls.Add(t_reserved);
-            tabControl.Location = new Point(0, 87);
+            tabControl.Location = new Point(0, 89);
             tabControl.Name = "tabControl";
             tabControl.SelectedIndex = 0;
             tabControl.Size = new Size(1284, 620);
@@ -177,7 +179,7 @@
             l_totalMembers.Font = new Font("Sitka Subheading", 11F);
             l_totalMembers.Location = new Point(16, 16);
             l_totalMembers.Name = "l_totalMembers";
-            l_totalMembers.Size = new Size(108, 21);
+            l_totalMembers.Size = new Size(107, 21);
             l_totalMembers.TabIndex = 1;
             l_totalMembers.Text = "Total Members";
             // 
@@ -228,7 +230,7 @@
             l_newReserves.Font = new Font("Sitka Subheading", 11F);
             l_newReserves.Location = new Point(13, 16);
             l_newReserves.Name = "l_newReserves";
-            l_newReserves.Size = new Size(102, 21);
+            l_newReserves.Size = new Size(100, 21);
             l_newReserves.TabIndex = 1;
             l_newReserves.Text = "New Reserves";
             // 
@@ -257,7 +259,7 @@
             l_totalBorrowed.Font = new Font("Sitka Subheading", 11F);
             l_totalBorrowed.Location = new Point(14, 16);
             l_totalBorrowed.Name = "l_totalBorrowed";
-            l_totalBorrowed.Size = new Size(155, 21);
+            l_totalBorrowed.Size = new Size(154, 21);
             l_totalBorrowed.TabIndex = 2;
             l_totalBorrowed.Text = "Total Borrowed Books";
             // 
@@ -286,7 +288,7 @@
             l_returnedToday.Font = new Font("Sitka Subheading", 11.249999F, FontStyle.Regular, GraphicsUnit.Point, 0);
             l_returnedToday.Location = new Point(15, 16);
             l_returnedToday.Name = "l_returnedToday";
-            l_returnedToday.Size = new Size(187, 21);
+            l_returnedToday.Size = new Size(186, 21);
             l_returnedToday.TabIndex = 0;
             l_returnedToday.Text = "Books to be returned today";
             // 
@@ -522,6 +524,8 @@
             // 
             // t_borrowed
             // 
+            t_borrowed.Controls.Add(label1);
+            t_borrowed.Controls.Add(b_addBorrowed);
             t_borrowed.Controls.Add(b_returned);
             t_borrowed.Controls.Add(b_resetBorrowed);
             t_borrowed.Controls.Add(pb_searchBorrow);
@@ -535,16 +539,43 @@
             t_borrowed.Text = "Borrowed";
             t_borrowed.UseVisualStyleBackColor = true;
             // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.BackColor = SystemColors.ControlDarkDark;
+            label1.Font = new Font("Sitka Subheading", 10F);
+            label1.ForeColor = Color.White;
+            label1.Location = new Point(9, 43);
+            label1.Name = "label1";
+            label1.Size = new Size(34, 20);
+            label1.TabIndex = 33;
+            label1.Text = "Add";
+            label1.Visible = false;
+            // 
+            // b_addBorrowed
+            // 
+            b_addBorrowed.BackColor = Color.Transparent;
+            b_addBorrowed.FlatAppearance.BorderColor = Color.White;
+            b_addBorrowed.FlatStyle = FlatStyle.Flat;
+            b_addBorrowed.Font = new Font("Sitka Subheading", 10F);
+            b_addBorrowed.Image = icons.add;
+            b_addBorrowed.Location = new Point(11, 11);
+            b_addBorrowed.Name = "b_addBorrowed";
+            b_addBorrowed.Size = new Size(30, 30);
+            b_addBorrowed.TabIndex = 32;
+            b_addBorrowed.UseVisualStyleBackColor = false;
+            b_addBorrowed.Click += b_addBorrowed_Click;
+            // 
             // b_returned
             // 
             b_returned.BackColor = Color.LightSkyBlue;
             b_returned.FlatStyle = FlatStyle.Flat;
             b_returned.Font = new Font("Sitka Subheading", 10F);
-            b_returned.Location = new Point(529, 8);
+            b_returned.Location = new Point(554, 9);
             b_returned.Name = "b_returned";
-            b_returned.Size = new Size(116, 35);
+            b_returned.Size = new Size(87, 35);
             b_returned.TabIndex = 31;
-            b_returned.Text = "Returned Back";
+            b_returned.Text = "Returned";
             b_returned.UseVisualStyleBackColor = false;
             b_returned.Click += b_returned_Click;
             // 
@@ -553,7 +584,7 @@
             b_resetBorrowed.BackColor = Color.FromArgb(255, 192, 192);
             b_resetBorrowed.FlatStyle = FlatStyle.Flat;
             b_resetBorrowed.Font = new Font("Sitka Subheading", 10F);
-            b_resetBorrowed.Location = new Point(665, 8);
+            b_resetBorrowed.Location = new Point(647, 9);
             b_resetBorrowed.Name = "b_resetBorrowed";
             b_resetBorrowed.Size = new Size(157, 35);
             b_resetBorrowed.TabIndex = 22;
@@ -565,7 +596,7 @@
             // pb_searchBorrow
             // 
             pb_searchBorrow.Image = icons.search;
-            pb_searchBorrow.Location = new Point(472, 15);
+            pb_searchBorrow.Location = new Point(497, 16);
             pb_searchBorrow.Name = "pb_searchBorrow";
             pb_searchBorrow.Size = new Size(23, 23);
             pb_searchBorrow.TabIndex = 21;
@@ -575,7 +606,7 @@
             // 
             tb_searchBorrow.Font = new Font("Segoe UI", 10F);
             tb_searchBorrow.ForeColor = Color.Gray;
-            tb_searchBorrow.Location = new Point(23, 14);
+            tb_searchBorrow.Location = new Point(48, 15);
             tb_searchBorrow.Name = "tb_searchBorrow";
             tb_searchBorrow.Size = new Size(473, 25);
             tb_searchBorrow.TabIndex = 20;
@@ -754,7 +785,7 @@
             t_reserved.Controls.Add(b_resetReserved);
             t_reserved.Controls.Add(pb_searchReserve);
             t_reserved.Controls.Add(tb_searchReserve);
-            t_reserved.Controls.Add(b_borrow);
+            t_reserved.Controls.Add(b_issued);
             t_reserved.Controls.Add(dgv_reserved);
             t_reserved.Location = new Point(4, 24);
             t_reserved.Name = "t_reserved";
@@ -799,18 +830,18 @@
             tb_searchReserve.Click += tb_searchReserve_Click;
             tb_searchReserve.KeyDown += tb_searchReserve_KeyDown;
             // 
-            // b_borrow
+            // b_issued
             // 
-            b_borrow.BackColor = Color.LightSkyBlue;
-            b_borrow.FlatStyle = FlatStyle.Flat;
-            b_borrow.Font = new Font("Sitka Subheading", 10F);
-            b_borrow.Location = new Point(529, 8);
-            b_borrow.Name = "b_borrow";
-            b_borrow.Size = new Size(116, 35);
-            b_borrow.TabIndex = 30;
-            b_borrow.Text = "Borrowed";
-            b_borrow.UseVisualStyleBackColor = false;
-            b_borrow.Click += b_borrowe_Click;
+            b_issued.BackColor = Color.LightSkyBlue;
+            b_issued.FlatStyle = FlatStyle.Flat;
+            b_issued.Font = new Font("Sitka Subheading", 10F);
+            b_issued.Location = new Point(529, 8);
+            b_issued.Name = "b_issued";
+            b_issued.Size = new Size(116, 35);
+            b_issued.TabIndex = 30;
+            b_issued.Text = "Issued";
+            b_issued.UseVisualStyleBackColor = false;
+            b_issued.Click += b_issued_Click;
             // 
             // dgv_reserved
             // 
@@ -1065,7 +1096,7 @@
         private Button b_reserved;
         private TabPage t_reserved;
         private DataGridView dgv_reserved;
-        private Button b_borrow;
+        private Button b_issued;
         private Button b_resetReserved;
         private PictureBox pb_searchReserve;
         private TextBox tb_searchReserve;
@@ -1092,5 +1123,7 @@
         private Button b_cancel;
         private Button b_save;
         private ErrorProvider errorProvider1;
+        private Label label1;
+        private Button b_addBorrowed;
     }
 }

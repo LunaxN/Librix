@@ -266,7 +266,7 @@ namespace Librix
             DatabaseManager dbManger = new DatabaseManager();
             using (SqlConnection connection = new SqlConnection(dbManger.GetItemsDbConnectionString()))
             {
-                SqlCommand command = new SqlCommand("SELECT * FROM Borrowed", connection);
+                SqlCommand command = new SqlCommand("SELECT BorrowedID, BookID, MembershipID, Title, Authors, Edition, BorrowDate, ReturnDate, Status, Fine FROM Borrowed", connection);
                 try
                 {
                     connection.Open();
@@ -740,7 +740,7 @@ namespace Librix
                 DatabaseManager dbManager = new DatabaseManager();
                 using (SqlConnection connection = new SqlConnection(dbManager.GetItemsDbConnectionString()))
                 {
-                    SqlCommand command = new SqlCommand("SELECT * FROM Borrowed WHERE BorrowedID = @borrowedID", connection);
+                    SqlCommand command = new SqlCommand("SELECT BorrowedID, BookID, MembershipID, Title, Authors, Edition, BorrowDate, ReturnDate, Status, Fine FROM Borrowed WHERE BorrowedID = @borrowedID", connection);
                     command.Parameters.AddWithValue("@borrowedID", tb_searchBorrow.Text);
 
                     try
@@ -849,93 +849,6 @@ namespace Librix
             tb_searchReserve.ForeColor = Color.Gray;
         }
 
-        private void b_borrowe_Click(object sender, EventArgs e)
-        {
-            int selectedRowCount = dgv_reserved.SelectedRows.Count;
-            if (selectedRowCount > 0)
-            {
-                StringBuilder titles = new StringBuilder();
-                foreach (DataGridViewRow row in dgv_reserved.SelectedRows)
-                {
-                    string title_val = row.Cells["Title"].Value.ToString();
-                    titles.AppendLine(title_val);
-                }
-
-                DialogResult result = MessageBox.Show(
-                    String.Format("You are about to unreserve the following items:\n{0}Are you sure?", titles.ToString()),
-                    "Warning",
-                    MessageBoxButtons.YesNo,
-                    MessageBoxIcon.Information
-                );
-
-                if (result == DialogResult.Yes)
-                {
-                    DatabaseManager dbManager = new DatabaseManager();
-                    using (SqlConnection connection = new SqlConnection(dbManager.GetItemsDbConnectionString()))
-                    {
-                        connection.Open();
-                        foreach (DataGridViewRow row in dgv_reserved.SelectedRows)
-                        {
-                            try
-                            {
-                                int reservationID = Convert.ToInt32(row.Cells["ReservationID"].Value);
-
-                                using (SqlCommand command = new SqlCommand("SELECT * FROM Reserved WHERE ReservationID = @reservationID", connection))
-                                {
-                                    command.Parameters.AddWithValue("@reservationID", reservationID);
-
-                                    using (SqlDataReader reader = command.ExecuteReader())
-                                    {
-                                        if (reader.Read())
-                                        {
-                                            int bookID = Convert.ToInt32(reader["BookID"]);
-                                            int membershipID = Convert.ToInt32(reader["MembershipID"]);
-                                            reader.Close();
-
-                                            using (SqlCommand insertCommand = new SqlCommand("INSERT INTO Borrowed (BookID, MembershipID, BorrowDate, ReturnDate, Status, Fine) VALUES (@bookID, @membershipID, GETDATE(), @returnDate, @status, @fine)", connection))
-                                            {
-                                                insertCommand.Parameters.AddWithValue("@bookID", bookID);
-                                                insertCommand.Parameters.AddWithValue("@membershipID", membershipID);
-                                                insertCommand.Parameters.AddWithValue("@returnDate", DateTime.Now.AddDays(14));
-                                                insertCommand.Parameters.AddWithValue("@status", "Borrowed");
-                                                insertCommand.Parameters.AddWithValue("@fine", 0.00);
-
-                                                int rowsAffected = insertCommand.ExecuteNonQuery();
-                                                if (rowsAffected > 0)
-                                                {
-                                                    using (SqlCommand deleteCommand = new SqlCommand("DELETE FROM Reserved WHERE ReservationID = @reservationID", connection))
-                                                    {
-                                                        deleteCommand.Parameters.AddWithValue("@reservationID", reservationID);
-                                                        deleteCommand.ExecuteNonQuery();
-                                                    }
-                                                }
-                                                else
-                                                {
-                                                    MessageBox.Show("Failed to borrow book(s).", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                                                    return;
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                            catch (Exception ex)
-                            {
-                                MessageBox.Show("Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                                return;
-                            }
-                        }
-                        showReserved();
-                        MessageBox.Show("Book(s) borrowed successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    }
-                }
-            }
-            else
-            {
-                MessageBox.Show("Please select at least one record.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            }
-        }
-
         private void b_returned_Click(object sender, EventArgs e)
         {
             int selectedRowCount = dgv_borrowed.SelectedRows.Count;
@@ -971,16 +884,16 @@ namespace Librix
                                             int bookID = Convert.ToInt32(reader["BookID"]);
                                             reader.Close();
 
-                                            using (SqlCommand updateBorrowedCommand = new SqlCommand("UPDATE Borrowed SET Status = @newStatus, ReturnDate = GETDATE() WHERE BorrowedID = @borrowedID AND Status = @status", connection))
+                                            using (SqlCommand updateBorrowedCommand = new SqlCommand("UPDATE Borrowed SET IsReturned = @isreturned, ReturnDate = GETDATE() WHERE BorrowedID = @borrowedID", connection))
                                             {
-                                                updateBorrowedCommand.Parameters.AddWithValue("@newStatus", "Returned Back");
+                                                updateBorrowedCommand.Parameters.AddWithValue("@newStatus", "Returned");
                                                 updateBorrowedCommand.Parameters.AddWithValue("@borrowedID", borrowedID);
-                                                updateBorrowedCommand.Parameters.AddWithValue("@status", "Borrowed");
+                                                updateBorrowedCommand.Parameters.AddWithValue("@isreturned", 1);
 
                                                 int rowsAffected = updateBorrowedCommand.ExecuteNonQuery();
                                                 if (rowsAffected > 0)
                                                 {
-                                                    using (SqlCommand updateBooksCommand = new SqlCommand("UPDATE Books SET NoOfAvailableCopies = NoOfAvailableCopies + 1, Availability = CASE WHEN NoOfAvailableCopies >= 0 THEN 'Available' ELSE 'Not Available' END WHERE BookID = @BookID", connection))
+                                                    using (SqlCommand updateBooksCommand = new SqlCommand("UPDATE Books SET NoOfAvailableCopies = NoOfAvailableCopies + 1 WHERE BookID = @BookID", connection))
                                                     {
                                                         updateBooksCommand.Parameters.AddWithValue("@bookID", bookID);
                                                         updateBooksCommand.ExecuteNonQuery();
@@ -1077,6 +990,102 @@ namespace Librix
             if (tb_username.Text == string.Empty)
             {
                 errorProvider1.SetError(tb_password, "This field cannot be empty");
+            }
+        }
+
+        private void b_addBorrowed_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void b_issued_Click(object sender, EventArgs e)
+        {
+            int selectedRowCount = dgv_reserved.SelectedRows.Count;
+            if (selectedRowCount > 0)
+            {
+                StringBuilder titles = new StringBuilder();
+                foreach (DataGridViewRow row in dgv_reserved.SelectedRows)
+                {
+                    string title_val = row.Cells["Title"].Value.ToString();
+                    titles.AppendLine(title_val);
+                }
+
+                DialogResult result = MessageBox.Show(
+                    String.Format("You are about to issue the following items:\n{0}Are you sure?", titles.ToString()),
+                    "Warning",
+                    MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Information
+                );
+
+                if (result == DialogResult.Yes)
+                {
+                    DatabaseManager dbManager = new DatabaseManager();
+                    using (SqlConnection connection = new SqlConnection(dbManager.GetItemsDbConnectionString()))
+                    {
+                        connection.Open();
+                        foreach (DataGridViewRow row in dgv_reserved.SelectedRows)
+                        {
+                            try
+                            {
+                                int reservationID = Convert.ToInt32(row.Cells["ReservationID"].Value);
+
+                                using (SqlCommand command = new SqlCommand("SELECT * FROM Reserved WHERE ReservationID = @reservationID", connection))
+                                {
+                                    command.Parameters.AddWithValue("@reservationID", reservationID);
+
+                                    using (SqlDataReader reader = command.ExecuteReader())
+                                    {
+                                        if (reader.Read())
+                                        {
+                                            int bookID = Convert.ToInt32(reader["BookID"]);
+                                            int membershipID = Convert.ToInt32(reader["MembershipID"]);
+                                            string title = reader["Title"].ToString();
+                                            string authors = reader["Authors"].ToString();
+                                            string edition = reader["Edition"].ToString();
+                                            reader.Close();
+
+                                            using (SqlCommand insertCommand = new SqlCommand("INSERT INTO Borrowed (BookID, MembershipID, Title, Authors, Edition,  BorrowDate, ReturnDate) VALUES (@bookID, @membershipID, @title, @authors, @edition, GETDATE(), @returnDate)", connection))
+                                            {
+                                                insertCommand.Parameters.AddWithValue("@bookID", bookID);
+                                                insertCommand.Parameters.AddWithValue("@membershipID", membershipID);
+                                                insertCommand.Parameters.AddWithValue("@title", title);
+                                                insertCommand.Parameters.AddWithValue("@authors", authors);
+                                                insertCommand.Parameters.AddWithValue("@edition", edition);
+                                                insertCommand.Parameters.AddWithValue("@returnDate", DateTime.Now.AddDays(14));
+
+                                                int rowsAffected = insertCommand.ExecuteNonQuery();
+                                                if (rowsAffected > 0)
+                                                {
+                                                    using (SqlCommand deleteCommand = new SqlCommand("DELETE FROM Reserved WHERE ReservationID = @reservationID", connection))
+                                                    {
+                                                        deleteCommand.Parameters.AddWithValue("@reservationID", reservationID);
+                                                        deleteCommand.ExecuteNonQuery();
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    MessageBox.Show("Failed to borrow book(s).", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                                    return;
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                            catch (Exception ex)
+                            {
+                                MessageBox.Show("Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                return;
+                            }
+                        }
+                        showReserved();
+                        MessageBox.Show("Book(s) borrowed successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                }
+            }
+            else
+            {
+                MessageBox.Show("Please select at least one record.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
     }

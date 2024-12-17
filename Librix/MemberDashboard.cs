@@ -71,7 +71,7 @@ namespace Librix
                 try
                 {
                     connection.Open();
-                    using (SqlCommand command = new SqlCommand("SELECT COUNT(*) FROM Borrowed WHERE MembershipID = @membershipID AND CAST(ReturnDate AS DATE) = @returnDate AND Status = @status", connection))
+                    using (SqlCommand command = new SqlCommand("SELECT COUNT(*) FROM Borrowed WHERE MembershipID = @membershipID AND CAST(ReturnDate AS DATE) <= @returnDate AND Status = @status", connection))
                     {
                         command.Parameters.AddWithValue("@membershipID", user_id);
                         command.Parameters.AddWithValue("@returnDate", DateTime.Today);
@@ -82,7 +82,7 @@ namespace Librix
                 catch (Exception ex)
                 {
                     MessageBox.Show("Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
+                }   
                 finally
                 {
                     connection.Close();
@@ -94,30 +94,44 @@ namespace Librix
         private void showNewBooks()
         {
             int recordCount = 0;
+            DataTable dataTable = new DataTable();
 
             DatabaseManager dbManager = new DatabaseManager();
             using (SqlConnection connection = new SqlConnection(dbManager.GetItemsDbConnectionString()))
             {
-                try
+                connection.Open();
+                using (SqlCommand command = new SqlCommand(
+                    "SELECT COUNT(*) AS NumberOfBooks FROM Books WHERE CONVERT(date, DateOfRegister) = CONVERT(date, GETDATE()); " +
+                    "SELECT Title, Authors, Edition FROM Books WHERE CONVERT(date, DateOfRegister) = CONVERT(date, GETDATE())",
+                    connection))
                 {
-                    connection.Open();
-                    using (SqlCommand command = new SqlCommand("SELECT COUNT(*) FROM Books WHERE DateOfRegister = @dateOfRegister", connection))
+                    try
                     {
-                        command.Parameters.AddWithValue("@dateOfRegister", DateTime.Today);
-                        recordCount = (int)command.ExecuteScalar();
+                        using (SqlDataReader reader = command.ExecuteReader())
+                        {
+                            reader.Read();
+                            recordCount = reader.GetInt32(0);
+                            reader.NextResult();
+                            dataTable.Load(reader);
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-                finally
-                {
-                    connection.Close();
-                }
             }
-            l_noNewBooks.Text = recordCount.ToString();
+
+            l_numberNewBooks.Text = recordCount.ToString();
+            dgv_newbooks.DataSource = dataTable;
+            dgv_newbooks.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
+
+            if (recordCount <= 0)
+            {
+                panel1.Visible = false;
+            }
         }
+
 
         private void b_dashboard_Click(object sender, EventArgs e)
         {
@@ -230,7 +244,7 @@ namespace Librix
             DatabaseManager dbManger = new DatabaseManager();
             using (SqlConnection connection = new SqlConnection(dbManger.GetItemsDbConnectionString()))
             {
-                SqlCommand command = new SqlCommand("SELECT BorrowedID, BookID, BorrowDate, ReturnDate, Status, Fine FROM Borrowed WHERE MembershipID = @membershipID", connection);
+                SqlCommand command = new SqlCommand("SELECT BorrowedID, BookID, Title, Authors, Edition, BorrowDate, ReturnDate, Status, Fine FROM Borrowed WHERE MembershipID = @membershipID", connection);
                 command.Parameters.AddWithValue("@membershipID", user_id);
 
                 try
@@ -380,7 +394,7 @@ namespace Librix
                                                 int rowsAffected = insertCommand.ExecuteNonQuery();
                                                 if (rowsAffected > 0)
                                                 {
-                                                    using (SqlCommand updateCommand = new SqlCommand("UPDATE Books SET NoOfAvailableCopies = NoOfAvailableCopies - 1, Availability = CASE WHEN NoOfAvailableCopies = 1 THEN 'Not Available' ELSE Availability END WHERE BookID = @BookID;", connection))
+                                                    using (SqlCommand updateCommand = new SqlCommand("UPDATE Books SET NoOfAvailableCopies = NoOfAvailableCopies - 1 WHERE BookID = @BookID;", connection))
                                                     {
                                                         updateCommand.Parameters.AddWithValue("@bookID", bookID);
                                                         updateCommand.ExecuteNonQuery();
@@ -455,7 +469,7 @@ namespace Librix
                                     deleteCommand.ExecuteNonQuery();
                                 }
 
-                                using (SqlCommand updateCommand = new SqlCommand("UPDATE Books SET NoOfAvailableCopies = NoOfAvailableCopies + 1, Availability = CASE WHEN NoOfAvailableCopies >= 0 THEN 'Available' ELSE 'Not Available' END WHERE BookID = @BookID", connection))
+                                using (SqlCommand updateCommand = new SqlCommand("UPDATE Books SET NoOfAvailableCopies = NoOfAvailableCopies + 1 WHERE BookID = @BookID", connection))
                                 {
                                     updateCommand.Parameters.AddWithValue("@bookID", bookID);
                                     updateCommand.ExecuteNonQuery();
@@ -607,7 +621,7 @@ namespace Librix
                 DatabaseManager dbManager = new DatabaseManager();
                 using (SqlConnection connection = new SqlConnection(dbManager.GetItemsDbConnectionString()))
                 {
-                    SqlCommand command = new SqlCommand("SELECT * FROM Borrowed WHERE MembershipID = @membershipID AND BorrowedID = @borrowedID", connection);
+                    SqlCommand command = new SqlCommand("SELECT BorrowedID, BookID, Title, Authors, Edition, BorrowDate, ReturnDate, Status, Fine FROM Borrowed WHERE MembershipID = @membershipID AND BorrowedID = @borrowedID", connection);
                     command.Parameters.AddWithValue("@membershipID", user_id);
                     command.Parameters.AddWithValue("@borrowedID", tb_searchBorrow.Text);
 

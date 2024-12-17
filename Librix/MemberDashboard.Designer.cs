@@ -58,10 +58,16 @@
             tb_searchBook = new TextBox();
             dgv_books = new DataGridView();
             t_dashboard = new TabPage();
+            panel1 = new Panel();
+            l_NewBooks2 = new Label();
+            l_numberNewBooks = new Label();
+            dgv_newbooks = new DataGridView();
+            label1 = new Label();
+            l_NewBooks = new Label();
             b_profile = new Button();
             p_newBooks = new Panel();
             l_noNewBooks = new Label();
-            l_newBooks = new Label();
+            l_reservedBooks = new Label();
             p_totalBorrowed = new Panel();
             l_noTotalBorrowed = new Label();
             l_totalBorrowed = new Label();
@@ -95,6 +101,8 @@
             ((System.ComponentModel.ISupportInitialize)pb_searchBook).BeginInit();
             ((System.ComponentModel.ISupportInitialize)dgv_books).BeginInit();
             t_dashboard.SuspendLayout();
+            panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dgv_newbooks).BeginInit();
             p_newBooks.SuspendLayout();
             p_totalBorrowed.SuspendLayout();
             p_returnedToday.SuspendLayout();
@@ -453,6 +461,7 @@
             // 
             // t_dashboard
             // 
+            t_dashboard.Controls.Add(panel1);
             t_dashboard.Controls.Add(b_profile);
             t_dashboard.Controls.Add(p_newBooks);
             t_dashboard.Controls.Add(p_totalBorrowed);
@@ -466,6 +475,72 @@
             t_dashboard.TabIndex = 0;
             t_dashboard.Text = "Dashborad";
             t_dashboard.UseVisualStyleBackColor = true;
+            // 
+            // panel1
+            // 
+            panel1.BackColor = SystemColors.Control;
+            panel1.Controls.Add(l_NewBooks2);
+            panel1.Controls.Add(l_numberNewBooks);
+            panel1.Controls.Add(dgv_newbooks);
+            panel1.Controls.Add(label1);
+            panel1.Controls.Add(l_NewBooks);
+            panel1.Location = new Point(544, 168);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(713, 403);
+            panel1.TabIndex = 33;
+            // 
+            // l_NewBooks2
+            // 
+            l_NewBooks2.AutoSize = true;
+            l_NewBooks2.Font = new Font("Sitka Subheading", 11F);
+            l_NewBooks2.Location = new Point(605, 16);
+            l_NewBooks2.Name = "l_NewBooks2";
+            l_NewBooks2.Size = new Size(97, 21);
+            l_NewBooks2.TabIndex = 34;
+            l_NewBooks2.Text = "new book(s)!";
+            l_NewBooks2.TextAlign = ContentAlignment.MiddleLeft;
+            // 
+            // l_numberNewBooks
+            // 
+            l_numberNewBooks.Font = new Font("Sitka Subheading", 11F);
+            l_numberNewBooks.Location = new Point(565, 16);
+            l_numberNewBooks.Name = "l_numberNewBooks";
+            l_numberNewBooks.RightToLeft = RightToLeft.Yes;
+            l_numberNewBooks.Size = new Size(44, 21);
+            l_numberNewBooks.TabIndex = 35;
+            l_numberNewBooks.Text = "#";
+            l_numberNewBooks.TextAlign = ContentAlignment.MiddleLeft;
+            // 
+            // dgv_newbooks
+            // 
+            dgv_newbooks.AllowUserToAddRows = false;
+            dgv_newbooks.AllowUserToDeleteRows = false;
+            dgv_newbooks.BackgroundColor = Color.White;
+            dgv_newbooks.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgv_newbooks.Location = new Point(13, 51);
+            dgv_newbooks.Name = "dgv_newbooks";
+            dgv_newbooks.ReadOnly = true;
+            dgv_newbooks.Size = new Size(685, 338);
+            dgv_newbooks.TabIndex = 33;
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Font = new Font("Segoe UI", 15F);
+            label1.Location = new Point(13, 76);
+            label1.Name = "label1";
+            label1.Size = new Size(0, 28);
+            label1.TabIndex = 32;
+            // 
+            // l_NewBooks
+            // 
+            l_NewBooks.AutoSize = true;
+            l_NewBooks.Font = new Font("Sitka Subheading", 11F);
+            l_NewBooks.Location = new Point(13, 16);
+            l_NewBooks.Name = "l_NewBooks";
+            l_NewBooks.Size = new Size(95, 21);
+            l_NewBooks.TabIndex = 1;
+            l_NewBooks.Text = "New Arrivals";
             // 
             // b_profile
             // 
@@ -484,7 +559,7 @@
             // 
             p_newBooks.BackColor = SystemColors.Control;
             p_newBooks.Controls.Add(l_noNewBooks);
-            p_newBooks.Controls.Add(l_newBooks);
+            p_newBooks.Controls.Add(l_reservedBooks);
             p_newBooks.Location = new Point(787, 18);
             p_newBooks.Name = "p_newBooks";
             p_newBooks.Size = new Size(228, 127);
@@ -499,15 +574,15 @@
             l_noNewBooks.Size = new Size(0, 28);
             l_noNewBooks.TabIndex = 32;
             // 
-            // l_newBooks
+            // l_reservedBooks
             // 
-            l_newBooks.AutoSize = true;
-            l_newBooks.Font = new Font("Sitka Subheading", 11F);
-            l_newBooks.Location = new Point(13, 16);
-            l_newBooks.Name = "l_newBooks";
-            l_newBooks.Size = new Size(84, 21);
-            l_newBooks.TabIndex = 1;
-            l_newBooks.Text = "New Books";
+            l_reservedBooks.AutoSize = true;
+            l_reservedBooks.Font = new Font("Sitka Subheading", 11F);
+            l_reservedBooks.Location = new Point(13, 16);
+            l_reservedBooks.Name = "l_reservedBooks";
+            l_reservedBooks.Size = new Size(110, 21);
+            l_reservedBooks.TabIndex = 1;
+            l_reservedBooks.Text = "Reserved books";
             // 
             // p_totalBorrowed
             // 
@@ -534,7 +609,7 @@
             l_totalBorrowed.Font = new Font("Sitka Subheading", 11F);
             l_totalBorrowed.Location = new Point(14, 16);
             l_totalBorrowed.Name = "l_totalBorrowed";
-            l_totalBorrowed.Size = new Size(155, 21);
+            l_totalBorrowed.Size = new Size(154, 21);
             l_totalBorrowed.TabIndex = 2;
             l_totalBorrowed.Text = "Total Borrowed Books";
             // 
@@ -563,9 +638,9 @@
             l_returnedToday.Font = new Font("Sitka Subheading", 11.249999F, FontStyle.Regular, GraphicsUnit.Point, 0);
             l_returnedToday.Location = new Point(15, 16);
             l_returnedToday.Name = "l_returnedToday";
-            l_returnedToday.Size = new Size(187, 21);
+            l_returnedToday.Size = new Size(160, 21);
             l_returnedToday.TabIndex = 0;
-            l_returnedToday.Text = "Books to be returned today";
+            l_returnedToday.Text = "Books Awaiting Return";
             // 
             // l_currentDate
             // 
@@ -753,6 +828,9 @@
             ((System.ComponentModel.ISupportInitialize)dgv_books).EndInit();
             t_dashboard.ResumeLayout(false);
             t_dashboard.PerformLayout();
+            panel1.ResumeLayout(false);
+            panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)dgv_newbooks).EndInit();
             p_newBooks.ResumeLayout(false);
             p_newBooks.PerformLayout();
             p_totalBorrowed.ResumeLayout(false);
@@ -800,7 +878,7 @@
         private Button b_profile;
         private Panel p_newBooks;
         private Label l_noNewBooks;
-        private Label l_newBooks;
+        private Label l_reservedBooks;
         private Panel p_totalBorrowed;
         private Label l_noTotalBorrowed;
         private Label l_totalBorrowed;
@@ -823,5 +901,11 @@
         private Button b_save;
         private TextBox tb_name;
         private ErrorProvider errorProvider1;
+        private Panel panel1;
+        private DataGridView dgv_newbooks;
+        private Label label1;
+        private Label l_NewBooks;
+        private Label l_NewBooks2;
+        private Label l_numberNewBooks;
     }
 }
