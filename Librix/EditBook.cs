@@ -71,7 +71,7 @@ namespace Librix
         {
             if (tb_title.Text == string.Empty)
             {
-                errorProvider1.SetError(tb_title, "This field can not be empty");
+                errorProvider1.SetError(tb_title, "This field cannot be empty");
             }
         }
 
@@ -79,7 +79,7 @@ namespace Librix
         {
             if (tb_totalCopies.Text == string.Empty)
             {
-                errorProvider1.SetError(tb_totalCopies, "This field can not be empty");
+                errorProvider1.SetError(tb_totalCopies, "This field cannot be empty");
             }
         }
 

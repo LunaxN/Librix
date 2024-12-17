@@ -22,12 +22,140 @@ namespace Librix
         public AdminDashboard(int user_id)
         {
             InitializeComponent();
+            showCurrentDate();
+            showTotalMembers();
+            showTotalBorrowed();
+            showReturnedToday();
+            showNewReserves();
             this.user_id = user_id;
+        }
+
+        private void showCurrentDate()
+        {
+            DateTime today = DateTime.Now;
+            l_currentDate.Text = today.ToString("dddd, yyyy MMMM dd");
+        }
+
+        private void showTotalMembers()
+        {
+            int recordCount = 0;
+
+            DatabaseManager dbManager = new DatabaseManager();
+            using (SqlConnection connection = new SqlConnection(dbManager.GetUsersDbConnectionString()))
+            {
+                try
+                {
+                    connection.Open();
+                    using (SqlCommand command = new SqlCommand("SELECT COUNT(*) FROM Members", connection))
+                    {
+                        recordCount = (int)command.ExecuteScalar();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                finally
+                {
+                    connection.Close();
+                }
+            }
+            l_noTotalMembers.Text = recordCount.ToString();
+        }
+
+        private void showTotalBorrowed()
+        {
+            int recordCount = 0;
+
+            DatabaseManager dbManager = new DatabaseManager();
+            using (SqlConnection connection = new SqlConnection(dbManager.GetItemsDbConnectionString()))
+            {
+                try
+                {
+                    connection.Open();
+                    using (SqlCommand command = new SqlCommand("SELECT COUNT(*) FROM Borrowed WHERE Status = @status", connection))
+                    {
+                        command.Parameters.AddWithValue("@status", "Borrowed");
+                        recordCount = (int)command.ExecuteScalar();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                finally
+                {
+                    connection.Close();
+                }
+            }
+            l_noTotalBorrowed.Text = recordCount.ToString();
+        }
+
+        private void showReturnedToday()
+        {
+            int recordCount = 0;
+
+            DatabaseManager dbManager = new DatabaseManager();
+            using (SqlConnection connection = new SqlConnection(dbManager.GetItemsDbConnectionString()))
+            {
+                try
+                {
+                    connection.Open();
+                    using (SqlCommand command = new SqlCommand("SELECT COUNT(*) FROM Borrowed WHERE CAST(ReturnDate AS DATE) = @returnDate AND Status = @status", connection))
+                    {
+                        command.Parameters.AddWithValue("@returnDate", DateTime.Today);
+                        command.Parameters.AddWithValue("@status", "Borrowed");
+                        recordCount = (int)command.ExecuteScalar();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                finally
+                {
+                    connection.Close();
+                }
+            }
+            l_noReturnedToday.Text = recordCount.ToString();
+        }
+
+        private void showNewReserves()
+        {
+            int recordCount = 0;
+
+            DatabaseManager dbManager = new DatabaseManager();
+            using (SqlConnection connection = new SqlConnection(dbManager.GetItemsDbConnectionString()))
+            {
+                try
+                {
+                    connection.Open();
+                    using (SqlCommand command = new SqlCommand("SELECT COUNT(*) FROM Reserved WHERE CAST(ReservationDate AS DATE) = @reservationDate", connection))
+                    {
+                        command.Parameters.AddWithValue("@reservationDate", DateTime.Today);
+                        recordCount = (int)command.ExecuteScalar();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                finally
+                {
+                    connection.Close();
+                }
+            }
+            l_noNewReserves.Text = recordCount.ToString();
         }
 
         private void b_dashboard_Click(object sender, EventArgs e)
         {
             tabControl.SelectedIndex = 0;
+            showCurrentDate();
+            showTotalMembers();
+            showTotalBorrowed();
+            showReturnedToday();
+            showNewReserves();
         }
 
         private void b_books_Click(object sender, EventArgs e)
@@ -225,11 +353,13 @@ namespace Librix
                                 if (rowsAffected <= 0)
                                 {
                                     MessageBox.Show("Failed to delete member(s).", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                    return;
                                 }
                             }
                             catch (Exception ex)
                             {
                                 MessageBox.Show("Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                return;
                             }
                         }
                         showMembers();
@@ -429,11 +559,13 @@ namespace Librix
                                 if (rowsAffected <= 0)
                                 {
                                     MessageBox.Show("Failed to delete book(s).", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                    return;
                                 }
                             }
                             catch (Exception ex)
                             {
                                 MessageBox.Show("Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                return;
                             }
                         }
                         showBooks();
@@ -780,6 +912,7 @@ namespace Librix
                                                 else
                                                 {
                                                     MessageBox.Show("Failed to borrow book(s).", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                                    return;
                                                 }
                                             }
                                         }
@@ -789,6 +922,7 @@ namespace Librix
                             catch (Exception ex)
                             {
                                 MessageBox.Show("Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                return;
                             }
                         }
                         showReserved();
@@ -837,10 +971,11 @@ namespace Librix
                                             int bookID = Convert.ToInt32(reader["BookID"]);
                                             reader.Close();
 
-                                            using (SqlCommand updateBorrowedCommand = new SqlCommand("UPDATE Borrowed SET Status = @status WHERE BorrowedID = @borrowedID", connection))
+                                            using (SqlCommand updateBorrowedCommand = new SqlCommand("UPDATE Borrowed SET Status = @newStatus, ReturnDate = GETDATE() WHERE BorrowedID = @borrowedID AND Status = @status", connection))
                                             {
-                                                updateBorrowedCommand.Parameters.AddWithValue("@status", "Returned Back");
+                                                updateBorrowedCommand.Parameters.AddWithValue("@newStatus", "Returned Back");
                                                 updateBorrowedCommand.Parameters.AddWithValue("@borrowedID", borrowedID);
+                                                updateBorrowedCommand.Parameters.AddWithValue("@status", "Borrowed");
 
                                                 int rowsAffected = updateBorrowedCommand.ExecuteNonQuery();
                                                 if (rowsAffected > 0)
@@ -854,6 +989,7 @@ namespace Librix
                                                 else
                                                 {
                                                     MessageBox.Show("Failed to return back book(s).", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                                    return;
                                                 }
                                             }
                                         }
@@ -863,6 +999,7 @@ namespace Librix
                             catch (Exception ex)
                             {
                                 MessageBox.Show("Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                return;
                             }
                         }
                         showBorrowed();
@@ -873,6 +1010,73 @@ namespace Librix
             else
             {
                 MessageBox.Show("Please select at least one record.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+
+        private void b_profile_Click(object sender, EventArgs e)
+        {
+            b_profile.Visible = false;
+            p_userInforamtion.Visible = true;
+            p_userInforamtion.Location = new System.Drawing.Point(0, 50);
+
+            DatabaseManager dbManager = new DatabaseManager();
+            using (SqlConnection connection = new SqlConnection(dbManager.GetUsersDbConnectionString()))
+            {
+                try
+                {
+                    connection.Open();
+                    using (SqlCommand command = new SqlCommand("SELECT * FROM Members WHERE MembershipID = @membershipID", connection))
+                    {
+                        command.Parameters.AddWithValue("@membershipID", user_id);
+
+                        using (SqlDataReader reader = command.ExecuteReader())
+                        {
+                            if (reader.Read())
+                            {
+                                tb_username.Text = reader["Username"].ToString();
+                                reader.Close();
+                            }
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                finally
+                {
+                    connection.Close();
+                }
+            }
+        }
+
+        private void b_save_Click(object sender, EventArgs e)
+        {
+            p_userInforamtion.Location = new System.Drawing.Point(0, 98);
+            p_userInforamtion.Visible = false;
+            b_profile.Visible = true;
+        }
+
+        private void b_cancel_Click(object sender, EventArgs e)
+        {
+            p_userInforamtion.Location = new System.Drawing.Point(0, 98);
+            p_userInforamtion.Visible = false;
+            b_profile.Visible = true;
+        }
+
+        private void tb_username_Validating(object sender, CancelEventArgs e)
+        {
+            if (tb_username.Text == string.Empty)
+            {
+                errorProvider1.SetError(tb_username, "This field cannot be empty");
+            }
+        }
+
+        private void tb_password_Validating(object sender, CancelEventArgs e)
+        {
+            if (tb_username.Text == string.Empty)
+            {
+                errorProvider1.SetError(tb_password, "This field cannot be empty");
             }
         }
     }

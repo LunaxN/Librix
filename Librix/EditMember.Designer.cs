@@ -29,8 +29,8 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            l_phonenumber = new Label();
-            tb_phonenumber = new TextBox();
+            l_phoneNumber = new Label();
+            tb_phoneNumber = new TextBox();
             b_save = new Button();
             tb_name = new TextBox();
             tb_lastname = new TextBox();
@@ -42,22 +42,22 @@
             ((System.ComponentModel.ISupportInitialize)errorProvider1).BeginInit();
             SuspendLayout();
             // 
-            // l_phonenumber
+            // l_phoneNumber
             // 
-            l_phonenumber.Font = new Font("Sitka Subheading", 10F);
-            l_phonenumber.Location = new Point(47, 120);
-            l_phonenumber.Name = "l_phonenumber";
-            l_phonenumber.Size = new Size(110, 23);
-            l_phonenumber.TabIndex = 18;
-            l_phonenumber.Text = "Phone Number:";
+            l_phoneNumber.Font = new Font("Sitka Subheading", 10F);
+            l_phoneNumber.Location = new Point(47, 120);
+            l_phoneNumber.Name = "l_phoneNumber";
+            l_phoneNumber.Size = new Size(110, 23);
+            l_phoneNumber.TabIndex = 18;
+            l_phoneNumber.Text = "Phone Number:";
             // 
-            // tb_phonenumber
+            // tb_phoneNumber
             // 
-            tb_phonenumber.Font = new Font("Segoe UI", 10F);
-            tb_phonenumber.Location = new Point(160, 120);
-            tb_phonenumber.Name = "tb_phonenumber";
-            tb_phonenumber.Size = new Size(175, 25);
-            tb_phonenumber.TabIndex = 19;
+            tb_phoneNumber.Font = new Font("Segoe UI", 10F);
+            tb_phoneNumber.Location = new Point(160, 120);
+            tb_phoneNumber.Name = "tb_phoneNumber";
+            tb_phoneNumber.Size = new Size(175, 25);
+            tb_phoneNumber.TabIndex = 19;
             // 
             // b_save
             // 
@@ -143,8 +143,8 @@
             BackColor = Color.White;
             ClientSize = new Size(403, 356);
             Controls.Add(l_or);
-            Controls.Add(l_phonenumber);
-            Controls.Add(tb_phonenumber);
+            Controls.Add(l_phoneNumber);
+            Controls.Add(tb_phoneNumber);
             Controls.Add(b_save);
             Controls.Add(tb_name);
             Controls.Add(tb_lastname);
@@ -163,8 +163,8 @@
         }
 
         #endregion
-        private Label l_phonenumber;
-        private TextBox tb_phonenumber;
+        private Label l_phoneNumber;
+        private TextBox tb_phoneNumber;
         private Button b_save;
         private TextBox tb_name;
         private TextBox tb_lastname;

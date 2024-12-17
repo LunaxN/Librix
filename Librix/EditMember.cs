@@ -28,8 +28,8 @@ namespace Librix
 
         public string RecordPhoneNumber
         {
-            get { return tb_phonenumber.Text; }
-            set { tb_phonenumber.Text = value; }
+            get { return tb_phoneNumber.Text; }
+            set { tb_phoneNumber.Text = value; }
         }
 
         public EditMember()
@@ -53,7 +53,7 @@ namespace Librix
         {
             if (tb_name.Text == string.Empty) 
             {
-                errorProvider1.SetError(tb_name, "This field can not be empty");
+                errorProvider1.SetError(tb_name, "This field cannot be empty");
             }
         }
 
@@ -61,7 +61,7 @@ namespace Librix
         {
             if (tb_lastname.Text == string.Empty)
             {
-                errorProvider1.SetError(tb_lastname, "This field can not be empty");
+                errorProvider1.SetError(tb_lastname, "This field cannot be empty");
             }
         }
     }

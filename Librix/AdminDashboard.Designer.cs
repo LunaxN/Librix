@@ -28,8 +28,30 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             tabControl = new TabControl();
             t_dashboard = new TabPage();
+            p_totalMembers = new Panel();
+            l_noTotalMembers = new Label();
+            l_totalMembers = new Label();
+            b_profile = new Button();
+            l_currentDate = new Label();
+            p_newReserves = new Panel();
+            l_noNewReserves = new Label();
+            l_newReserves = new Label();
+            p_totalBorrowed = new Panel();
+            l_noTotalBorrowed = new Label();
+            l_totalBorrowed = new Label();
+            p_returnedToday = new Panel();
+            l_noReturnedToday = new Label();
+            l_returnedToday = new Label();
+            p_userInforamtion = new Panel();
+            l_password = new Label();
+            l_username = new Label();
+            tb_password = new TextBox();
+            tb_username = new TextBox();
+            b_cancel = new Button();
+            b_save = new Button();
             t_books = new TabPage();
             l_editBook = new Label();
             b_editBook = new Button();
@@ -76,7 +98,14 @@
             l_books = new Label();
             b_members = new Button();
             l_dashboard = new Label();
+            errorProvider1 = new ErrorProvider(components);
             tabControl.SuspendLayout();
+            t_dashboard.SuspendLayout();
+            p_totalMembers.SuspendLayout();
+            p_newReserves.SuspendLayout();
+            p_totalBorrowed.SuspendLayout();
+            p_returnedToday.SuspendLayout();
+            p_userInforamtion.SuspendLayout();
             t_books.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pb_searchBook).BeginInit();
             ((System.ComponentModel.ISupportInitialize)dgv_books).BeginInit();
@@ -90,6 +119,7 @@
             ((System.ComponentModel.ISupportInitialize)pb_searchReserve).BeginInit();
             ((System.ComponentModel.ISupportInitialize)dgv_reserved).BeginInit();
             panel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)errorProvider1).BeginInit();
             SuspendLayout();
             // 
             // tabControl
@@ -107,6 +137,13 @@
             // 
             // t_dashboard
             // 
+            t_dashboard.Controls.Add(p_totalMembers);
+            t_dashboard.Controls.Add(b_profile);
+            t_dashboard.Controls.Add(l_currentDate);
+            t_dashboard.Controls.Add(p_newReserves);
+            t_dashboard.Controls.Add(p_totalBorrowed);
+            t_dashboard.Controls.Add(p_returnedToday);
+            t_dashboard.Controls.Add(p_userInforamtion);
             t_dashboard.Location = new Point(4, 24);
             t_dashboard.Name = "t_dashboard";
             t_dashboard.Padding = new Padding(3);
@@ -114,6 +151,220 @@
             t_dashboard.TabIndex = 0;
             t_dashboard.Text = "Dashborad";
             t_dashboard.UseVisualStyleBackColor = true;
+            // 
+            // p_totalMembers
+            // 
+            p_totalMembers.BackColor = SystemColors.Control;
+            p_totalMembers.Controls.Add(l_noTotalMembers);
+            p_totalMembers.Controls.Add(l_totalMembers);
+            p_totalMembers.Location = new Point(1040, 16);
+            p_totalMembers.Name = "p_totalMembers";
+            p_totalMembers.Size = new Size(220, 127);
+            p_totalMembers.TabIndex = 29;
+            // 
+            // l_noTotalMembers
+            // 
+            l_noTotalMembers.AutoSize = true;
+            l_noTotalMembers.Font = new Font("Segoe UI", 15F);
+            l_noTotalMembers.Location = new Point(16, 76);
+            l_noTotalMembers.Name = "l_noTotalMembers";
+            l_noTotalMembers.Size = new Size(0, 28);
+            l_noTotalMembers.TabIndex = 30;
+            // 
+            // l_totalMembers
+            // 
+            l_totalMembers.AutoSize = true;
+            l_totalMembers.Font = new Font("Sitka Subheading", 11F);
+            l_totalMembers.Location = new Point(16, 16);
+            l_totalMembers.Name = "l_totalMembers";
+            l_totalMembers.Size = new Size(108, 21);
+            l_totalMembers.TabIndex = 1;
+            l_totalMembers.Text = "Total Members";
+            // 
+            // b_profile
+            // 
+            b_profile.BackColor = Color.FromArgb(255, 192, 192);
+            b_profile.FlatStyle = FlatStyle.Flat;
+            b_profile.Font = new Font("Sitka Subheading", 10F);
+            b_profile.Location = new Point(17, 57);
+            b_profile.Name = "b_profile";
+            b_profile.Size = new Size(162, 35);
+            b_profile.TabIndex = 28;
+            b_profile.Text = "Your Profile";
+            b_profile.UseVisualStyleBackColor = false;
+            b_profile.Click += b_profile_Click;
+            // 
+            // l_currentDate
+            // 
+            l_currentDate.AutoSize = true;
+            l_currentDate.Font = new Font("Segoe UI", 9F);
+            l_currentDate.Location = new Point(23, 24);
+            l_currentDate.Name = "l_currentDate";
+            l_currentDate.Size = new Size(0, 15);
+            l_currentDate.TabIndex = 4;
+            // 
+            // p_newReserves
+            // 
+            p_newReserves.BackColor = SystemColors.Control;
+            p_newReserves.Controls.Add(l_noNewReserves);
+            p_newReserves.Controls.Add(l_newReserves);
+            p_newReserves.Location = new Point(572, 16);
+            p_newReserves.Name = "p_newReserves";
+            p_newReserves.Size = new Size(220, 127);
+            p_newReserves.TabIndex = 3;
+            // 
+            // l_noNewReserves
+            // 
+            l_noNewReserves.AutoSize = true;
+            l_noNewReserves.Font = new Font("Segoe UI", 15F);
+            l_noNewReserves.Location = new Point(13, 76);
+            l_noNewReserves.Name = "l_noNewReserves";
+            l_noNewReserves.Size = new Size(0, 28);
+            l_noNewReserves.TabIndex = 32;
+            // 
+            // l_newReserves
+            // 
+            l_newReserves.AutoSize = true;
+            l_newReserves.Font = new Font("Sitka Subheading", 11F);
+            l_newReserves.Location = new Point(13, 16);
+            l_newReserves.Name = "l_newReserves";
+            l_newReserves.Size = new Size(102, 21);
+            l_newReserves.TabIndex = 1;
+            l_newReserves.Text = "New Reserves";
+            // 
+            // p_totalBorrowed
+            // 
+            p_totalBorrowed.BackColor = SystemColors.Control;
+            p_totalBorrowed.Controls.Add(l_noTotalBorrowed);
+            p_totalBorrowed.Controls.Add(l_totalBorrowed);
+            p_totalBorrowed.Location = new Point(806, 16);
+            p_totalBorrowed.Name = "p_totalBorrowed";
+            p_totalBorrowed.Size = new Size(220, 127);
+            p_totalBorrowed.TabIndex = 3;
+            // 
+            // l_noTotalBorrowed
+            // 
+            l_noTotalBorrowed.AutoSize = true;
+            l_noTotalBorrowed.Font = new Font("Segoe UI", 15F);
+            l_noTotalBorrowed.Location = new Point(14, 76);
+            l_noTotalBorrowed.Name = "l_noTotalBorrowed";
+            l_noTotalBorrowed.Size = new Size(0, 28);
+            l_noTotalBorrowed.TabIndex = 31;
+            // 
+            // l_totalBorrowed
+            // 
+            l_totalBorrowed.AutoSize = true;
+            l_totalBorrowed.Font = new Font("Sitka Subheading", 11F);
+            l_totalBorrowed.Location = new Point(14, 16);
+            l_totalBorrowed.Name = "l_totalBorrowed";
+            l_totalBorrowed.Size = new Size(155, 21);
+            l_totalBorrowed.TabIndex = 2;
+            l_totalBorrowed.Text = "Total Borrowed Books";
+            // 
+            // p_returnedToday
+            // 
+            p_returnedToday.BackColor = Color.LightSkyBlue;
+            p_returnedToday.Controls.Add(l_noReturnedToday);
+            p_returnedToday.Controls.Add(l_returnedToday);
+            p_returnedToday.Location = new Point(337, 16);
+            p_returnedToday.Name = "p_returnedToday";
+            p_returnedToday.Size = new Size(220, 127);
+            p_returnedToday.TabIndex = 2;
+            // 
+            // l_noReturnedToday
+            // 
+            l_noReturnedToday.AutoSize = true;
+            l_noReturnedToday.Font = new Font("Segoe UI", 15F);
+            l_noReturnedToday.Location = new Point(15, 76);
+            l_noReturnedToday.Name = "l_noReturnedToday";
+            l_noReturnedToday.Size = new Size(0, 28);
+            l_noReturnedToday.TabIndex = 33;
+            // 
+            // l_returnedToday
+            // 
+            l_returnedToday.AutoSize = true;
+            l_returnedToday.Font = new Font("Sitka Subheading", 11.249999F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            l_returnedToday.Location = new Point(15, 16);
+            l_returnedToday.Name = "l_returnedToday";
+            l_returnedToday.Size = new Size(187, 21);
+            l_returnedToday.TabIndex = 0;
+            l_returnedToday.Text = "Books to be returned today";
+            // 
+            // p_userInforamtion
+            // 
+            p_userInforamtion.Controls.Add(l_password);
+            p_userInforamtion.Controls.Add(l_username);
+            p_userInforamtion.Controls.Add(tb_password);
+            p_userInforamtion.Controls.Add(tb_username);
+            p_userInforamtion.Controls.Add(b_cancel);
+            p_userInforamtion.Controls.Add(b_save);
+            p_userInforamtion.Location = new Point(0, 98);
+            p_userInforamtion.Name = "p_userInforamtion";
+            p_userInforamtion.Size = new Size(335, 159);
+            p_userInforamtion.TabIndex = 42;
+            p_userInforamtion.Visible = false;
+            // 
+            // l_password
+            // 
+            l_password.Font = new Font("Sitka Subheading", 10F);
+            l_password.Location = new Point(17, 64);
+            l_password.Name = "l_password";
+            l_password.Size = new Size(110, 23);
+            l_password.TabIndex = 43;
+            l_password.Text = "New Password:";
+            // 
+            // l_username
+            // 
+            l_username.Font = new Font("Sitka Subheading", 10F);
+            l_username.Location = new Point(17, 24);
+            l_username.Name = "l_username";
+            l_username.Size = new Size(78, 23);
+            l_username.TabIndex = 41;
+            l_username.Text = "Username:";
+            // 
+            // tb_password
+            // 
+            tb_password.Font = new Font("Segoe UI", 10F);
+            tb_password.Location = new Point(130, 64);
+            tb_password.Name = "tb_password";
+            tb_password.Size = new Size(175, 25);
+            tb_password.TabIndex = 44;
+            tb_password.Validating += tb_password_Validating;
+            // 
+            // tb_username
+            // 
+            tb_username.Font = new Font("Segoe UI", 10F);
+            tb_username.Location = new Point(130, 24);
+            tb_username.Name = "tb_username";
+            tb_username.Size = new Size(175, 25);
+            tb_username.TabIndex = 42;
+            tb_username.Validating += tb_username_Validating;
+            // 
+            // b_cancel
+            // 
+            b_cancel.BackColor = Color.FromArgb(224, 224, 224);
+            b_cancel.FlatStyle = FlatStyle.Flat;
+            b_cancel.Font = new Font("Sitka Subheading", 10F);
+            b_cancel.Location = new Point(246, 106);
+            b_cancel.Name = "b_cancel";
+            b_cancel.Size = new Size(59, 31);
+            b_cancel.TabIndex = 40;
+            b_cancel.Text = "Cancel";
+            b_cancel.UseVisualStyleBackColor = false;
+            b_cancel.Click += b_cancel_Click;
+            // 
+            // b_save
+            // 
+            b_save.BackColor = Color.FromArgb(255, 192, 192);
+            b_save.FlatStyle = FlatStyle.Flat;
+            b_save.Font = new Font("Sitka Subheading", 10F);
+            b_save.Location = new Point(186, 106);
+            b_save.Name = "b_save";
+            b_save.Size = new Size(50, 31);
+            b_save.TabIndex = 37;
+            b_save.Text = "Save";
+            b_save.UseVisualStyleBackColor = false;
+            b_save.Click += b_save_Click;
             // 
             // t_books
             // 
@@ -628,7 +879,7 @@
             // 
             // b_logout
             // 
-            b_logout.BackColor = Color.Transparent;
+            b_logout.BackColor = Color.White;
             b_logout.FlatAppearance.BorderColor = Color.White;
             b_logout.FlatStyle = FlatStyle.Flat;
             b_logout.Font = new Font("Sitka Subheading", 10F);
@@ -719,6 +970,10 @@
             l_dashboard.TabIndex = 2;
             l_dashboard.Text = "Dashboard";
             // 
+            // errorProvider1
+            // 
+            errorProvider1.ContainerControl = this;
+            // 
             // AdminDashboard
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -731,6 +986,18 @@
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Admin Dashboard";
             tabControl.ResumeLayout(false);
+            t_dashboard.ResumeLayout(false);
+            t_dashboard.PerformLayout();
+            p_totalMembers.ResumeLayout(false);
+            p_totalMembers.PerformLayout();
+            p_newReserves.ResumeLayout(false);
+            p_newReserves.PerformLayout();
+            p_totalBorrowed.ResumeLayout(false);
+            p_totalBorrowed.PerformLayout();
+            p_returnedToday.ResumeLayout(false);
+            p_returnedToday.PerformLayout();
+            p_userInforamtion.ResumeLayout(false);
+            p_userInforamtion.PerformLayout();
             t_books.ResumeLayout(false);
             t_books.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pb_searchBook).EndInit();
@@ -749,6 +1016,7 @@
             ((System.ComponentModel.ISupportInitialize)dgv_reserved).EndInit();
             panel.ResumeLayout(false);
             panel.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)errorProvider1).EndInit();
             ResumeLayout(false);
         }
 
@@ -802,5 +1070,27 @@
         private PictureBox pb_searchReserve;
         private TextBox tb_searchReserve;
         private Button b_returned;
+        private Panel p_newReserves;
+        private Panel p_totalBorrowed;
+        private Panel p_returnedToday;
+        private Label l_currentDate;
+        private Button b_profile;
+        private Label l_returnedToday;
+        private Label l_newReserves;
+        private Label l_totalBorrowed;
+        private Panel p_totalMembers;
+        private Label l_totalMembers;
+        private Label l_noTotalMembers;
+        private Label l_noNewReserves;
+        private Label l_noTotalBorrowed;
+        private Label l_noReturnedToday;
+        private Panel p_userInforamtion;
+        private Label l_password;
+        private Label l_username;
+        private TextBox tb_password;
+        private TextBox tb_username;
+        private Button b_cancel;
+        private Button b_save;
+        private ErrorProvider errorProvider1;
     }
 }
