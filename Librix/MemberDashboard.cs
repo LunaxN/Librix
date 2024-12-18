@@ -22,7 +22,7 @@ namespace Librix
             this.user_id = user_id;
             showCurrentDate();
             showTotalBorrowed();
-            showReturnedToday();
+            showAwaitingReturn();
             showNewBooks();
         }
 
@@ -58,10 +58,10 @@ namespace Librix
                     connection.Close();
                 }
             }
-            l_noTotalBorrowed.Text = recordCount.ToString();
+            l_numberBorrowedBooks.Text = recordCount.ToString();
         }
 
-        private void showReturnedToday()
+        private void showAwaitingReturn()
         {
             int recordCount = 0;
 
@@ -88,7 +88,7 @@ namespace Librix
                     connection.Close();
                 }
             }
-            l_noReturnedToday.Text = recordCount.ToString();
+            l_numberAwaitingReturn.Text = recordCount.ToString();
         }
 
         private void showNewBooks()
@@ -123,12 +123,12 @@ namespace Librix
             }
 
             l_numberNewBooks.Text = recordCount.ToString();
-            dgv_newbooks.DataSource = dataTable;
-            dgv_newbooks.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
+            dgv_newBooks.DataSource = dataTable;
+            dgv_newBooks.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
 
             if (recordCount <= 0)
             {
-                panel1.Visible = false;
+                p_newBooks.Visible = false;
             }
         }
 
@@ -141,7 +141,7 @@ namespace Librix
             b_profile.Visible = true;
             showCurrentDate();
             showTotalBorrowed();
-            showReturnedToday();
+            showAwaitingReturn();
             showNewBooks();
         }
 
@@ -210,6 +210,7 @@ namespace Librix
                     connection.Close();
                 }
             }
+            b_resetBooks.Visible = false;
         }
 
         private void showReserved()
@@ -237,6 +238,7 @@ namespace Librix
                     connection.Close();
                 }
             }
+            b_resetReserved.Visible = false;
         }
 
         private void showBorrowed()
@@ -244,7 +246,7 @@ namespace Librix
             DatabaseManager dbManger = new DatabaseManager();
             using (SqlConnection connection = new SqlConnection(dbManger.GetItemsDbConnectionString()))
             {
-                SqlCommand command = new SqlCommand("SELECT BorrowedID, BookID, Title, Authors, Edition, BorrowDate, ReturnDate, Status, Fine FROM Borrowed WHERE MembershipID = @membershipID", connection);
+                SqlCommand command = new SqlCommand("SELECT BorrowedID, BookID, Title, Authors, Edition, BorrowDate, ReturnDate, Status, Fine FROM Borrowed WHERE MembershipID = @membershipID ORDER BY CASE WHEN Status = 'Overdue' THEN 1 WHEN Status = 'Borrowed' THEN 2 WHEN Status = 'Returned' THEN 3 END", connection);
                 command.Parameters.AddWithValue("@membershipID", user_id);
 
                 try
@@ -265,6 +267,7 @@ namespace Librix
                     connection.Close();
                 }
             }
+            b_resetBorrowed.Visible = false;
         }
 
         private void tb_searchBook_KeyDown(object sender, KeyEventArgs e)
@@ -673,6 +676,11 @@ namespace Librix
             p_userInforamtion.Visible = true;
             p_userInforamtion.Location = new System.Drawing.Point(0, 50);
 
+            if (tb_password.Text != string.Empty)
+            {
+                tb_password.Clear();
+            }
+
             DatabaseManager dbManager = new DatabaseManager();
             using (SqlConnection connection = new SqlConnection(dbManager.GetUsersDbConnectionString()))
             {
@@ -709,6 +717,49 @@ namespace Librix
 
         private void b_save_Click(object sender, EventArgs e)
         {
+            DatabaseManager dbManager = new DatabaseManager();
+            using (SqlConnection connection = new SqlConnection(dbManager.GetUsersDbConnectionString()))
+            {
+                try
+                {
+                    connection.Open();
+                    using (SqlCommand command = new SqlCommand(@"UPDATE Members  
+                        SET FirstName = CASE WHEN @newName IS NOT NULL AND @newName <> '' THEN @newName ELSE FirstName END,
+                            LastName = CASE WHEN @newLastName IS NOT NULL AND @newLastName <> '' THEN @newLastName ELSE LastName END,
+                            PhoneNumber = CASE WHEN @newPhoneNumber = '' THEN NULL
+                                            ELSE CASE WHEN @newPhoneNumber IS NOT NULL AND @newPhoneNumber <> '' THEN @newPhoneNumber ELSE PhoneNumber END END,
+                            Username = CASE WHEN @newUsername IS NOT NULL AND @newUsername <> '' THEN @newUsername ELSE Username END,
+                            Password = CASE WHEN @newPassword IS NOT NULL AND @newPassword <> '' THEN @newPassword ELSE Password END
+                        WHERE MembershipID = @membershipID", connection))
+                    {
+                        command.Parameters.AddWithValue("@newName", tb_name.Text);
+                        command.Parameters.AddWithValue("@newLastName", tb_lastname.Text);
+                        command.Parameters.AddWithValue("@newPhoneNumber", tb_phoneNumber.Text);
+                        command.Parameters.AddWithValue("@newUsername", tb_username.Text);
+                        command.Parameters.AddWithValue("@newPassword", tb_password.Text);
+                        command.Parameters.AddWithValue("@membershipID", user_id);
+                        int rowsAffected = command.ExecuteNonQuery();
+                        if (rowsAffected > 0)
+                        {
+                            MessageBox.Show("Profile updated successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+                        else
+                        {
+                            MessageBox.Show("Failed to update profile, please contact support.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                finally
+                {
+                    connection.Close();
+                }
+
+            }
+
             p_userInforamtion.Location = new System.Drawing.Point(0, 98);
             p_userInforamtion.Visible = false;
             b_profile.Visible = true;

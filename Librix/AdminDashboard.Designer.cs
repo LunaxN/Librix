@@ -32,15 +32,16 @@
             tabControl = new TabControl();
             t_dashboard = new TabPage();
             p_totalMembers = new Panel();
-            l_noTotalMembers = new Label();
+            l_numberTotalMembers = new Label();
             l_totalMembers = new Label();
             b_profile = new Button();
             l_currentDate = new Label();
             p_newReserves = new Panel();
-            l_noNewReserves = new Label();
+            l_fromDate = new Label();
+            l_numberNewReserves = new Label();
             l_newReserves = new Label();
             p_totalBorrowed = new Panel();
-            l_noTotalBorrowed = new Label();
+            l_numberTotalBorrowed = new Label();
             l_totalBorrowed = new Label();
             p_returnedToday = new Panel();
             l_noReturnedToday = new Label();
@@ -53,6 +54,8 @@
             b_cancel = new Button();
             b_save = new Button();
             t_books = new TabPage();
+            tb_membershipID = new TextBox();
+            b_addBorrowed = new Button();
             l_editBook = new Label();
             b_editBook = new Button();
             b_resetBooks = new Button();
@@ -64,8 +67,6 @@
             tb_searchBook = new TextBox();
             dgv_books = new DataGridView();
             t_borrowed = new TabPage();
-            label1 = new Label();
-            b_addBorrowed = new Button();
             b_returned = new Button();
             b_resetBorrowed = new Button();
             pb_searchBorrow = new PictureBox();
@@ -157,21 +158,21 @@
             // p_totalMembers
             // 
             p_totalMembers.BackColor = SystemColors.Control;
-            p_totalMembers.Controls.Add(l_noTotalMembers);
+            p_totalMembers.Controls.Add(l_numberTotalMembers);
             p_totalMembers.Controls.Add(l_totalMembers);
             p_totalMembers.Location = new Point(1040, 16);
             p_totalMembers.Name = "p_totalMembers";
-            p_totalMembers.Size = new Size(220, 127);
+            p_totalMembers.Size = new Size(220, 136);
             p_totalMembers.TabIndex = 29;
             // 
-            // l_noTotalMembers
+            // l_numberTotalMembers
             // 
-            l_noTotalMembers.AutoSize = true;
-            l_noTotalMembers.Font = new Font("Segoe UI", 15F);
-            l_noTotalMembers.Location = new Point(16, 76);
-            l_noTotalMembers.Name = "l_noTotalMembers";
-            l_noTotalMembers.Size = new Size(0, 28);
-            l_noTotalMembers.TabIndex = 30;
+            l_numberTotalMembers.AutoSize = true;
+            l_numberTotalMembers.Font = new Font("Segoe UI", 15F);
+            l_numberTotalMembers.Location = new Point(16, 76);
+            l_numberTotalMembers.Name = "l_numberTotalMembers";
+            l_numberTotalMembers.Size = new Size(0, 28);
+            l_numberTotalMembers.TabIndex = 30;
             // 
             // l_totalMembers
             // 
@@ -179,7 +180,7 @@
             l_totalMembers.Font = new Font("Sitka Subheading", 11F);
             l_totalMembers.Location = new Point(16, 16);
             l_totalMembers.Name = "l_totalMembers";
-            l_totalMembers.Size = new Size(107, 21);
+            l_totalMembers.Size = new Size(108, 21);
             l_totalMembers.TabIndex = 1;
             l_totalMembers.Text = "Total Members";
             // 
@@ -200,7 +201,7 @@
             // 
             l_currentDate.AutoSize = true;
             l_currentDate.Font = new Font("Segoe UI", 9F);
-            l_currentDate.Location = new Point(23, 24);
+            l_currentDate.Location = new Point(17, 24);
             l_currentDate.Name = "l_currentDate";
             l_currentDate.Size = new Size(0, 15);
             l_currentDate.TabIndex = 4;
@@ -208,21 +209,31 @@
             // p_newReserves
             // 
             p_newReserves.BackColor = SystemColors.Control;
-            p_newReserves.Controls.Add(l_noNewReserves);
+            p_newReserves.Controls.Add(l_fromDate);
+            p_newReserves.Controls.Add(l_numberNewReserves);
             p_newReserves.Controls.Add(l_newReserves);
             p_newReserves.Location = new Point(572, 16);
             p_newReserves.Name = "p_newReserves";
-            p_newReserves.Size = new Size(220, 127);
+            p_newReserves.Size = new Size(220, 136);
             p_newReserves.TabIndex = 3;
             // 
-            // l_noNewReserves
+            // l_fromDate
             // 
-            l_noNewReserves.AutoSize = true;
-            l_noNewReserves.Font = new Font("Segoe UI", 15F);
-            l_noNewReserves.Location = new Point(13, 76);
-            l_noNewReserves.Name = "l_noNewReserves";
-            l_noNewReserves.Size = new Size(0, 28);
-            l_noNewReserves.TabIndex = 32;
+            l_fromDate.AutoSize = true;
+            l_fromDate.Font = new Font("Segoe UI", 7F);
+            l_fromDate.Location = new Point(13, 110);
+            l_fromDate.Name = "l_fromDate";
+            l_fromDate.Size = new Size(0, 12);
+            l_fromDate.TabIndex = 43;
+            // 
+            // l_numberNewReserves
+            // 
+            l_numberNewReserves.AutoSize = true;
+            l_numberNewReserves.Font = new Font("Segoe UI", 15F);
+            l_numberNewReserves.Location = new Point(13, 76);
+            l_numberNewReserves.Name = "l_numberNewReserves";
+            l_numberNewReserves.Size = new Size(0, 28);
+            l_numberNewReserves.TabIndex = 32;
             // 
             // l_newReserves
             // 
@@ -230,28 +241,28 @@
             l_newReserves.Font = new Font("Sitka Subheading", 11F);
             l_newReserves.Location = new Point(13, 16);
             l_newReserves.Name = "l_newReserves";
-            l_newReserves.Size = new Size(100, 21);
+            l_newReserves.Size = new Size(102, 21);
             l_newReserves.TabIndex = 1;
             l_newReserves.Text = "New Reserves";
             // 
             // p_totalBorrowed
             // 
             p_totalBorrowed.BackColor = SystemColors.Control;
-            p_totalBorrowed.Controls.Add(l_noTotalBorrowed);
+            p_totalBorrowed.Controls.Add(l_numberTotalBorrowed);
             p_totalBorrowed.Controls.Add(l_totalBorrowed);
             p_totalBorrowed.Location = new Point(806, 16);
             p_totalBorrowed.Name = "p_totalBorrowed";
-            p_totalBorrowed.Size = new Size(220, 127);
+            p_totalBorrowed.Size = new Size(220, 136);
             p_totalBorrowed.TabIndex = 3;
             // 
-            // l_noTotalBorrowed
+            // l_numberTotalBorrowed
             // 
-            l_noTotalBorrowed.AutoSize = true;
-            l_noTotalBorrowed.Font = new Font("Segoe UI", 15F);
-            l_noTotalBorrowed.Location = new Point(14, 76);
-            l_noTotalBorrowed.Name = "l_noTotalBorrowed";
-            l_noTotalBorrowed.Size = new Size(0, 28);
-            l_noTotalBorrowed.TabIndex = 31;
+            l_numberTotalBorrowed.AutoSize = true;
+            l_numberTotalBorrowed.Font = new Font("Segoe UI", 15F);
+            l_numberTotalBorrowed.Location = new Point(14, 76);
+            l_numberTotalBorrowed.Name = "l_numberTotalBorrowed";
+            l_numberTotalBorrowed.Size = new Size(0, 28);
+            l_numberTotalBorrowed.TabIndex = 31;
             // 
             // l_totalBorrowed
             // 
@@ -259,7 +270,7 @@
             l_totalBorrowed.Font = new Font("Sitka Subheading", 11F);
             l_totalBorrowed.Location = new Point(14, 16);
             l_totalBorrowed.Name = "l_totalBorrowed";
-            l_totalBorrowed.Size = new Size(154, 21);
+            l_totalBorrowed.Size = new Size(155, 21);
             l_totalBorrowed.TabIndex = 2;
             l_totalBorrowed.Text = "Total Borrowed Books";
             // 
@@ -270,7 +281,7 @@
             p_returnedToday.Controls.Add(l_returnedToday);
             p_returnedToday.Location = new Point(337, 16);
             p_returnedToday.Name = "p_returnedToday";
-            p_returnedToday.Size = new Size(220, 127);
+            p_returnedToday.Size = new Size(220, 136);
             p_returnedToday.TabIndex = 2;
             // 
             // l_noReturnedToday
@@ -288,7 +299,7 @@
             l_returnedToday.Font = new Font("Sitka Subheading", 11.249999F, FontStyle.Regular, GraphicsUnit.Point, 0);
             l_returnedToday.Location = new Point(15, 16);
             l_returnedToday.Name = "l_returnedToday";
-            l_returnedToday.Size = new Size(186, 21);
+            l_returnedToday.Size = new Size(187, 21);
             l_returnedToday.TabIndex = 0;
             l_returnedToday.Text = "Books to be returned today";
             // 
@@ -370,6 +381,8 @@
             // 
             // t_books
             // 
+            t_books.Controls.Add(tb_membershipID);
+            t_books.Controls.Add(b_addBorrowed);
             t_books.Controls.Add(l_editBook);
             t_books.Controls.Add(b_editBook);
             t_books.Controls.Add(b_resetBooks);
@@ -387,6 +400,27 @@
             t_books.TabIndex = 1;
             t_books.Text = "Books";
             t_books.UseVisualStyleBackColor = true;
+            // 
+            // tb_membershipID
+            // 
+            tb_membershipID.Location = new Point(599, 64);
+            tb_membershipID.Name = "tb_membershipID";
+            tb_membershipID.Size = new Size(154, 23);
+            tb_membershipID.TabIndex = 33;
+            tb_membershipID.Visible = false;
+            // 
+            // b_addBorrowed
+            // 
+            b_addBorrowed.BackColor = Color.LightSkyBlue;
+            b_addBorrowed.FlatStyle = FlatStyle.Flat;
+            b_addBorrowed.Font = new Font("Sitka Subheading", 10F);
+            b_addBorrowed.Location = new Point(599, 8);
+            b_addBorrowed.Name = "b_addBorrowed";
+            b_addBorrowed.Size = new Size(110, 35);
+            b_addBorrowed.TabIndex = 32;
+            b_addBorrowed.Text = "Add Borrowed";
+            b_addBorrowed.UseVisualStyleBackColor = false;
+            b_addBorrowed.Click += b_addBorrowed_Click;
             // 
             // l_editBook
             // 
@@ -422,7 +456,7 @@
             b_resetBooks.BackColor = Color.FromArgb(255, 192, 192);
             b_resetBooks.FlatStyle = FlatStyle.Flat;
             b_resetBooks.Font = new Font("Sitka Subheading", 10F);
-            b_resetBooks.Location = new Point(595, 8);
+            b_resetBooks.Location = new Point(734, 8);
             b_resetBooks.Name = "b_resetBooks";
             b_resetBooks.Size = new Size(116, 35);
             b_resetBooks.TabIndex = 19;
@@ -524,8 +558,6 @@
             // 
             // t_borrowed
             // 
-            t_borrowed.Controls.Add(label1);
-            t_borrowed.Controls.Add(b_addBorrowed);
             t_borrowed.Controls.Add(b_returned);
             t_borrowed.Controls.Add(b_resetBorrowed);
             t_borrowed.Controls.Add(pb_searchBorrow);
@@ -539,39 +571,12 @@
             t_borrowed.Text = "Borrowed";
             t_borrowed.UseVisualStyleBackColor = true;
             // 
-            // label1
-            // 
-            label1.AutoSize = true;
-            label1.BackColor = SystemColors.ControlDarkDark;
-            label1.Font = new Font("Sitka Subheading", 10F);
-            label1.ForeColor = Color.White;
-            label1.Location = new Point(9, 43);
-            label1.Name = "label1";
-            label1.Size = new Size(34, 20);
-            label1.TabIndex = 33;
-            label1.Text = "Add";
-            label1.Visible = false;
-            // 
-            // b_addBorrowed
-            // 
-            b_addBorrowed.BackColor = Color.Transparent;
-            b_addBorrowed.FlatAppearance.BorderColor = Color.White;
-            b_addBorrowed.FlatStyle = FlatStyle.Flat;
-            b_addBorrowed.Font = new Font("Sitka Subheading", 10F);
-            b_addBorrowed.Image = icons.add;
-            b_addBorrowed.Location = new Point(11, 11);
-            b_addBorrowed.Name = "b_addBorrowed";
-            b_addBorrowed.Size = new Size(30, 30);
-            b_addBorrowed.TabIndex = 32;
-            b_addBorrowed.UseVisualStyleBackColor = false;
-            b_addBorrowed.Click += b_addBorrowed_Click;
-            // 
             // b_returned
             // 
             b_returned.BackColor = Color.LightSkyBlue;
             b_returned.FlatStyle = FlatStyle.Flat;
             b_returned.Font = new Font("Sitka Subheading", 10F);
-            b_returned.Location = new Point(554, 9);
+            b_returned.Location = new Point(529, 8);
             b_returned.Name = "b_returned";
             b_returned.Size = new Size(87, 35);
             b_returned.TabIndex = 31;
@@ -584,7 +589,7 @@
             b_resetBorrowed.BackColor = Color.FromArgb(255, 192, 192);
             b_resetBorrowed.FlatStyle = FlatStyle.Flat;
             b_resetBorrowed.Font = new Font("Sitka Subheading", 10F);
-            b_resetBorrowed.Location = new Point(647, 9);
+            b_resetBorrowed.Location = new Point(640, 8);
             b_resetBorrowed.Name = "b_resetBorrowed";
             b_resetBorrowed.Size = new Size(157, 35);
             b_resetBorrowed.TabIndex = 22;
@@ -596,7 +601,7 @@
             // pb_searchBorrow
             // 
             pb_searchBorrow.Image = icons.search;
-            pb_searchBorrow.Location = new Point(497, 16);
+            pb_searchBorrow.Location = new Point(472, 15);
             pb_searchBorrow.Name = "pb_searchBorrow";
             pb_searchBorrow.Size = new Size(23, 23);
             pb_searchBorrow.TabIndex = 21;
@@ -606,7 +611,7 @@
             // 
             tb_searchBorrow.Font = new Font("Segoe UI", 10F);
             tb_searchBorrow.ForeColor = Color.Gray;
-            tb_searchBorrow.Location = new Point(48, 15);
+            tb_searchBorrow.Location = new Point(23, 14);
             tb_searchBorrow.Name = "tb_searchBorrow";
             tb_searchBorrow.Size = new Size(473, 25);
             tb_searchBorrow.TabIndex = 20;
@@ -800,7 +805,7 @@
             b_resetReserved.BackColor = Color.FromArgb(255, 192, 192);
             b_resetReserved.FlatStyle = FlatStyle.Flat;
             b_resetReserved.Font = new Font("Sitka Subheading", 10F);
-            b_resetReserved.Location = new Point(665, 8);
+            b_resetReserved.Location = new Point(640, 8);
             b_resetReserved.Name = "b_resetReserved";
             b_resetReserved.Size = new Size(116, 35);
             b_resetReserved.TabIndex = 35;
@@ -837,7 +842,7 @@
             b_issued.Font = new Font("Sitka Subheading", 10F);
             b_issued.Location = new Point(529, 8);
             b_issued.Name = "b_issued";
-            b_issued.Size = new Size(116, 35);
+            b_issued.Size = new Size(87, 35);
             b_issued.TabIndex = 30;
             b_issued.Text = "Issued";
             b_issued.UseVisualStyleBackColor = false;
@@ -1111,9 +1116,9 @@
         private Label l_totalBorrowed;
         private Panel p_totalMembers;
         private Label l_totalMembers;
-        private Label l_noTotalMembers;
-        private Label l_noNewReserves;
-        private Label l_noTotalBorrowed;
+        private Label l_numberTotalMembers;
+        private Label l_numberNewReserves;
+        private Label l_numberTotalBorrowed;
         private Label l_noReturnedToday;
         private Panel p_userInforamtion;
         private Label l_password;
@@ -1123,7 +1128,8 @@
         private Button b_cancel;
         private Button b_save;
         private ErrorProvider errorProvider1;
-        private Label label1;
+        private Label l_fromDate;
         private Button b_addBorrowed;
+        private TextBox tb_membershipID;
     }
 }
