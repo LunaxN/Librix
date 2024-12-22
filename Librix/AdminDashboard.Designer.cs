@@ -55,7 +55,7 @@
             b_save = new Button();
             t_books = new TabPage();
             tb_membershipID = new TextBox();
-            b_addBorrowed = new Button();
+            b_addBorrow = new Button();
             l_editBook = new Label();
             b_editBook = new Button();
             b_resetBooks = new Button();
@@ -180,7 +180,7 @@
             l_totalMembers.Font = new Font("Sitka Subheading", 11F);
             l_totalMembers.Location = new Point(16, 16);
             l_totalMembers.Name = "l_totalMembers";
-            l_totalMembers.Size = new Size(108, 21);
+            l_totalMembers.Size = new Size(107, 21);
             l_totalMembers.TabIndex = 1;
             l_totalMembers.Text = "Total Members";
             // 
@@ -241,7 +241,7 @@
             l_newReserves.Font = new Font("Sitka Subheading", 11F);
             l_newReserves.Location = new Point(13, 16);
             l_newReserves.Name = "l_newReserves";
-            l_newReserves.Size = new Size(102, 21);
+            l_newReserves.Size = new Size(100, 21);
             l_newReserves.TabIndex = 1;
             l_newReserves.Text = "New Reserves";
             // 
@@ -270,7 +270,7 @@
             l_totalBorrowed.Font = new Font("Sitka Subheading", 11F);
             l_totalBorrowed.Location = new Point(14, 16);
             l_totalBorrowed.Name = "l_totalBorrowed";
-            l_totalBorrowed.Size = new Size(155, 21);
+            l_totalBorrowed.Size = new Size(154, 21);
             l_totalBorrowed.TabIndex = 2;
             l_totalBorrowed.Text = "Total Borrowed Books";
             // 
@@ -299,7 +299,7 @@
             l_returnedToday.Font = new Font("Sitka Subheading", 11.249999F, FontStyle.Regular, GraphicsUnit.Point, 0);
             l_returnedToday.Location = new Point(15, 16);
             l_returnedToday.Name = "l_returnedToday";
-            l_returnedToday.Size = new Size(187, 21);
+            l_returnedToday.Size = new Size(186, 21);
             l_returnedToday.TabIndex = 0;
             l_returnedToday.Text = "Books to be returned today";
             // 
@@ -382,7 +382,7 @@
             // t_books
             // 
             t_books.Controls.Add(tb_membershipID);
-            t_books.Controls.Add(b_addBorrowed);
+            t_books.Controls.Add(b_addBorrow);
             t_books.Controls.Add(l_editBook);
             t_books.Controls.Add(b_editBook);
             t_books.Controls.Add(b_resetBooks);
@@ -403,25 +403,25 @@
             // 
             // tb_membershipID
             // 
-            tb_membershipID.Location = new Point(599, 65);
+            tb_membershipID.Location = new Point(599, 43);
             tb_membershipID.Name = "tb_membershipID";
             tb_membershipID.Size = new Size(154, 23);
             tb_membershipID.TabIndex = 33;
             tb_membershipID.Visible = false;
             tb_membershipID.Validating += tb_membershipID_Validating;
             // 
-            // b_addBorrowed
+            // b_addBorrow
             // 
-            b_addBorrowed.BackColor = Color.LightSkyBlue;
-            b_addBorrowed.FlatStyle = FlatStyle.Flat;
-            b_addBorrowed.Font = new Font("Sitka Subheading", 10F);
-            b_addBorrowed.Location = new Point(599, 8);
-            b_addBorrowed.Name = "b_addBorrowed";
-            b_addBorrowed.Size = new Size(110, 35);
-            b_addBorrowed.TabIndex = 32;
-            b_addBorrowed.Text = "Add Borrowed";
-            b_addBorrowed.UseVisualStyleBackColor = false;
-            b_addBorrowed.Click += b_addBorrowed_Click;
+            b_addBorrow.BackColor = Color.LightSkyBlue;
+            b_addBorrow.FlatStyle = FlatStyle.Flat;
+            b_addBorrow.Font = new Font("Sitka Subheading", 10F);
+            b_addBorrow.Location = new Point(599, 8);
+            b_addBorrow.Name = "b_addBorrow";
+            b_addBorrow.Size = new Size(110, 35);
+            b_addBorrow.TabIndex = 32;
+            b_addBorrow.Text = "+ Borrow";
+            b_addBorrow.UseVisualStyleBackColor = false;
+            b_addBorrow.Click += b_addBorrow_Click;
             // 
             // l_editBook
             // 
@@ -1130,7 +1130,7 @@
         private Button b_save;
         private ErrorProvider errorProvider1;
         private Label l_fromDate;
-        private Button b_addBorrowed;
+        private Button b_addBorrow;
         private TextBox tb_membershipID;
     }
 }

@@ -340,7 +340,7 @@ namespace Librix
             if (selectedRowCount > 0)
             {
                 StringBuilder titles = new StringBuilder();
-                bool allAvailable = true; // to check if all books are availabe or not
+                bool allAvailable = true;
 
                 foreach (DataGridViewRow row in dgv_books.SelectedRows)
                 {
