@@ -403,11 +403,12 @@
             // 
             // tb_membershipID
             // 
-            tb_membershipID.Location = new Point(599, 64);
+            tb_membershipID.Location = new Point(599, 65);
             tb_membershipID.Name = "tb_membershipID";
             tb_membershipID.Size = new Size(154, 23);
             tb_membershipID.TabIndex = 33;
             tb_membershipID.Visible = false;
+            tb_membershipID.Validating += tb_membershipID_Validating;
             // 
             // b_addBorrowed
             // 

@@ -1047,6 +1047,18 @@ namespace Librix
             }
         }
 
+        private bool isValidMembershipID(int membershipID)
+        {
+            DatabaseManager dbManger = new DatabaseManager();
+            using (SqlConnection connection = new SqlConnection(dbManger.GetUsersDbConnectionString()))
+            {
+                connection.Open();
+                SqlCommand command = new SqlCommand("SELECT COUNT(*) FROM Members WHERE MembershipID = @membershipID", connection);
+                command.Parameters.AddWithValue("@membershipID", membershipID);
+                return (int)command.ExecuteScalar() > 0;
+            }
+        }
+
         private void b_addBorrowed_Click(object sender, EventArgs e)
         {
             tb_membershipID.Visible = true;
@@ -1069,74 +1081,82 @@ namespace Librix
 
                 if (result == DialogResult.Yes)
                 {
-                    DatabaseManager dbManager = new DatabaseManager();
-                    using (SqlConnection connection = new SqlConnection(dbManager.GetItemsDbConnectionString()))
+                    int membershipID = Convert.ToInt32(tb_membershipID.Text);
+
+                    if (isValidMembershipID(membershipID)) 
                     {
-                        connection.Open();
-                        foreach (DataGridViewRow row in dgv_books.SelectedRows)
+                        DatabaseManager dbManager = new DatabaseManager();
+                        using (SqlConnection connection = new SqlConnection(dbManager.GetItemsDbConnectionString()))
                         {
-                            try
+                            connection.Open();
+                            foreach (DataGridViewRow row in dgv_books.SelectedRows)
                             {
-                                int bookID = Convert.ToInt32(row.Cells["BookID"].Value);
-
-                                using (SqlCommand command = new SqlCommand("SELECT * FROM Books WHERE BookID = @bookID", connection))
+                                try
                                 {
-                                    command.Parameters.AddWithValue("@bookID", bookID);
+                                    int bookID = Convert.ToInt32(row.Cells["BookID"].Value);
 
-                                    using (SqlDataReader reader = command.ExecuteReader())
+                                    using (SqlCommand command = new SqlCommand("SELECT * FROM Books WHERE BookID = @bookID", connection))
                                     {
-                                        if (reader.Read())
+                                        command.Parameters.AddWithValue("@bookID", bookID);
+
+                                        using (SqlDataReader reader = command.ExecuteReader())
                                         {
-                                            string title = reader["Title"].ToString();
-                                            string authors = reader["Authors"].ToString();
-                                            string edition = reader["Edition"].ToString();
-                                            reader.Close();
-
-                                            using (SqlCommand insertCommand = new SqlCommand("INSERT INTO Borrowed (BookID, MembershipID, Title, Authors, Edition, BorrowDate, ReturnDate) VALUES (@bookID, @membershipID, @title, @authors, @edition, GETDATE(), @returnDate)", connection))
+                                            if (reader.Read())
                                             {
-                                                insertCommand.Parameters.AddWithValue("@bookID", bookID);
-                                                insertCommand.Parameters.AddWithValue("@membershipID", tb_membershipID.Text);
-                                                insertCommand.Parameters.AddWithValue("@title", title);
-                                                insertCommand.Parameters.AddWithValue("@authors", authors);
-                                                insertCommand.Parameters.AddWithValue("@edition", edition);
-                                                insertCommand.Parameters.AddWithValue("@returnDate", DateTime.Now.AddDays(14));
+                                                string title = reader["Title"].ToString();
+                                                string authors = reader["Authors"].ToString();
+                                                string edition = reader["Edition"].ToString();
+                                                reader.Close();
 
-                                                int rowsAffected = insertCommand.ExecuteNonQuery();
-                                                if (rowsAffected > 0)
+                                                using (SqlCommand insertCommand = new SqlCommand("INSERT INTO Borrowed (BookID, MembershipID, Title, Authors, Edition, BorrowDate, ReturnDate) VALUES (@bookID, @membershipID, @title, @authors, @edition, GETDATE(), @returnDate)", connection))
                                                 {
-                                                    using (SqlCommand updateCommand = new SqlCommand("UPDATE Books SET NoOfAvailableCopies = NoOfAvailableCopies - 1 WHERE BookID = @BookID;", connection))
+                                                    insertCommand.Parameters.AddWithValue("@bookID", bookID);
+                                                    insertCommand.Parameters.AddWithValue("@membershipID", membershipID);
+                                                    insertCommand.Parameters.AddWithValue("@title", title);
+                                                    insertCommand.Parameters.AddWithValue("@authors", authors);
+                                                    insertCommand.Parameters.AddWithValue("@edition", edition);
+                                                    insertCommand.Parameters.AddWithValue("@returnDate", DateTime.Now.AddDays(14));
+
+                                                    int rowsAffected = insertCommand.ExecuteNonQuery();
+                                                    if (rowsAffected > 0)
                                                     {
-                                                        updateCommand.Parameters.AddWithValue("@bookID", bookID);
-                                                        updateCommand.ExecuteNonQuery();
+                                                        using (SqlCommand updateCommand = new SqlCommand("UPDATE Books SET NoOfAvailableCopies = NoOfAvailableCopies - 1 WHERE BookID = @BookID;", connection))
+                                                        {
+                                                            updateCommand.Parameters.AddWithValue("@bookID", bookID);
+                                                            updateCommand.ExecuteNonQuery();
+                                                        }
                                                     }
-                                                }
-                                                else
-                                                {
-                                                    MessageBox.Show("Failed to borrow book(s).", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                                                    tb_membershipID.Visible = false;
-                                                    return;
+                                                    else
+                                                    {
+                                                        MessageBox.Show("Failed to borrow book(s).", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                                        tb_membershipID.Visible = false;
+                                                        return;
+                                                    }
                                                 }
                                             }
                                         }
                                     }
                                 }
-                            }
-                            catch (Exception ex)
-                            {
-                                MessageBox.Show("Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                                tb_membershipID.Visible = false;
-                                return;
-                            }
-                        }
-                        MessageBox.Show("Book(s) borrowed successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                catch (Exception ex)
+                                {
+                                    MessageBox.Show("Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                    tb_membershipID.Visible = false;
+                                    return;
+                                }
+                                MessageBox.Show("Book(s) borrowed successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            }      
+                        }      
                     }
+                    else
+                    {
+                        MessageBox.Show("Invalid membershipID.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }  
                 }
             }
             else
             {
                 MessageBox.Show("Please select at least one record.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
-
             tb_membershipID.Visible = false;
         }
 
@@ -1228,6 +1248,14 @@ namespace Librix
             else
             {
                 MessageBox.Show("Please select at least one record.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+
+        private void tb_membershipID_Validating(object sender, CancelEventArgs e)
+        {
+            if (tb_membershipID.Text == string.Empty)
+            {
+                errorProvider1.SetError(tb_membershipID, "Please Enter MembershipID");
             }
         }
     }

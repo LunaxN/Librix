@@ -47,53 +47,60 @@ namespace Librix
 
         private void b_login_Click(object sender, EventArgs e)
         {
-            DatabaseManager dbManager = new DatabaseManager();
-            using (SqlConnection connection = new SqlConnection(dbManager.GetUsersDbConnectionString()))
+            if (tb_password.Text != string.Empty && tb_username.Text != string.Empty)
             {
-                SqlCommand command = new SqlCommand(rb_admin.Checked ?
-                                                      "SELECT ID FROM Admins WHERE Username = @username AND Password = @password"
-                                                    : "SELECT MembershipID FROM Members WHERE Username = @username AND Password = @password"
-                                                    , connection);
-                command.Parameters.AddWithValue("@username", tb_username.Text);
-                command.Parameters.AddWithValue("@password", tb_password.Text);
-
-                try
+                DatabaseManager dbManager = new DatabaseManager();
+                using (SqlConnection connection = new SqlConnection(dbManager.GetUsersDbConnectionString()))
                 {
-                    connection.Open();
-                    using (SqlDataReader reader = command.ExecuteReader())
-                    {
-                        if (reader.Read())
-                        {
-                            int id = reader.GetInt32(0);
-                            if (rb_admin.Checked)
-                            {
-                                AdminDashboard dashboard = new AdminDashboard(id);
-                                dashboard.Show();
-                                this.Hide();
-                            }
-                            else if (rb_member.Checked)
-                            {
-                                MemberDashboard dashboard = new MemberDashboard(id);
-                                dashboard.Show();
-                                this.Hide();
-                            }
+                    SqlCommand command = new SqlCommand(rb_admin.Checked ?
+                                                          "SELECT ID FROM Admins WHERE Username = @username AND Password = @password"
+                                                        : "SELECT MembershipID FROM Members WHERE Username = @username AND Password = @password"
+                                                        , connection);
+                    command.Parameters.AddWithValue("@username", tb_username.Text);
+                    command.Parameters.AddWithValue("@password", tb_password.Text);
 
-                            MessageBox.Show("Login successful!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        }
-                        else
+                    try
+                    {
+                        connection.Open();
+                        using (SqlDataReader reader = command.ExecuteReader())
                         {
-                            MessageBox.Show("Invalid username or password.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            if (reader.Read())
+                            {
+                                int id = reader.GetInt32(0);
+                                if (rb_admin.Checked)
+                                {
+                                    AdminDashboard dashboard = new AdminDashboard(id);
+                                    dashboard.Show();
+                                    this.Hide();
+                                }
+                                else if (rb_member.Checked)
+                                {
+                                    MemberDashboard dashboard = new MemberDashboard(id);
+                                    dashboard.Show();
+                                    this.Hide();
+                                }
+
+                                MessageBox.Show("Login successful!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            }
+                            else
+                            {
+                                MessageBox.Show("Invalid username or password.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            }
                         }
                     }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                    finally
+                    {
+                        connection.Close();
+                    }
                 }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-                finally
-                {
-                    connection.Close();
-                }
+            }
+            else
+            {
+                MessageBox.Show("Username or password field is Empty.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
 
