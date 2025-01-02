@@ -43,8 +43,6 @@
             errorProvider1 = new ErrorProvider(components);
             tb_availableCopies = new TextBox();
             l_availableCopies = new Label();
-            l_availability = new Label();
-            cb_availability = new ComboBox();
             l_totalCopies = new Label();
             tb_totalCopies = new TextBox();
             ((System.ComponentModel.ISupportInitialize)errorProvider1).BeginInit();
@@ -106,7 +104,7 @@
             b_add.BackColor = Color.FromArgb(255, 192, 192);
             b_add.FlatStyle = FlatStyle.Flat;
             b_add.Font = new Font("Sitka Subheading", 10F);
-            b_add.Location = new Point(21, 365);
+            b_add.Location = new Point(21, 334);
             b_add.Name = "b_add";
             b_add.Size = new Size(360, 52);
             b_add.TabIndex = 45;
@@ -156,43 +154,20 @@
             // tb_availableCopies
             // 
             tb_availableCopies.Font = new Font("Segoe UI", 10F);
-            tb_availableCopies.Location = new Point(173, 312);
+            tb_availableCopies.Location = new Point(173, 272);
             tb_availableCopies.Name = "tb_availableCopies";
             tb_availableCopies.Size = new Size(175, 25);
             tb_availableCopies.TabIndex = 54;
-            tb_availableCopies.Visible = false;
             tb_availableCopies.TextChanged += tb_availableCopies_TextChanged;
             // 
             // l_availableCopies
             // 
             l_availableCopies.Font = new Font("Sitka Subheading", 10F);
-            l_availableCopies.Location = new Point(46, 312);
+            l_availableCopies.Location = new Point(46, 272);
             l_availableCopies.Name = "l_availableCopies";
             l_availableCopies.Size = new Size(121, 23);
             l_availableCopies.TabIndex = 55;
             l_availableCopies.Text = "Available Copies:";
-            l_availableCopies.Visible = false;
-            // 
-            // l_availability
-            // 
-            l_availability.Font = new Font("Sitka Subheading", 10F);
-            l_availability.Location = new Point(46, 272);
-            l_availability.Name = "l_availability";
-            l_availability.Size = new Size(100, 23);
-            l_availability.TabIndex = 56;
-            l_availability.Text = "Availability:";
-            // 
-            // cb_availability
-            // 
-            cb_availability.Font = new Font("Segoe UI", 10F);
-            cb_availability.FormattingEnabled = true;
-            cb_availability.Items.AddRange(new object[] { "Available", "Not Available" });
-            cb_availability.Location = new Point(173, 272);
-            cb_availability.Name = "cb_availability";
-            cb_availability.Size = new Size(175, 25);
-            cb_availability.TabIndex = 57;
-            cb_availability.SelectedIndexChanged += cb_availability_SelectedIndexChanged;
-            cb_availability.Validating += cb_availability_Validating;
             // 
             // l_totalCopies
             // 
@@ -217,11 +192,9 @@
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
-            ClientSize = new Size(403, 443);
+            ClientSize = new Size(403, 415);
             Controls.Add(l_totalCopies);
             Controls.Add(tb_totalCopies);
-            Controls.Add(cb_availability);
-            Controls.Add(l_availability);
             Controls.Add(l_availableCopies);
             Controls.Add(tb_availableCopies);
             Controls.Add(tb_publishDate);
@@ -260,10 +233,8 @@
         private Label l_authors;
         private Label l_title;
         private ErrorProvider errorProvider1;
-        private Label l_availability;
         private Label l_availableCopies;
         private TextBox tb_availableCopies;
-        private ComboBox cb_availability;
         private Label l_totalCopies;
         private TextBox tb_totalCopies;
     }
