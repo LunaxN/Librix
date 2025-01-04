@@ -758,8 +758,19 @@ namespace Librix
                 DatabaseManager dbManager = new DatabaseManager();
                 using (SqlConnection connection = new SqlConnection(dbManager.GetItemsDbConnectionString()))
                 {
-                    SqlCommand command = new SqlCommand("SELECT BorrowedID, BookID, MembershipID, Title, Authors, Edition, BorrowDate, ReturnDate, Status, Fine FROM Borrowed WHERE BorrowedID = @borrowedID", connection);
-                    command.Parameters.AddWithValue("@borrowedID", tb_searchBorrow.Text);
+                    SqlCommand command = new SqlCommand("SELECT BorrowedID, BookID, MembershipID, Title, Authors, Edition, BorrowDate, ReturnDate, Status, Fine FROM Borrowed WHERE BorrowedID = @borrowedID OR Title LIKE @title", connection);
+
+                    int borrowedId;
+                    if (int.TryParse(tb_searchBorrow.Text, out borrowedId))
+                    {
+                        command.Parameters.AddWithValue("@borrowedId", borrowedId);
+                        command.Parameters.AddWithValue("@title", DBNull.Value);
+                    }
+                    else
+                    {
+                        command.Parameters.AddWithValue("@borrowedId", DBNull.Value);
+                        command.Parameters.AddWithValue("@title", "%" + tb_searchBorrow.Text + "%");
+                    }
 
                     try
                     {
@@ -1167,8 +1178,9 @@ namespace Librix
                                         tb_membershipID.Visible = false;
                                         return;
                                     }
-                                    MessageBox.Show("Book(s) borrowed successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
                                 }
+                                showBooks();
+                                MessageBox.Show("Book(s) borrowed successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             }
                         }
                         else

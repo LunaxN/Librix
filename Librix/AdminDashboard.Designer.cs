@@ -132,10 +132,10 @@
             tabControl.Controls.Add(t_borrowed);
             tabControl.Controls.Add(t_members);
             tabControl.Controls.Add(t_reserved);
-            tabControl.Location = new Point(0, 89);
+            tabControl.Location = new Point(0, 78);
             tabControl.Name = "tabControl";
             tabControl.SelectedIndex = 0;
-            tabControl.Size = new Size(1284, 620);
+            tabControl.Size = new Size(1284, 629);
             tabControl.TabIndex = 0;
             // 
             // t_dashboard
@@ -150,7 +150,7 @@
             t_dashboard.Location = new Point(4, 24);
             t_dashboard.Name = "t_dashboard";
             t_dashboard.Padding = new Padding(3);
-            t_dashboard.Size = new Size(1276, 592);
+            t_dashboard.Size = new Size(1276, 601);
             t_dashboard.TabIndex = 0;
             t_dashboard.Text = "Dashborad";
             t_dashboard.UseVisualStyleBackColor = true;
@@ -180,7 +180,7 @@
             l_totalMembers.Font = new Font("Sitka Subheading", 11F);
             l_totalMembers.Location = new Point(16, 16);
             l_totalMembers.Name = "l_totalMembers";
-            l_totalMembers.Size = new Size(107, 21);
+            l_totalMembers.Size = new Size(108, 21);
             l_totalMembers.TabIndex = 1;
             l_totalMembers.Text = "Total Members";
             // 
@@ -241,7 +241,7 @@
             l_newReserves.Font = new Font("Sitka Subheading", 11F);
             l_newReserves.Location = new Point(13, 16);
             l_newReserves.Name = "l_newReserves";
-            l_newReserves.Size = new Size(100, 21);
+            l_newReserves.Size = new Size(102, 21);
             l_newReserves.TabIndex = 1;
             l_newReserves.Text = "New Reserves";
             // 
@@ -270,7 +270,7 @@
             l_totalBorrowed.Font = new Font("Sitka Subheading", 11F);
             l_totalBorrowed.Location = new Point(14, 16);
             l_totalBorrowed.Name = "l_totalBorrowed";
-            l_totalBorrowed.Size = new Size(154, 21);
+            l_totalBorrowed.Size = new Size(155, 21);
             l_totalBorrowed.TabIndex = 2;
             l_totalBorrowed.Text = "Total Borrowed Books";
             // 
@@ -299,7 +299,7 @@
             l_returnedToday.Font = new Font("Sitka Subheading", 11.249999F, FontStyle.Regular, GraphicsUnit.Point, 0);
             l_returnedToday.Location = new Point(15, 16);
             l_returnedToday.Name = "l_returnedToday";
-            l_returnedToday.Size = new Size(186, 21);
+            l_returnedToday.Size = new Size(187, 21);
             l_returnedToday.TabIndex = 0;
             l_returnedToday.Text = "Books to be returned today";
             // 
@@ -396,7 +396,7 @@
             t_books.Location = new Point(4, 24);
             t_books.Name = "t_books";
             t_books.Padding = new Padding(3);
-            t_books.Size = new Size(1276, 592);
+            t_books.Size = new Size(1276, 603);
             t_books.TabIndex = 1;
             t_books.Text = "Books";
             t_books.UseVisualStyleBackColor = true;
@@ -567,7 +567,7 @@
             t_borrowed.Location = new Point(4, 24);
             t_borrowed.Name = "t_borrowed";
             t_borrowed.Padding = new Padding(3);
-            t_borrowed.Size = new Size(1276, 592);
+            t_borrowed.Size = new Size(1276, 603);
             t_borrowed.TabIndex = 3;
             t_borrowed.Text = "Borrowed";
             t_borrowed.UseVisualStyleBackColor = true;
@@ -647,7 +647,7 @@
             t_members.Location = new Point(4, 24);
             t_members.Name = "t_members";
             t_members.Padding = new Padding(3);
-            t_members.Size = new Size(1276, 592);
+            t_members.Size = new Size(1276, 603);
             t_members.TabIndex = 4;
             t_members.Text = "Members";
             t_members.UseVisualStyleBackColor = true;
@@ -796,7 +796,7 @@
             t_reserved.Location = new Point(4, 24);
             t_reserved.Name = "t_reserved";
             t_reserved.Padding = new Padding(3);
-            t_reserved.Size = new Size(1276, 592);
+            t_reserved.Size = new Size(1276, 603);
             t_reserved.TabIndex = 5;
             t_reserved.Text = "Reserved";
             t_reserved.UseVisualStyleBackColor = true;
@@ -1019,6 +1019,8 @@
             ClientSize = new Size(1282, 706);
             Controls.Add(panel);
             Controls.Add(tabControl);
+            FormBorderStyle = FormBorderStyle.FixedSingle;
+            MaximizeBox = false;
             Name = "AdminDashboard";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Admin Dashboard";

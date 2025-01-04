@@ -243,7 +243,7 @@
             t_borrowed.Location = new Point(4, 24);
             t_borrowed.Name = "t_borrowed";
             t_borrowed.Padding = new Padding(3);
-            t_borrowed.Size = new Size(1276, 592);
+            t_borrowed.Size = new Size(1276, 601);
             t_borrowed.TabIndex = 4;
             t_borrowed.Text = "tabPage1";
             t_borrowed.UseVisualStyleBackColor = true;
@@ -318,7 +318,7 @@
             t_reserved.Location = new Point(4, 24);
             t_reserved.Name = "t_reserved";
             t_reserved.Padding = new Padding(3);
-            t_reserved.Size = new Size(1276, 592);
+            t_reserved.Size = new Size(1276, 601);
             t_reserved.TabIndex = 3;
             t_reserved.Text = "Reserved";
             t_reserved.UseVisualStyleBackColor = true;
@@ -394,7 +394,7 @@
             t_books.Location = new Point(4, 24);
             t_books.Name = "t_books";
             t_books.Padding = new Padding(3);
-            t_books.Size = new Size(1276, 592);
+            t_books.Size = new Size(1276, 601);
             t_books.TabIndex = 1;
             t_books.Text = "Books";
             t_books.UseVisualStyleBackColor = true;
@@ -792,10 +792,10 @@
             tabControl.Controls.Add(t_books);
             tabControl.Controls.Add(t_reserved);
             tabControl.Controls.Add(t_borrowed);
-            tabControl.Location = new Point(0, 87);
+            tabControl.Location = new Point(0, 78);
             tabControl.Name = "tabControl";
             tabControl.SelectedIndex = 0;
-            tabControl.Size = new Size(1284, 620);
+            tabControl.Size = new Size(1284, 629);
             tabControl.TabIndex = 2;
             // 
             // errorProvider1
@@ -809,6 +809,8 @@
             ClientSize = new Size(1282, 706);
             Controls.Add(panel);
             Controls.Add(tabControl);
+            FormBorderStyle = FormBorderStyle.FixedSingle;
+            MaximizeBox = false;
             Name = "MemberDashboard";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Member Dashboard";

@@ -82,7 +82,7 @@ namespace Librix
                 catch (Exception ex)
                 {
                     MessageBox.Show("Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }   
+                }
                 finally
                 {
                     connection.Close();
@@ -624,9 +624,20 @@ namespace Librix
                 DatabaseManager dbManager = new DatabaseManager();
                 using (SqlConnection connection = new SqlConnection(dbManager.GetItemsDbConnectionString()))
                 {
-                    SqlCommand command = new SqlCommand("SELECT BorrowedID, BookID, Title, Authors, Edition, BorrowDate, ReturnDate, Status, Fine FROM Borrowed WHERE MembershipID = @membershipID AND BorrowedID = @borrowedID", connection);
+                    SqlCommand command = new SqlCommand("SELECT BorrowedID, BookID, Title, Authors, Edition, BorrowDate, ReturnDate, Status, Fine FROM Borrowed WHERE MembershipID = @membershipID AND (BorrowedID = @borrowedID OR Title LIKE @title)", connection);
                     command.Parameters.AddWithValue("@membershipID", user_id);
-                    command.Parameters.AddWithValue("@borrowedID", tb_searchBorrow.Text);
+
+                    int borrowedId;
+                    if (int.TryParse(tb_searchBorrow.Text, out borrowedId))
+                    {
+                        command.Parameters.AddWithValue("@borrowedId", borrowedId);
+                        command.Parameters.AddWithValue("@title", DBNull.Value);
+                    }
+                    else
+                    {
+                        command.Parameters.AddWithValue("@borrowedId", DBNull.Value);
+                        command.Parameters.AddWithValue("@title", "%" + tb_searchBorrow.Text + "%");
+                    }
 
                     try
                     {
