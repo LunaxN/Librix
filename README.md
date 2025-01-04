@@ -1,11 +1,11 @@
 # Librix
-# A University Project - Library Management App
+### A University Project - Library Management App
 Project of Special Topics (Sadjad University of Technology - 2024)
 
-# Overview
+### Overview
 Librix is a comprehensive library management application designed to streamline the book borrowing and management processes.
 
-# As a Library Manager, I want to:
+### - As a Library Manager, I want to:
 1. Mange Books:
    - View a list of books
    - Add new books with details like title, authors, edition, publish date, genres and number of total and available copies
@@ -33,7 +33,7 @@ Librix is a comprehensive library management application designed to streamline 
 
 6. Edit my profile
 
-# As a Member, I want to:
+### - As a Member, I want to:
 1. Access Books:
    - View a list of books
    - Reserve books
